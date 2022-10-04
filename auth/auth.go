@@ -37,7 +37,7 @@ func (l *AuthSchema) Authenticate(medusa *medusa.Medusa) ([]byte, error) {
 	return res, nil
 }
 
-func GetSession(m *medusa.Medusa) (any, error) {
+func GetSession(m *medusa.Medusa) ([]byte, error) {
 	path := "/store/auth"
 	res, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(m)
 	if err != nil {
