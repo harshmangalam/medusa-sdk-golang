@@ -74,11 +74,10 @@ func (req *Request) Send() ([]byte, error) {
 
 	case POST:
 
-		jsonData, err := json.MarshalIndent(req.Data, "", "   ")
+		jsonData, err := json.Marshal(req.Data)
 		if err != nil {
 			return nil, err
 		}
-		fmt.Println(string(jsonData))
 
 		buff := bytes.NewBuffer(jsonData)
 		httpReq, err := http.NewRequest(http.MethodPost, url, buff)
