@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"net/http"
+
+	medusa "github.com/harshmngalam/medusa-sdk-golang"
 )
 
 type Request struct {
@@ -33,12 +34,13 @@ func (req *Request) SetPath(path string) *Request {
 	return req
 }
 
-func (req *Request) Send() ([]byte, error) {
-	url := fmt.Sprintf("https://api.shotstack.io/%v", req.Path)
+func (req *Request) Send(medusa *medusa.Medusa) ([]byte, error) {
+	url := medusa.BaseUrl + req.Path
 	headers := map[string][]string{
 		"Content-Type": {"application/json"},
 		"Accept":       {"application/json"},
 	}
+
 	client := &http.Client{}
 
 	switch req.Method {
