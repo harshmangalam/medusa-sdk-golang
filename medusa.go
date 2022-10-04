@@ -1,9 +1,12 @@
 package medusasdkgolang
 
+import "net/http"
+
 type Config struct {
-	MaxRetries int8   // The amount of times a request is retried.
-	BaseUrl    string // The url to which requests are made to.
-	ApiKey     string // For request on authorized routes
+	MaxRetries int8         // The amount of times a request is retried.
+	BaseUrl    string       // The url to which requests are made to.
+	ApiKey     string       // For request on authorized routes in admin
+	Cookie     *http.Cookie // For making authorized request using cookie "connect.id"
 }
 
 func NewConfig() *Config {
@@ -26,5 +29,10 @@ func (c *Config) SetBaseUrl(baseUrl string) *Config {
 
 func (c *Config) SetApiKey(apiKey string) *Config {
 	c.ApiKey = apiKey
+	return c
+}
+
+func (c *Config) SetCookie(cookie *http.Cookie) *Config {
+	c.Cookie = cookie
 	return c
 }
