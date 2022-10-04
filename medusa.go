@@ -24,3 +24,8 @@ func (m *Medusa) AddBaseUrl(baseUrl string) *Medusa {
 	m.BaseUrl = baseUrl
 	return m
 }
+
+func (m *Medusa) AddApiKey(apiKey string) *Medusa {
+	m.ApiKey = apiKey
+	return m
+}
