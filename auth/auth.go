@@ -27,7 +27,7 @@ func (l *AuthSchema) SetPassword(password string) *AuthSchema {
 	return l
 }
 
-func (l *AuthSchema) Authenticate(medusa *medusa.Medusa) ([]byte, error) {
+func (l *AuthSchema) Authenticate(medusa *medusa.Config) ([]byte, error) {
 	path := "/store/auth"
 
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(l).Send(medusa)
@@ -46,7 +46,7 @@ func (l *AuthSchema) Authenticate(medusa *medusa.Medusa) ([]byte, error) {
 
 		for _, cookie := range resp.Cookies() {
 			if cookie.Name == "connect.sid" {
-				medusa.SetCookie(cookie)
+				medusa.SetApiKey(cookie.Value)
 			}
 
 		}
@@ -54,7 +54,7 @@ func (l *AuthSchema) Authenticate(medusa *medusa.Medusa) ([]byte, error) {
 	return body, nil
 }
 
-func GetSession(m *medusa.Medusa) ([]byte, error) {
+func GetSession(m *medusa.Config) ([]byte, error) {
 	path := "/store/auth"
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(m)
 	if err != nil {
@@ -68,7 +68,7 @@ func GetSession(m *medusa.Medusa) ([]byte, error) {
 	return body, nil
 }
 
-func DeleteSession(m *medusa.Medusa) ([]byte, error) {
+func DeleteSession(m *medusa.Config) ([]byte, error) {
 
 	path := "/store/auth"
 	resp, err := request.NewRequest().SetMethod(http.MethodDelete).SetPath(path).Send(m)
