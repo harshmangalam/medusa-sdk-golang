@@ -1,4 +1,4 @@
-package shotstacksdkgolang
+package request
 
 import (
 	"bytes"
@@ -9,24 +9,17 @@ import (
 	"net/http"
 )
 
-type ReqMethod string
-
-const (
-	POST ReqMethod = "POST"
-	GET  ReqMethod = "GET"
-)
-
 type Request struct {
-	Method ReqMethod `json:"method"`
-	Data   any       `json:"data"`
-	Path   string    `json:"params"`
+	Method string `json:"method"`
+	Data   any    `json:"data"`
+	Path   string `json:"params"`
 }
 
 func NewRequest() *Request {
 	return new(Request)
 }
 
-func (req *Request) SetMethod(method ReqMethod) *Request {
+func (req *Request) SetMethod(method string) *Request {
 	req.Method = method
 	return req
 }
@@ -49,7 +42,7 @@ func (req *Request) Send() ([]byte, error) {
 	client := &http.Client{}
 
 	switch req.Method {
-	case GET:
+	case http.MethodGet:
 		httpReq, err := http.NewRequest(http.MethodGet, url, nil)
 
 		if err != nil {
@@ -72,7 +65,7 @@ func (req *Request) Send() ([]byte, error) {
 
 		return bodyBytes, nil
 
-	case POST:
+	case http.MethodPost:
 
 		jsonData, err := json.Marshal(req.Data)
 		if err != nil {
