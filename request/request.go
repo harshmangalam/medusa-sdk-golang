@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -36,12 +37,11 @@ func (req *Request) SetPath(path string) *Request {
 
 func (req *Request) Send(medusa *medusa.Medusa) ([]byte, error) {
 	url := medusa.BaseUrl + req.Path
+	client := &http.Client{}
 	headers := map[string][]string{
 		"Content-Type": {"application/json"},
 		"Accept":       {"application/json"},
 	}
-
-	client := &http.Client{}
 
 	switch req.Method {
 	case http.MethodGet:
@@ -68,7 +68,6 @@ func (req *Request) Send(medusa *medusa.Medusa) ([]byte, error) {
 		return bodyBytes, nil
 
 	case http.MethodPost:
-
 		jsonData, err := json.Marshal(req.Data)
 		if err != nil {
 			return nil, err
@@ -80,8 +79,8 @@ func (req *Request) Send(medusa *medusa.Medusa) ([]byte, error) {
 		if err != nil {
 			return nil, err
 		}
-		httpReq.Header = headers
 
+		httpReq.Header = headers
 		resp, err := client.Do(httpReq)
 
 		if err != nil {
@@ -96,6 +95,7 @@ func (req *Request) Send(medusa *medusa.Medusa) ([]byte, error) {
 			return nil, err
 		}
 
+		fmt.Println(resp.StatusCode)
 		return bodyBytes, nil
 
 	default:
