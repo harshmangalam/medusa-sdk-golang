@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"fmt"
 	"net/http"
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
@@ -27,10 +28,10 @@ func (l *AuthSchema) SetPassword(password string) *AuthSchema {
 	return l
 }
 
-func (l *AuthSchema) Authenticate(medusa *medusa.Config) ([]byte, error) {
+func (l *AuthSchema) Authenticate(config *medusa.Config) ([]byte, error) {
 	path := "/store/auth"
 
-	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(l).Send(medusa)
+	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(l).Send(config)
 
 	if err != nil {
 		return nil, err
@@ -46,7 +47,7 @@ func (l *AuthSchema) Authenticate(medusa *medusa.Config) ([]byte, error) {
 
 		for _, cookie := range resp.Cookies() {
 			if cookie.Name == "connect.sid" {
-				medusa.SetCookie(cookie)
+				config.SetCookie(cookie)
 			}
 
 		}
@@ -54,9 +55,9 @@ func (l *AuthSchema) Authenticate(medusa *medusa.Config) ([]byte, error) {
 	return body, nil
 }
 
-func GetSession(m *medusa.Config) ([]byte, error) {
+func GetSession(config *medusa.Config) ([]byte, error) {
 	path := "/store/auth"
-	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(m)
+	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
 	if err != nil {
 		return nil, err
 	}
@@ -68,10 +69,10 @@ func GetSession(m *medusa.Config) ([]byte, error) {
 	return body, nil
 }
 
-func DeleteSession(m *medusa.Config) ([]byte, error) {
+func DeleteSession(config *medusa.Config) ([]byte, error) {
 
 	path := "/store/auth"
-	resp, err := request.NewRequest().SetMethod(http.MethodDelete).SetPath(path).Send(m)
+	resp, err := request.NewRequest().SetMethod(http.MethodDelete).SetPath(path).Send(config)
 	if err != nil {
 		return nil, err
 	}
@@ -83,6 +84,16 @@ func DeleteSession(m *medusa.Config) ([]byte, error) {
 	return body, nil
 }
 
-func Exists(email string) any {
-	return "exists email.."
+func Exists(email string, config *medusa.Config) ([]byte, error) {
+	path := fmt.Sprintf("/store/auth/%v", email)
+	resp, err := request.NewRequest().SetMethod(http.MethodDelete).SetPath(path).Send(config)
+	if err != nil {
+		return nil, err
+	}
+	body, err := utils.ParseResponseBody(resp)
+	if err != nil {
+		return nil, err
+	}
+
+	return body, nil
 }
