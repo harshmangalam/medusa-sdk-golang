@@ -19,3 +19,8 @@ func (m *Medusa) AddMaxRetries(maxRetries int8) *Medusa {
 	m.MaxRetries = maxRetries
 	return m
 }
+
+func (m *Medusa) AddBaseUrl(baseUrl string) *Medusa {
+	m.BaseUrl = baseUrl
+	return m
+}
