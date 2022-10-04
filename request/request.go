@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
@@ -45,8 +44,6 @@ func (req *Request) Send(medusa *medusa.Medusa) (*http.Response, error) {
 	switch req.Method {
 	case http.MethodGet:
 		httpReq, err := http.NewRequest(http.MethodGet, url, nil)
-
-		fmt.Println(httpReq.Cookies())
 		if err != nil {
 			return nil, err
 		}
@@ -83,7 +80,22 @@ func (req *Request) Send(medusa *medusa.Medusa) (*http.Response, error) {
 		}
 
 		return resp, nil
+	case http.MethodDelete:
+		httpReq, err := http.NewRequest(http.MethodDelete, url, nil)
+		if err != nil {
+			return nil, err
+		}
+		httpReq.Header = headers
 
+		httpReq.AddCookie(medusa.Cookie)
+
+		resp, err := client.Do(httpReq)
+
+		if err != nil {
+			return nil, err
+		}
+
+		return resp, nil
 	default:
 		err := errors.New("request method is invalid")
 		return nil, err
