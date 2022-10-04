@@ -87,7 +87,9 @@ func (req *Request) Send(medusa *medusa.Medusa) (*http.Response, error) {
 		}
 		httpReq.Header = headers
 
-		httpReq.AddCookie(medusa.Cookie)
+		if medusa.Cookie != nil {
+			httpReq.AddCookie(medusa.Cookie)
+		}
 
 		resp, err := client.Do(httpReq)
 
