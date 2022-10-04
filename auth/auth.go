@@ -46,7 +46,7 @@ func (l *AuthSchema) Authenticate(medusa *medusa.Config) ([]byte, error) {
 
 		for _, cookie := range resp.Cookies() {
 			if cookie.Name == "connect.sid" {
-				medusa.SetApiKey(cookie.Value)
+				medusa.SetCookie(cookie)
 			}
 
 		}
