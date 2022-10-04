@@ -26,7 +26,7 @@ func (l *AuthSchema) SetPassword(password string) *AuthSchema {
 	return l
 }
 
-func (l *AuthSchema) Authenticate(medusa *medusa.Medusa) (any, error) {
+func (l *AuthSchema) Authenticate(medusa *medusa.Medusa) ([]byte, error) {
 	path := "/store/auth"
 
 	res, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(l).Send(medusa)
@@ -37,8 +37,14 @@ func (l *AuthSchema) Authenticate(medusa *medusa.Medusa) (any, error) {
 	return res, nil
 }
 
-func GetSession(apiKey string) any {
-	return "customer..."
+func GetSession(m *medusa.Medusa) (any, error) {
+	path := "/store/auth"
+	res, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(m)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+
 }
 
 func DeleteSession(apiKey string) any {
