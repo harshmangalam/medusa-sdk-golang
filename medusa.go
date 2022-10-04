@@ -6,3 +6,8 @@ type Medusa struct {
 	ApiKey     string //Optional api key used for authenticating admin requests .
 
 }
+
+func NewMedusa() *Medusa {
+	m := new(Medusa)
+	return m
+}
