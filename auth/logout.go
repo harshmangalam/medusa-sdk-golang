@@ -1,5 +1,5 @@
 package auth
 
-func Logout(sid string) any {
+func Logout(apiKey string) any {
 	return "logout..."
 }
