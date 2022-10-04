@@ -7,24 +7,24 @@ type Config struct {
 }
 
 func NewConfig() *Config {
-	m := new(Config)
+	c := new(Config)
 	// add default value
-	m.MaxRetries = 0
-	m.BaseUrl = "http://localhost:9000"
-	return m
+	c.MaxRetries = 0
+	c.BaseUrl = "http://localhost:9000"
+	return c
 }
 
-func (m *Config) SetMaxRetries(maxRetries int8) *Config {
-	m.MaxRetries = maxRetries
-	return m
+func (c *Config) SetMaxRetries(maxRetries int8) *Config {
+	c.MaxRetries = maxRetries
+	return c
 }
 
-func (m *Config) SetBaseUrl(baseUrl string) *Config {
-	m.BaseUrl = baseUrl
-	return m
+func (c *Config) SetBaseUrl(baseUrl string) *Config {
+	c.BaseUrl = baseUrl
+	return c
 }
 
-func (m *Config) SetApiKey(apiKey string) *Config {
-	m.ApiKey = apiKey
-	return m
+func (c *Config) SetApiKey(apiKey string) *Config {
+	c.ApiKey = apiKey
+	return c
 }
