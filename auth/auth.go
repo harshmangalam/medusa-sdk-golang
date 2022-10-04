@@ -56,12 +56,16 @@ func (l *AuthSchema) Authenticate(medusa *medusa.Medusa) ([]byte, error) {
 
 func GetSession(m *medusa.Medusa) ([]byte, error) {
 	path := "/store/auth"
-	res, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(m)
+	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(m)
 	if err != nil {
 		return nil, err
 	}
-	return res, nil
+	body, err := utils.ParseResponseBody(resp)
+	if err != nil {
+		return nil, err
+	}
 
+	return body, nil
 }
 
 func DeleteSession(apiKey string) any {
