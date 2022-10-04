@@ -30,3 +30,7 @@ func GetSession(apiKey string) any {
 func DeleteSession(apiKey string) any {
 	return "Ok"
 }
+
+func Exists(email string) any {
+	return "exists email.."
+}
