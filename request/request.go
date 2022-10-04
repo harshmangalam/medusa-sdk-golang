@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
@@ -33,12 +34,16 @@ func (req *Request) SetPath(path string) *Request {
 	return req
 }
 
-func (req *Request) Send(medusa *medusa.Medusa) (*http.Response, error) {
-	url := medusa.BaseUrl + req.Path
+func (req *Request) Send(config *medusa.Config) (*http.Response, error) {
+	url := config.BaseUrl + req.Path
 	client := &http.Client{}
 	headers := map[string][]string{
 		"Content-Type": {"application/json"},
 		"Accept":       {"application/json"},
+	}
+
+	if config.ApiKey != "" {
+		headers["Authorization"] = []string{fmt.Sprintf("Bearer %v", config.ApiKey)}
 	}
 
 	switch req.Method {
@@ -49,8 +54,9 @@ func (req *Request) Send(medusa *medusa.Medusa) (*http.Response, error) {
 		}
 		httpReq.Header = headers
 
-		httpReq.AddCookie(medusa.Cookie)
-
+		if config.Cookie != nil {
+			httpReq.AddCookie(config.Cookie)
+		}
 		resp, err := client.Do(httpReq)
 
 		if err != nil {
@@ -73,6 +79,10 @@ func (req *Request) Send(medusa *medusa.Medusa) (*http.Response, error) {
 		}
 
 		httpReq.Header = headers
+
+		if config.Cookie != nil {
+			httpReq.AddCookie(config.Cookie)
+		}
 		resp, err := client.Do(httpReq)
 
 		if err != nil {
@@ -87,10 +97,9 @@ func (req *Request) Send(medusa *medusa.Medusa) (*http.Response, error) {
 		}
 		httpReq.Header = headers
 
-		if medusa.Cookie != nil {
-			httpReq.AddCookie(medusa.Cookie)
+		if config.Cookie != nil {
+			httpReq.AddCookie(config.Cookie)
 		}
-
 		resp, err := client.Do(httpReq)
 
 		if err != nil {
