@@ -18,3 +18,7 @@ func (l *LoginSchema) SetPassword(password string) *LoginSchema {
 	l.Email = password
 	return l
 }
+
+func (l *LoginSchema) Send() any {
+	return "login."
+}
