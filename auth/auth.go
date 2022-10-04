@@ -22,3 +22,11 @@ func (l *AuthSchema) SetPassword(password string) *AuthSchema {
 func (l *AuthSchema) Authenticate() any {
 	return "authenticate..."
 }
+
+func GetSession(apiKey string) any {
+	return "customer..."
+}
+
+func DeleteSession(apiKey string) any {
+	return "Ok"
+}
