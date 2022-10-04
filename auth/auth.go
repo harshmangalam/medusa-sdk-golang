@@ -68,8 +68,19 @@ func GetSession(m *medusa.Medusa) ([]byte, error) {
 	return body, nil
 }
 
-func DeleteSession(apiKey string) any {
-	return "Ok"
+func DeleteSession(m *medusa.Medusa) ([]byte, error) {
+
+	path := "/store/auth"
+	resp, err := request.NewRequest().SetMethod(http.MethodDelete).SetPath(path).Send(m)
+	if err != nil {
+		return nil, err
+	}
+	body, err := utils.ParseResponseBody(resp)
+	if err != nil {
+		return nil, err
+	}
+
+	return body, nil
 }
 
 func Exists(email string) any {
