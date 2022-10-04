@@ -9,5 +9,8 @@ type Medusa struct {
 
 func NewMedusa() *Medusa {
 	m := new(Medusa)
+	// add default value
+	m.MaxRetries = 0
+	m.BaseUrl = "http://localhost:9000"
 	return m
 }
