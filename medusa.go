@@ -1,10 +1,11 @@
 package medusasdkgolang
 
-type Medusa struct {
-	MaxRetries int8   // The amount of times a request is retried.
-	BaseUrl    string // The url to which requests are made to.
-	ApiKey     string //Optional api key used for authenticating admin requests .
+import "net/http"
 
+type Medusa struct {
+	MaxRetries int8         // The amount of times a request is retried.
+	BaseUrl    string       // The url to which requests are made to.
+	Cookie     *http.Cookie //cookie connect.sid for authenticated request
 }
 
 func NewMedusa() *Medusa {
@@ -15,17 +16,17 @@ func NewMedusa() *Medusa {
 	return m
 }
 
-func (m *Medusa) AddMaxRetries(maxRetries int8) *Medusa {
+func (m *Medusa) SetMaxRetries(maxRetries int8) *Medusa {
 	m.MaxRetries = maxRetries
 	return m
 }
 
-func (m *Medusa) AddBaseUrl(baseUrl string) *Medusa {
+func (m *Medusa) SetBaseUrl(baseUrl string) *Medusa {
 	m.BaseUrl = baseUrl
 	return m
 }
 
-func (m *Medusa) AddApiKey(apiKey string) *Medusa {
-	m.ApiKey = apiKey
+func (m *Medusa) SetCookie(cookie *http.Cookie) *Medusa {
+	m.Cookie = cookie
 	return m
 }
