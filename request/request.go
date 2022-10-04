@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
@@ -35,7 +34,7 @@ func (req *Request) SetPath(path string) *Request {
 	return req
 }
 
-func (req *Request) Send(medusa *medusa.Medusa) ([]byte, error) {
+func (req *Request) Send(medusa *medusa.Medusa) (*http.Response, error) {
 	url := medusa.BaseUrl + req.Path
 	client := &http.Client{}
 	headers := map[string][]string{
@@ -59,15 +58,7 @@ func (req *Request) Send(medusa *medusa.Medusa) ([]byte, error) {
 			return nil, err
 		}
 
-		defer resp.Body.Close()
-
-		bodyBytes, err := ioutil.ReadAll(resp.Body)
-
-		if err != nil {
-			return nil, err
-		}
-
-		return bodyBytes, nil
+		return resp, nil
 
 	case http.MethodPost:
 		jsonData, err := json.Marshal(req.Data)
@@ -89,23 +80,7 @@ func (req *Request) Send(medusa *medusa.Medusa) ([]byte, error) {
 			return nil, err
 		}
 
-		if resp.StatusCode == http.StatusOK || resp.StatusCode == http.StatusCreated {
-			for _, cookie := range resp.Cookies() {
-				if cookie.Name == "connect.sid" {
-					medusa.SetCookie(cookie)
-				}
-			}
-		}
-
-		defer resp.Body.Close()
-
-		bodyBytes, err := ioutil.ReadAll(resp.Body)
-
-		if err != nil {
-			return nil, err
-		}
-
-		return bodyBytes, nil
+		return resp, nil
 
 	default:
 		err := errors.New("request method is invalid")
