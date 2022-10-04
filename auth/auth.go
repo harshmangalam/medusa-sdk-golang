@@ -22,7 +22,7 @@ func (l *AuthSchema) SetEmail(email string) *AuthSchema {
 }
 
 func (l *AuthSchema) SetPassword(password string) *AuthSchema {
-	l.Email = password
+	l.Password = password
 	return l
 }
 
