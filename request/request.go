@@ -47,10 +47,12 @@ func (req *Request) Send(medusa *medusa.Medusa) ([]byte, error) {
 	case http.MethodGet:
 		httpReq, err := http.NewRequest(http.MethodGet, url, nil)
 
+		fmt.Println(httpReq.Cookies())
 		if err != nil {
 			return nil, err
 		}
 		httpReq.Header = headers
+
 		resp, err := client.Do(httpReq)
 
 		if err != nil {
@@ -87,6 +89,14 @@ func (req *Request) Send(medusa *medusa.Medusa) ([]byte, error) {
 			return nil, err
 		}
 
+		if resp.StatusCode == http.StatusOK || resp.StatusCode == http.StatusCreated {
+			for _, cookie := range resp.Cookies() {
+				if cookie.Name == "connect.sid" {
+					medusa.SetCookie(cookie)
+				}
+			}
+		}
+
 		defer resp.Body.Close()
 
 		bodyBytes, err := ioutil.ReadAll(resp.Body)
@@ -95,7 +105,6 @@ func (req *Request) Send(medusa *medusa.Medusa) ([]byte, error) {
 			return nil, err
 		}
 
-		fmt.Println(resp.StatusCode)
 		return bodyBytes, nil
 
 	default:
