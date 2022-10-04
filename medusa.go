@@ -14,3 +14,8 @@ func NewMedusa() *Medusa {
 	m.BaseUrl = "http://localhost:9000"
 	return m
 }
+
+func (m *Medusa) AddMaxRetries(maxRetries int8) *Medusa {
+	m.MaxRetries = maxRetries
+	return m
+}
