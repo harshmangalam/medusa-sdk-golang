@@ -38,6 +38,12 @@ func (c *CollectionsQuery) SetOffset(offset int) *CollectionsQuery {
 	return c
 }
 
+// Date comparison for when resulting collections were created.
+func (c *CollectionsQuery) SetCreateAt(date *common.DateComparisonOperator) *CollectionsQuery {
+	c.CreatedAt = date
+	return c
+}
+
 // Retrieve a list of Product Collection.
 func (c *CollectionsQuery) List(config *medusa.Config) ([]byte, error) {
 	path := "/store/collections"
