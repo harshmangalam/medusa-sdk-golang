@@ -16,10 +16,10 @@
 An open source medusa sdk for golang
 </p>
 <p align="center">
-  <a href="https://github.com/harshmangalam/medusa-sdk-golang/LICENSE">
+  <a href="https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Medusa is released under the MIT license." />
   </a>
-  <a href="https://github.com/harshmangalam/medusa-sdk-golang/CONTRIBUTING.md">
+  <a href="https://github.com/harshmangalam/medusa-sdk-golang/blob/main/CONTRIBUTING.md">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="PRs welcome!" />
   </a>
 
