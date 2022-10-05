@@ -11,10 +11,10 @@ import (
 )
 
 type CollectionsQuery struct {
-	Limit     int                            `json:"limit,omitempty"`
-	Offset    int                            `json:"offset,omitempty"`
-	CreatedAt *common.DateComparisonOperator `json:"created_at,omitempty"`
-	UpdatedAt *common.DateComparisonOperator `json:"updated_at,omitempty"`
+	Limit     int                    `json:"limit,omitempty"`
+	Offset    int                    `json:"offset,omitempty"`
+	CreatedAt *common.DateComparison `json:"created_at,omitempty"`
+	UpdatedAt *common.DateComparison `json:"updated_at,omitempty"`
 }
 
 // create new collections query
@@ -39,13 +39,13 @@ func (c *CollectionsQuery) SetOffset(offset int) *CollectionsQuery {
 }
 
 // Date comparison for when resulting collections were created.
-func (c *CollectionsQuery) SetCreatedAt(date *common.DateComparisonOperator) *CollectionsQuery {
+func (c *CollectionsQuery) SetCreatedAt(date *common.DateComparison) *CollectionsQuery {
 	c.CreatedAt = date
 	return c
 }
 
 // Date comparison for when resulting collections were updated.
-func (c *CollectionsQuery) SetUpdatedAt(date *common.DateComparisonOperator) *CollectionsQuery {
+func (c *CollectionsQuery) SetUpdatedAt(date *common.DateComparison) *CollectionsQuery {
 	c.UpdatedAt = date
 	return c
 }
