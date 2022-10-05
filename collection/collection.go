@@ -22,3 +22,20 @@ func Retrieve(id string, config *medusa.Config) ([]byte, error) {
 	return body, nil
 
 }
+
+func List(query any, config *medusa.Config) ([]byte, error) {
+	path := "/store/collections"
+
+	if _, ok := query.(string); ok {
+		path = path + "?" + query.(string)
+	}
+	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
+	if err != nil {
+		return nil, err
+	}
+	body, err := utils.ParseResponseBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
