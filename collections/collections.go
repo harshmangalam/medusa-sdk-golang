@@ -48,6 +48,12 @@ func (c *CollectionsQuery) SetLimit(limit int) *CollectionsQuery {
 	return c
 }
 
+// The number of collections to skip before starting to collect the collections set
+func (c *CollectionsQuery) SetOffset(offset int) *CollectionsQuery {
+	c.Offset = offset
+	return c
+}
+
 func (c *CollectionsQuery) List(config *medusa.Config) ([]byte, error) {
 	path := "/store/collections"
 
