@@ -8,3 +8,7 @@ type DateComparison struct {
 	Lte time.Time `json:"lte,omitempty"`
 	Gte time.Time `json:"gte,omitempty"`
 }
+
+func NewDateComparison() *DateComparison {
+	return new(DateComparison)
+}
