@@ -3,6 +3,7 @@ package collections
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/common"
@@ -10,6 +11,16 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
+type Collection struct {
+	Title     string    `json:"title"`
+	Id        string    `json:"id,omitempty"`
+	Handle    string    `json:"handle,omitempty"`
+	Products  []any     `json:"products,omitempty"`
+	CreatedAt time.Time `json:"created_at,omitempty"`
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	DeletedAt time.Time `json:"deleted_at,omitempty"`
+	Metadata  any       `json:"metadata,omitempty"`
+}
 type CollectionsQuery struct {
 	Limit     int                    `json:"limit,omitempty"`
 	Offset    int                    `json:"offset,omitempty"`
