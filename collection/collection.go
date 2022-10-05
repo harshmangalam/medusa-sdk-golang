@@ -9,6 +9,8 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
+// Retrieves a Product Collection.
+
 func Retrieve(id string, config *medusa.Config) ([]byte, error) {
 	path := fmt.Sprintf("/store/collections/%v", id)
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
@@ -23,6 +25,7 @@ func Retrieve(id string, config *medusa.Config) ([]byte, error) {
 
 }
 
+// Retrieve a list of Product Collection.
 func List(query any, config *medusa.Config) ([]byte, error) {
 	path := "/store/collections"
 
