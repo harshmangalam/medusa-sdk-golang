@@ -19,3 +19,9 @@ func (d *DateComparison) SetLt(lt time.Time) *DateComparison {
 	d.Lt = lt
 	return d
 }
+
+// filter by dates greater than this date
+func (d *DateComparison) SetGt(gt time.Time) *DateComparison {
+	d.Gt = gt
+	return d
+}
