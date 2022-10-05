@@ -38,9 +38,16 @@ type Collection struct {
 }
 
 type CollectionsQuery struct {
-	Limit     int                    `json:"limit,omitempty"`
-	Offset    int                    `json:"offset,omitempty"`
+	// The number of collections to return
+	Limit int `json:"limit,omitempty"`
+
+	// The number of collections to skip before starting to collect the collections set
+	Offset int `json:"offset,omitempty"`
+
+	// Date comparison for when resulting collections were created.
 	CreatedAt *common.DateComparison `json:"created_at,omitempty"`
+
+	// Date comparison for when resulting collections were updated.
 	UpdatedAt *common.DateComparison `json:"updated_at,omitempty"`
 }
 
@@ -53,25 +60,25 @@ func NewCollectionsQuery() *CollectionsQuery {
 	return c
 }
 
-// The number of collections to return
+// Set collection limit
 func (c *CollectionsQuery) SetLimit(limit int) *CollectionsQuery {
 	c.Limit = limit
 	return c
 }
 
-// The number of collections to skip before starting to collect the collections set
+//Set collection offset
 func (c *CollectionsQuery) SetOffset(offset int) *CollectionsQuery {
 	c.Offset = offset
 	return c
 }
 
-// Date comparison for when resulting collections were created.
+// Set collection created date
 func (c *CollectionsQuery) SetCreatedAt(date *common.DateComparison) *CollectionsQuery {
 	c.CreatedAt = date
 	return c
 }
 
-// Date comparison for when resulting collections were updated.
+// Set collection updated date
 func (c *CollectionsQuery) SetUpdatedAt(date *common.DateComparison) *CollectionsQuery {
 	c.UpdatedAt = date
 	return c
