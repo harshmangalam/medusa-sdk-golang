@@ -25,3 +25,9 @@ func (d *DateComparison) SetGt(gt time.Time) *DateComparison {
 	d.Gt = gt
 	return d
 }
+
+// filter by dates less than or equal to this date
+func (d *DateComparison) SetGte(gte time.Time) *DateComparison {
+	d.Gte = gte
+	return d
+}
