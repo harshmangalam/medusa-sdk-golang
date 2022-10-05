@@ -39,8 +39,14 @@ func (c *CollectionsQuery) SetOffset(offset int) *CollectionsQuery {
 }
 
 // Date comparison for when resulting collections were created.
-func (c *CollectionsQuery) SetCreateAt(date *common.DateComparisonOperator) *CollectionsQuery {
+func (c *CollectionsQuery) SetCreatedAt(date *common.DateComparisonOperator) *CollectionsQuery {
 	c.CreatedAt = date
+	return c
+}
+
+// Date comparison for when resulting collections were updated.
+func (c *CollectionsQuery) SetUpdatedAt(date *common.DateComparisonOperator) *CollectionsQuery {
+	c.UpdatedAt = date
 	return c
 }
 
