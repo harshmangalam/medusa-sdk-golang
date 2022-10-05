@@ -27,4 +27,4 @@ An open source medusa sdk for golang
 
 ## License
 
-Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/LICENSE)
+Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
