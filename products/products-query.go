@@ -57,7 +57,14 @@ func NewProductsQuery() *ProductsQuery {
 	return p
 }
 
+// set product query
 func (p *ProductsQuery) SetQ(q string) *ProductsQuery {
 	p.Q = q
+	return p
+}
+
+// set product ids
+func (p *ProductsQuery) SetIds(ids []string) *ProductsQuery {
+	p.Ids = ids
 	return p
 }
