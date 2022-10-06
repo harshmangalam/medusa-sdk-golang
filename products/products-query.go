@@ -92,3 +92,9 @@ func (p *ProductsQuery) SetDescription(description string) *ProductsQuery {
 	p.Description = description
 	return p
 }
+
+// set handle
+func (p *ProductsQuery) SetHandle(handle string) *ProductsQuery {
+	p.Handle = handle
+	return p
+}
