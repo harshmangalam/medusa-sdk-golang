@@ -131,3 +131,13 @@ func (p *ProductsQuery) SetLimit(limit int) *ProductsQuery {
 	p.Limit = limit
 	return p
 }
+
+func (p *ProductsQuery) SetExpand(expand string) *ProductsQuery {
+	p.Expand = expand
+	return p
+}
+
+func (p *ProductsQuery) SetFields(fields string) *ProductsQuery {
+	p.Fields = fields
+	return p
+}
