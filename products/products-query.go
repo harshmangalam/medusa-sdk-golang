@@ -3,21 +3,50 @@ package products
 import "github.com/harshmngalam/medusa-sdk-golang/common"
 
 type ProductsQuery struct {
-	Q             string                 `json:"q,omitempty"`
-	Ids           []string               `json:"id,omitempty"`
-	CollectionIds []string               `json:"collection_id"`
-	Tags          []string               `json:"tags,omitempty"`
-	Title         string                 `json:"title,omitempty"`
-	Description   string                 `json:"description,omitempty"`
-	Handle        string                 `json:"handle,omitempty"`
-	IsGiftcard    bool                   `json:"is_giftcard,omitempty"`
-	Type          string                 `json:"type,omitempty"`
-	CreatdAt      *common.DateComparison `json:"created_at,omitempty"`
-	UpdatedAt     *common.DateComparison `json:"updated_at,omitempty"`
-	Offset        int                    `json:"offset,omitempty"`
-	Limit         int                    `json:"limit"`
-	Expand        string                 `json:"expand,omitempty"`
-	Fields        string                 `json:"fields"`
+	// Query used for searching products by title, description, variant's title, variant's sku, and collection's title
+	Q string `json:"q,omitempty"`
+
+	// product IDs to search for.
+	Ids []string `json:"id,omitempty"`
+
+	// Collection IDs to search for
+	CollectionIds []string `json:"collection_id"`
+
+	// Tag IDs to search for
+	Tags []string `json:"tags,omitempty"`
+
+	// title to search for.
+	Title string `json:"title,omitempty"`
+
+	// description to search for
+	Description string `json:"description,omitempty"`
+
+	// handle to search for.
+	Handle string `json:"handle,omitempty"`
+
+	// Search for giftcards using is_giftcard=true.
+	IsGiftcard bool `json:"is_giftcard,omitempty"`
+
+	// type to search for.
+	Type string `json:"type,omitempty"`
+
+	// Date comparison for when resulting products were created.
+	CreatdAt *common.DateComparison `json:"created_at,omitempty"`
+
+	// Date comparison for when resulting products were updated.
+	UpdatedAt *common.DateComparison `json:"updated_at,omitempty"`
+
+	// How many products to skip in the result.
+	Offset int `json:"offset,omitempty"`
+
+	// Limit the number of products returned.
+	Limit int `json:"limit"`
+
+	// (Comma separated) Which fields should be expanded in each order of the result.)
+	Expand string `json:"expand,omitempty"`
+
+	// (Comma separated) Which fields should be included in each order of the result.
+	Fields string `json:"fields"`
 }
 
 // create new product query
