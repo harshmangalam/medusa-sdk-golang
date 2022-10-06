@@ -80,3 +80,9 @@ func (p *ProductsQuery) SetTags(tags []string) *ProductsQuery {
 	p.Tags = tags
 	return p
 }
+
+// set title
+func (p *ProductsQuery) SetTitle(title string) *ProductsQuery {
+	p.Title = title
+	return p
+}
