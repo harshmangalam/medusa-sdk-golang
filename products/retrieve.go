@@ -20,6 +20,28 @@ type RetrieveQuery struct {
 	CurrencyCode string `json:"currency_code,omitempty" url:"currency_code,omitempty"`
 }
 
+func NewRetrieveQuery() *RetrieveQuery {
+	return new(RetrieveQuery)
+}
+
+// set cart id
+func (r *RetrieveQuery) SetCardId(cartId string) *RetrieveQuery {
+	r.CartId = cartId
+	return r
+}
+
+// set region id
+func (r *RetrieveQuery) SetRegionId(regionId string) *RetrieveQuery {
+	r.RegionId = regionId
+	return r
+}
+
+// set currency code
+func (r *RetrieveQuery) SetCurrencyCode(currencyCode string) *RetrieveQuery {
+	r.CurrencyCode = currencyCode
+	return r
+}
+
 func Retrieve(id string, config *medusa.Config) ([]byte, error) {
 	path := fmt.Sprintf("/store/products/%v", id)
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
