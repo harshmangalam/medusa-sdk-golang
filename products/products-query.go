@@ -164,7 +164,6 @@ func (c *ProductsQuery) List(config *medusa.Config) ([]byte, error) {
 
 	path = fmt.Sprintf("%v?%v", path, parseStr)
 
-	fmt.Println(path)
 	resp, err := request.
 		NewRequest().
 		SetMethod(http.MethodGet).
