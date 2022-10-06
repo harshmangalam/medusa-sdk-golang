@@ -86,3 +86,9 @@ func (p *ProductsQuery) SetTitle(title string) *ProductsQuery {
 	p.Title = title
 	return p
 }
+
+// set description
+func (p *ProductsQuery) SetDescription(description string) *ProductsQuery {
+	p.Description = description
+	return p
+}
