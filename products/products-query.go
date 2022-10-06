@@ -121,3 +121,8 @@ func (p *ProductsQuery) SetUpdatedAt(updatedAt *common.DateComparison) *Products
 	p.UpdatedAt = updatedAt
 	return p
 }
+
+func (p *ProductsQuery) SetOffset(offset int) *ProductsQuery {
+	p.Offset = offset
+	return p
+}
