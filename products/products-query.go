@@ -74,3 +74,9 @@ func (p *ProductsQuery) SetCollectionIds(collectionIds []string) *ProductsQuery 
 	p.CollectionIds = collectionIds
 	return p
 }
+
+// set tags
+func (p *ProductsQuery) SetTags(tags []string) *ProductsQuery {
+	p.Tags = tags
+	return p
+}
