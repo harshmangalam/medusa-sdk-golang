@@ -1,8 +1,10 @@
 package products
 
 import (
+	"fmt"
 	"net/http"
 
+	"github.com/google/go-querystring/query"
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/common"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
@@ -11,49 +13,49 @@ import (
 
 type ProductsQuery struct {
 	// Query used for searching products by title, description, variant's title, variant's sku, and collection's title
-	Q string `json:"q,omitempty"`
+	Q string `json:"q,omitempty" url:"q,omitempty"`
 
 	// product IDs to search for.
-	Ids []string `json:"id,omitempty"`
+	Ids []string `json:"id,omitempty" url:"id,omitempty"`
 
 	// Collection IDs to search for
-	CollectionIds []string `json:"collection_id"`
+	CollectionIds []string `json:"collection_id" url:"collection_id"`
 
 	// Tag IDs to search for
-	Tags []string `json:"tags,omitempty"`
+	Tags []string `json:"tags,omitempty" url:"tags,omitempty"`
 
 	// title to search for.
-	Title string `json:"title,omitempty"`
+	Title string `json:"title,omitempty" url:"title,omitempty"`
 
 	// description to search for
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" url:"description,omitempty"`
 
 	// handle to search for.
-	Handle string `json:"handle,omitempty"`
+	Handle string `json:"handle,omitempty" url:"handle,omitempty"`
 
 	// Search for giftcards using is_giftcard=true.
-	IsGiftcard bool `json:"is_giftcard,omitempty"`
+	IsGiftcard bool `json:"is_giftcard,omitempty" url:"is_giftcard,omitempty"`
 
 	// type to search for.
-	Type string `json:"type,omitempty"`
+	Type string `json:"type,omitempty" url:"type,omitempty"`
 
 	// Date comparison for when resulting products were created.
-	CreatdAt *common.DateComparison `json:"created_at,omitempty"`
+	CreatdAt *common.DateComparison `json:"created_at,omitempty" url:"created_at,omitempty"`
 
 	// Date comparison for when resulting products were updated.
-	UpdatedAt *common.DateComparison `json:"updated_at,omitempty"`
+	UpdatedAt *common.DateComparison `json:"updated_at,omitempty" url:"updated_at,omitempty"`
 
 	// How many products to skip in the result.
-	Offset int `json:"offset,omitempty"`
+	Offset int `json:"offset,omitempty" url:"offset,omitempty"`
 
 	// Limit the number of products returned.
-	Limit int `json:"limit"`
+	Limit int `json:"limit" url:"limit"`
 
 	// (Comma separated) Which fields should be expanded in each order of the result.)
-	Expand string `json:"expand,omitempty"`
+	Expand string `json:"expand,omitempty" url:"expand,omitempty"`
 
 	// (Comma separated) Which fields should be included in each order of the result.
-	Fields string `json:"fields"`
+	Fields string `json:"fields" url:"fields"`
 }
 
 // create new product query
@@ -153,7 +155,19 @@ func (p *ProductsQuery) SetFields(fields string) *ProductsQuery {
 func (c *ProductsQuery) List(config *medusa.Config) ([]byte, error) {
 	path := "/store/products"
 
-	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
+	qs, err := query.Values(c)
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println(qs)
+
+	resp, err := request.
+		NewRequest().
+		SetMethod(http.MethodGet).
+		SetPath(path).
+		Send(config)
+
 	if err != nil {
 		return nil, err
 	}
