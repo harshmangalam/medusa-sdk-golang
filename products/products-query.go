@@ -98,3 +98,9 @@ func (p *ProductsQuery) SetHandle(handle string) *ProductsQuery {
 	p.Handle = handle
 	return p
 }
+
+// set gift card
+func (p *ProductsQuery) SetIsGiftcard(isGiftcard bool) *ProductsQuery {
+	p.IsGiftcard = isGiftcard
+	return p
+}
