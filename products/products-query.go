@@ -116,3 +116,8 @@ func (p *ProductsQuery) SetCreatedAt(creatdAt *common.DateComparison) *ProductsQ
 	p.CreatdAt = creatdAt
 	return p
 }
+
+func (p *ProductsQuery) SetUpdatedAt(updatedAt *common.DateComparison) *ProductsQuery {
+	p.UpdatedAt = updatedAt
+	return p
+}
