@@ -111,3 +111,8 @@ func (p *ProductsQuery) SetType(productType string) *ProductsQuery {
 	p.Type = productType
 	return p
 }
+
+func (p *ProductsQuery) SetCreatedAt(creatdAt *common.DateComparison) *ProductsQuery {
+	p.CreatdAt = creatdAt
+	return p
+}
