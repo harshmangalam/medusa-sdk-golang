@@ -46,7 +46,7 @@ type ProductsQuery struct {
 	UpdatedAt *common.DateComparison `json:"updated_at,omitempty" url:"updated_at,omitempty"`
 
 	// How many products to skip in the result.
-	Offset int `json:"offset,omitempty" url:"offset,omitempty"`
+	Offset int `json:"offset" url:"offset"`
 
 	// Limit the number of products returned.
 	Limit int `json:"limit" url:"limit"`
@@ -55,7 +55,7 @@ type ProductsQuery struct {
 	Expand string `json:"expand,omitempty" url:"expand,omitempty"`
 
 	// (Comma separated) Which fields should be included in each order of the result.
-	Fields string `json:"fields" url:"fields"`
+	Fields string `json:"fields,omitempty" url:"fields,omitempty"`
 }
 
 // create new product query
@@ -160,8 +160,11 @@ func (c *ProductsQuery) List(config *medusa.Config) ([]byte, error) {
 		return nil, err
 	}
 
-	fmt.Println(qs)
+	parseStr := qs.Encode()
 
+	path = fmt.Sprintf("%v?%v", path, parseStr)
+
+	fmt.Println(path)
 	resp, err := request.
 		NewRequest().
 		SetMethod(http.MethodGet).
