@@ -1,6 +1,13 @@
 package products
 
-import "github.com/harshmngalam/medusa-sdk-golang/common"
+import (
+	"net/http"
+
+	medusa "github.com/harshmngalam/medusa-sdk-golang"
+	"github.com/harshmngalam/medusa-sdk-golang/common"
+	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/utils"
+)
 
 type ProductsQuery struct {
 	// Query used for searching products by title, description, variant's title, variant's sku, and collection's title
@@ -140,4 +147,19 @@ func (p *ProductsQuery) SetExpand(expand string) *ProductsQuery {
 func (p *ProductsQuery) SetFields(fields string) *ProductsQuery {
 	p.Fields = fields
 	return p
+}
+
+// Retrieve a list of Products.
+func (c *ProductsQuery) List(config *medusa.Config) ([]byte, error) {
+	path := "/store/products"
+
+	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
+	if err != nil {
+		return nil, err
+	}
+	body, err := utils.ParseResponseBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
 }
