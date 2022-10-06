@@ -19,3 +19,11 @@ type ProductsQuery struct {
 	Expand        string                 `json:"expand,omitempty"`
 	Fields        string                 `json:"fields"`
 }
+
+// create new product query
+func NewProductsQuery() *ProductsQuery {
+	p := new(ProductsQuery)
+	p.Offset = 0
+	p.Limit = 100
+	return p
+}
