@@ -68,3 +68,9 @@ func (p *ProductsQuery) SetIds(ids []string) *ProductsQuery {
 	p.Ids = ids
 	return p
 }
+
+// set collection ids
+func (p *ProductsQuery) SetCollectionIds(collectionIds []string) *ProductsQuery {
+	p.CollectionIds = collectionIds
+	return p
+}
