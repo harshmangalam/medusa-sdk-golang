@@ -104,3 +104,10 @@ func (p *ProductsQuery) SetIsGiftcard(isGiftcard bool) *ProductsQuery {
 	p.IsGiftcard = isGiftcard
 	return p
 }
+
+// set type
+
+func (p *ProductsQuery) SetType(productType string) *ProductsQuery {
+	p.Type = productType
+	return p
+}
