@@ -27,3 +27,8 @@ func NewProductsQuery() *ProductsQuery {
 	p.Limit = 100
 	return p
 }
+
+func (p *ProductsQuery) SetQ(q string) *ProductsQuery {
+	p.Q = q
+	return p
+}
