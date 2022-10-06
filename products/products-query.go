@@ -126,3 +126,8 @@ func (p *ProductsQuery) SetOffset(offset int) *ProductsQuery {
 	p.Offset = offset
 	return p
 }
+
+func (p *ProductsQuery) SetLimit(limit int) *ProductsQuery {
+	p.Limit = limit
+	return p
+}
