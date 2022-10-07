@@ -1,5 +1,14 @@
 package products
 
+type ProductStatus string
+
+const (
+	Draft     ProductStatus = "draft"
+	Proposed  ProductStatus = "proposed"
+	Published ProductStatus = "published"
+	Rejected  ProductStatus = "rejected"
+)
+
 type Product struct {
 	Title         string        `json:"title"`
 	ProfileId     string        `json:"profile_id"`
