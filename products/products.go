@@ -11,7 +11,7 @@ const (
 	Rejected  ProductStatus = "rejected"
 )
 
-type ProductOptions struct {
+type ProductOption struct {
 	Title     string         `json:"title"`
 	ProductId string         `json:"product_id"`
 	Id        string         `json:"id,omitempty"`
@@ -21,6 +21,35 @@ type ProductOptions struct {
 	UpdatedAt string         `json:"updated_at,omitempty"`
 	DeletedAt string         `json:"deleted_at,omitempty"`
 	Metadata  map[string]any `json:"metadata,omitempty"`
+}
+
+type ProductVariant struct {
+	Title             string           `json:"title"`
+	ProductId         string           `json:"product_id"`
+	InventoryQuantity int              `json:"inventory_quantity"`
+	Id                string           `json:"id,omitempty"`
+	Product           *Product         `json:"product"`
+	Prices            []any            `json:"prices"`
+	Sku               string           `json:"sku,omitempty"`
+	Barcode           string           `json:"bardcode,omitempty"`
+	Ean               string           `json:"ean,omitempty"`
+	Upc               string           `json:"upc,omitempty"`
+	VariatRank        int              `json:"variant_rank,omitempty"`
+	AllowBackorder    bool             `json:"allow_backorder"`
+	ManageInventory   bool             `json:"manage_inventory"`
+	HsCode            string           `json:"hs_code"`
+	OriginCountry     string           `json:"origin_country"`
+	MidCode           string           `json:"mid_code"`
+	Material          string           `json:"material"`
+	Weight            int              `json:"weight"`
+	Height            int              `json:"height"`
+	Width             int              `json:"width"`
+	Length            int              `json:"length"`
+	Options           []*ProductOption `json:"options"`
+	CreatedAt         string           `json:"created_at"`
+	UpdatedAt         string           `json:"updated_at"`
+	DeletedAt         string           `json:"deleted_at"`
+	Metadata          map[string]any   `json:"metadata"`
 }
 
 type Product struct {
@@ -34,8 +63,8 @@ type Product struct {
 	Status        ProductStatus     `json:"status"`
 	Images        []*common.Image   `json:"images"`
 	Thumbnail     string            `json:"thumbnail"`
-	Options       []*ProductOptions `json:"options"`
-	Variants      []Variant         `json:"variants"`
+	Options       []*ProductOption  `json:"options"`
+	Variants      []*ProductVariant `json:"variants"`
 	Profile       Profile           `json:"profile"`
 	Weight        int               `json:"weight"`
 	Height        int               `json:"height"`
