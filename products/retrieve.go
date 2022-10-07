@@ -9,39 +9,6 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-type RetrieveQuery struct {
-	// The ID of the customer's cart.
-	CartId string `json:"cart_id,omitempty" url:"cart_id,omitempty"`
-
-	// The ID of the region the customer is using. This is helpful to ensure correct prices are retrieved for a region.
-	RegionId string `json:"region_id,omitempty" url:"region_id,omitempty"`
-
-	// The 3 character ISO currency code to set prices based on. This is helpful to ensure correct prices are retrieved for a currency.
-	CurrencyCode string `json:"currency_code,omitempty" url:"currency_code,omitempty"`
-}
-
-func NewRetrieveQuery() *RetrieveQuery {
-	return new(RetrieveQuery)
-}
-
-// set cart id
-func (r *RetrieveQuery) SetCardId(cartId string) *RetrieveQuery {
-	r.CartId = cartId
-	return r
-}
-
-// set region id
-func (r *RetrieveQuery) SetRegionId(regionId string) *RetrieveQuery {
-	r.RegionId = regionId
-	return r
-}
-
-// set currency code
-func (r *RetrieveQuery) SetCurrencyCode(currencyCode string) *RetrieveQuery {
-	r.CurrencyCode = currencyCode
-	return r
-}
-
 func Retrieve(id string, config *medusa.Config) ([]byte, error) {
 	path := fmt.Sprintf("/store/products/%v", id)
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
