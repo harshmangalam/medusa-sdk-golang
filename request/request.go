@@ -66,13 +66,17 @@ func (req *Request) Send(config *medusa.Config) (*http.Response, error) {
 		return resp, nil
 
 	case http.MethodPost:
-		jsonData, err := json.Marshal(req.Data)
-		if err != nil {
-			return nil, err
-		}
 
-		buff := bytes.NewBuffer(jsonData)
-		httpReq, err := http.NewRequest(http.MethodPost, url, buff)
+		var buff bytes.Buffer
+		if req.Data != nil {
+			jsonData, err := json.Marshal(req.Data)
+			if err != nil {
+				return nil, err
+			}
+
+			buff = *bytes.NewBuffer(jsonData)
+		}
+		httpReq, err := http.NewRequest(http.MethodPost, url, &buff)
 
 		if err != nil {
 			return nil, err
