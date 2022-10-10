@@ -11,15 +11,15 @@ import (
 type CartContext map[string]any
 
 type CartItem struct {
-	VariantId string `json:"variant_id"`
-	Quantity  int    `json:"quantity"`
+	VariantId string `json:"variant_id,omitempty"`
+	Quantity  int    `json:"quantity,omitempty"`
 }
 type CreateCart struct {
-	RegionId       string      `json:"region_id"`
-	SalesChannelId string      `json:"sales_channel_id"`
-	CountryCode    string      `json:"country_code"`
-	Items          []*CartItem `json:"items"`
-	Context        CartContext `json:"context"`
+	RegionId       string      `json:"region_id,omitempty"`
+	SalesChannelId string      `json:"sales_channel_id,omitempty"`
+	CountryCode    string      `json:"country_code,omitempty"`
+	Items          []*CartItem `json:"items,omitempty"`
+	Context        CartContext `json:"context,omitempty"`
 }
 
 func NewCreateCart() *CreateCart {
