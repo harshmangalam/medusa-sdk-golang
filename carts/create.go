@@ -32,6 +32,10 @@ func (c *CreateCart) SetSalesChannelId(salesChannelId string) *CreateCart {
 	c.SalesChannelId = salesChannelId
 	return c
 }
+func (c *CreateCart) SetCountryCode(countryCode string) *CreateCart {
+	c.CountryCode = countryCode
+	return c
+}
 
 func (c *CreateCart) Create(config *medusa.Config) ([]byte, error) {
 	const path = `/store/carts`
