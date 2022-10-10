@@ -23,6 +23,12 @@ type CreateCart struct {
 func NewCreateCart() *CreateCart {
 	return new(CreateCart)
 }
+
+func (c *CreateCart) SetRegionId(regionId string) *CreateCart {
+	c.RegionId = regionId
+	return c
+}
+
 func (c *CreateCart) Create(config *medusa.Config) ([]byte, error) {
 	const path = `/store/carts`
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetData(c).SetPath(path).Send(config)
