@@ -20,6 +20,9 @@ type CreateCart struct {
 	Context        map[string]any `json:"context"`
 }
 
+func NewCreateCart() *CreateCart {
+	return new(CreateCart)
+}
 func (c *CreateCart) Create(config *medusa.Config) ([]byte, error) {
 	const path = `/store/carts`
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetData(c).SetPath(path).Send(config)
