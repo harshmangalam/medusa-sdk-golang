@@ -1,6 +1,9 @@
 package products
 
-import "github.com/harshmngalam/medusa-sdk-golang/common"
+import (
+	"github.com/harshmngalam/medusa-sdk-golang/collections"
+	"github.com/harshmngalam/medusa-sdk-golang/common"
+)
 
 type ProductStatus string
 
@@ -69,6 +72,15 @@ type ProductVariant struct {
 	Metadata          map[string]any   `json:"metadata"`
 }
 
+type ProductType struct {
+	Value     string         `json:"value"`
+	Id        string         `json:"id"`
+	CreatedAt string         `json:"created_at"`
+	UpdatedAt string         `json:"updated_at"`
+	DeletedAt string         `json:"deleted_at"`
+	Metadata  map[string]any `json:"metadata"`
+}
+
 type Product struct {
 	Title         string            `json:"title"`
 	ProfileId     string            `json:"profile_id"`
@@ -88,19 +100,19 @@ type Product struct {
 	Width         int               `json:"width"`
 	Length        int               `json:"length"`
 	HsCode        string
-	OriginCountry string         `json:"origin_country"`
-	MidCode       string         `json:"mid_code"`
-	Material      string         `json:"material"`
-	CollectionId  string         `json:"collection_id"`
-	Collection    Collection     `json:"collection"`
-	TypeId        string         `json:"type_id"`
-	Type          ProductType    `json:"type"`
-	Tags          []Tag          `json:"tags"`
-	Discountable  bool           `json:"discountable"`
-	ExternalId    string         `json:"external_id"`
-	SalesChannels string         `json:"sales_channels"`
-	CreatedAt     string         `json:"created_at"`
-	UpdatedAt     string         `json:"updated_at"`
-	DeletedAt     string         `json:"deleted_at"`
-	Metadata      map[string]any `json:"metadata"`
+	OriginCountry string                  `json:"origin_country"`
+	MidCode       string                  `json:"mid_code"`
+	Material      string                  `json:"material"`
+	CollectionId  string                  `json:"collection_id"`
+	Collection    *collections.Collection `json:"collection"`
+	TypeId        string                  `json:"type_id"`
+	Type          *ProductType            `json:"type"`
+	Tags          []Tag                   `json:"tags"`
+	Discountable  bool                    `json:"discountable"`
+	ExternalId    string                  `json:"external_id"`
+	SalesChannels string                  `json:"sales_channels"`
+	CreatedAt     string                  `json:"created_at"`
+	UpdatedAt     string                  `json:"updated_at"`
+	DeletedAt     string                  `json:"deleted_at"`
+	Metadata      map[string]any          `json:"metadata"`
 }
