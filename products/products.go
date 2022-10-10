@@ -81,6 +81,15 @@ type ProductType struct {
 	Metadata  map[string]any `json:"metadata"`
 }
 
+type Tag struct {
+	Value     string         `json:"value"`
+	Id        string         `json:"id"`
+	CreatedAt string         `json:"created_at"`
+	UpdatedAt string         `json:"updated_at"`
+	DeletedAt string         `json:"deleted_at"`
+	Metadata  map[string]any `json:"metadata"`
+}
+
 type Product struct {
 	Title         string            `json:"title"`
 	ProfileId     string            `json:"profile_id"`
@@ -107,7 +116,7 @@ type Product struct {
 	Collection    *collections.Collection `json:"collection"`
 	TypeId        string                  `json:"type_id"`
 	Type          *ProductType            `json:"type"`
-	Tags          []Tag                   `json:"tags"`
+	Tags          []*Tag                  `json:"tags"`
 	Discountable  bool                    `json:"discountable"`
 	ExternalId    string                  `json:"external_id"`
 	SalesChannels string                  `json:"sales_channels"`
