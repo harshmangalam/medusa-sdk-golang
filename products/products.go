@@ -11,6 +11,12 @@ const (
 	Rejected  ProductStatus = "rejected"
 )
 
+type ShippingOptions struct {
+	CreatedAt string         `json:"created_at,omitempty"`
+	UpdatedAt string         `json:"updated_at,omitempty"`
+	DeletedAt string         `json:"deleted_at,omitempty"`
+	Metadata  map[string]any `json:"metadata,omitempty"`
+}
 type ShippingProfile struct {
 	Name            string         `json:"name"`
 	Type            string         `json:"type"`
@@ -76,7 +82,7 @@ type Product struct {
 	Thumbnail     string            `json:"thumbnail"`
 	Options       []*ProductOption  `json:"options"`
 	Variants      []*ProductVariant `json:"variants"`
-	Profile       Profile           `json:"profile"`
+	Profile       *ShippingProfile  `json:"profile"`
 	Weight        int               `json:"weight"`
 	Height        int               `json:"height"`
 	Width         int               `json:"width"`
