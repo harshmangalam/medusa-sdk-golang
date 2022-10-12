@@ -1,5 +1,13 @@
 package customers
 
+import (
+	"net/http"
+
+	medusa "github.com/harshmngalam/medusa-sdk-golang"
+	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/utils"
+)
+
 type CreateCustomer struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
@@ -35,4 +43,18 @@ func (c *CreateCustomer) SetPassword(password string) *CreateCustomer {
 func (c *CreateCustomer) SetPhone(phone string) *CreateCustomer {
 	c.Phone = phone
 	return c
+}
+
+func (c *CreateCustomer) Create(config *medusa.Config) ([]byte, error) {
+
+	path := "/store/customers"
+	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(c).Send(config)
+	if err != nil {
+		return nil, err
+	}
+	body, err := utils.ParseResponseBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
 }
