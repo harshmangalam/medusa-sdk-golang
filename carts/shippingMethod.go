@@ -28,7 +28,7 @@ func (s *ShippingMethodSchema) SetData(data string) *ShippingMethodSchema {
 	return s
 }
 
-func (s *ShippingMethodSchema) Save(cartId string, config *medusa.Config) ([]byte, error) {
+func (s *ShippingMethodSchema) Apply(cartId string, config *medusa.Config) ([]byte, error) {
 	path := fmt.Sprintf("/store/carts/%v/shipping-methods", cartId)
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(s).Send(config)
 	if err != nil {
