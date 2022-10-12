@@ -13,7 +13,7 @@ type CreateCustomer struct {
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
 	Password  string `json:"password"`
-	Phone     string `json:"phone"`
+	Phone     string `json:"phone,omitempty"`
 }
 
 func NewCreateCustomer() *CreateCustomer {
