@@ -18,3 +18,7 @@ func NewUpdateCustomer() *UpdateCustomer {
 
 	return new(UpdateCustomer)
 }
+func (u *UpdateCustomer) SetEmail(email string) *UpdateCustomer {
+	u.Email = email
+	return u
+}
