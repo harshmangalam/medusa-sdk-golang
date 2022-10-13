@@ -1,13 +1,13 @@
 package customers
 
 type UpdateCustomer struct {
-	Email          string `json:"email"`
-	FirstName      string `json:"first_name"`
-	LastName       string `json:"last_name"`
-	BillingAddress any    `json:"billing_address"`
-	Phone          string `json:"phone"`
-	Password       string `json:"password"`
-	Metadata       any    `json:"metadata,omitempty"`
+	Email          string         `json:"email"`
+	FirstName      string         `json:"first_name"`
+	LastName       string         `json:"last_name"`
+	BillingAddress any            `json:"billing_address"`
+	Phone          string         `json:"phone"`
+	Password       string         `json:"password"`
+	Metadata       map[string]any `json:"metadata,omitempty"`
 }
 
 func NewUpdateCustomer() *UpdateCustomer {
@@ -40,5 +40,10 @@ func (u *UpdateCustomer) SetPhone(phone string) *UpdateCustomer {
 
 func (u *UpdateCustomer) SetPassword(password string) *UpdateCustomer {
 	u.Password = password
+	return u
+}
+
+func (u *UpdateCustomer) SetMetadata(metaData map[string]any) *UpdateCustomer {
+	u.Metadata = metaData
 	return u
 }
