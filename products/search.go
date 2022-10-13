@@ -46,8 +46,6 @@ func (s *SearchQuery) Search(config *medusa.Config) ([]byte, error) {
 	parseStr := qs.Encode()
 
 	path = fmt.Sprintf("%v?%v", path, parseStr)
-
-	fmt.Println(path)
 	resp, err := request.
 		NewRequest().
 		SetMethod(http.MethodPost).

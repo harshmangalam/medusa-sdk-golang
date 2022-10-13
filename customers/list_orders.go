@@ -1,6 +1,15 @@
 package customers
 
-import "github.com/harshmngalam/medusa-sdk-golang/common"
+import (
+	"fmt"
+	"net/http"
+
+	"github.com/google/go-querystring/query"
+	medusa "github.com/harshmngalam/medusa-sdk-golang"
+	"github.com/harshmngalam/medusa-sdk-golang/common"
+	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/utils"
+)
 
 type ListQuery struct {
 	Q                 string                 `json:"q,omitempty" url:"q,omitempty"`
@@ -24,4 +33,31 @@ type ListQuery struct {
 
 func NewListQuery() *ListQuery {
 	return new(ListQuery)
+}
+
+func (l *ListQuery) ListOrders(config *medusa.Config) ([]byte, error) {
+	path := "/store/customers/me/orders"
+
+	qs, err := query.Values(l)
+	if err != nil {
+		return nil, err
+	}
+
+	parseStr := qs.Encode()
+
+	path = fmt.Sprintf("%v?%v", path, parseStr)
+	resp, err := request.
+		NewRequest().
+		SetMethod(http.MethodGet).
+		SetPath(path).
+		Send(config)
+
+	if err != nil {
+		return nil, err
+	}
+	body, err := utils.ParseResponseBody(resp)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
 }
