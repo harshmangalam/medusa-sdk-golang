@@ -21,3 +21,7 @@ type ListQuery struct {
 	CurrencyCode      string                 `json:"currency_code,omitempty" url:"currency_code,omitempty"`
 	TaxRate           string                 `json:"tax_rate,omitempty" url:"tax_rate,omitempty"`
 }
+
+func NewListQuery() *ListQuery {
+	return new(ListQuery)
+}
