@@ -58,6 +58,11 @@ func (l *ListQuery) SetExpand(expand string) *ListQuery {
 	l.Expand = expand
 	return l
 }
+
+func (l *ListQuery) SetFields(fields string) *ListQuery {
+	l.Fields = fields
+	return l
+}
 func (l *ListQuery) ListOrders(config *medusa.Config) ([]byte, error) {
 	path := "/store/customers/me/orders"
 
