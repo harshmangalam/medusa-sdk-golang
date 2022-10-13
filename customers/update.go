@@ -22,3 +22,7 @@ func (u *UpdateCustomer) SetEmail(email string) *UpdateCustomer {
 	u.Email = email
 	return u
 }
+func (u *UpdateCustomer) SetFirstName(firstName string) *UpdateCustomer {
+	u.FirstName = firstName
+	return u
+}
