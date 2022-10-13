@@ -74,6 +74,11 @@ func (l *ListQuery) SetFulfillmentStatus(fulfillmentStatus []string) *ListQuery 
 	return l
 }
 
+func (l *ListQuery) SetPaymentStatus(paymentStatus []string) *ListQuery {
+	l.PaymentStatus = paymentStatus
+	return l
+}
+
 func (l *ListQuery) ListOrders(config *medusa.Config) ([]byte, error) {
 	path := "/store/customers/me/orders"
 
