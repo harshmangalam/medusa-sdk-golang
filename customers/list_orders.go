@@ -114,6 +114,11 @@ func (l *ListQuery) SetUpdatedAt(updatedAt *common.DateComparison) *ListQuery {
 	return l
 }
 
+func (l *ListQuery) SetCancledAt(canceledAt *common.DateComparison) *ListQuery {
+	l.CanceledAt = canceledAt
+	return l
+}
+
 func (l *ListQuery) ListOrders(config *medusa.Config) ([]byte, error) {
 	path := "/store/customers/me/orders"
 
