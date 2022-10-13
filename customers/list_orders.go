@@ -39,6 +39,10 @@ func (l *ListQuery) SetQ(q string) *ListQuery {
 	l.Q = q
 	return l
 }
+func (l *ListQuery) SetId(id []string) *ListQuery {
+	l.Id = id
+	return l
+}
 
 func (l *ListQuery) ListOrders(config *medusa.Config) ([]byte, error) {
 	path := "/store/customers/me/orders"
