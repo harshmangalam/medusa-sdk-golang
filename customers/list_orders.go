@@ -84,6 +84,11 @@ func (l *ListQuery) SetCartId(cartId string) *ListQuery {
 	return l
 }
 
+func (l *ListQuery) SetEmail(email string) *ListQuery {
+	l.Email = email
+	return l
+}
+
 func (l *ListQuery) ListOrders(config *medusa.Config) ([]byte, error) {
 	path := "/store/customers/me/orders"
 
