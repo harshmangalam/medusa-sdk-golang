@@ -32,3 +32,8 @@ func (u *UpdateCustomer) SetBillingAddress(billingAddr any) *UpdateCustomer {
 	u.BillingAddress = billingAddr
 	return u
 }
+
+func (u *UpdateCustomer) SetPhone(phone string) *UpdateCustomer {
+	u.Phone = phone
+	return u
+}
