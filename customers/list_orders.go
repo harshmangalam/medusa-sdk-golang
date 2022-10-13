@@ -49,6 +49,10 @@ func (l *ListQuery) SetOffset(offset int) *ListQuery {
 	return l
 }
 
+func (l *ListQuery) SetLimit(limit int) *ListQuery {
+	l.Offset = limit
+	return l
+}
 func (l *ListQuery) ListOrders(config *medusa.Config) ([]byte, error) {
 	path := "/store/customers/me/orders"
 
