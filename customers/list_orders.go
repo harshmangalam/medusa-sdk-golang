@@ -89,6 +89,11 @@ func (l *ListQuery) SetEmail(email string) *ListQuery {
 	return l
 }
 
+func (l *ListQuery) SetRegionId(regionId string) *ListQuery {
+	l.RegionId = regionId
+	return l
+}
+
 func (l *ListQuery) ListOrders(config *medusa.Config) ([]byte, error) {
 	path := "/store/customers/me/orders"
 
