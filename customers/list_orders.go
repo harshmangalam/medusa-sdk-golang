@@ -11,7 +11,7 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-type ListQuery struct {
+type ListOrderQuery struct {
 	Q                 string                 `json:"q,omitempty" url:"q,omitempty"`
 	Id                []string               `json:"id,omitempty" url:"id,omitempty"`
 	Offset            int                    `json:"offset" url:"offset"`
@@ -31,95 +31,98 @@ type ListQuery struct {
 	CanceledAt        *common.DateComparison `json:"canceled_at,omitempty" url:"canceled_at,omitempty"`
 }
 
-func NewListQuery() *ListQuery {
-	return new(ListQuery)
+func NewListOrderQuery() *ListOrderQuery {
+	l := new(ListOrderQuery)
+	l.Limit = 10
+	l.Offset = 0
+	return l
 }
 
-func (l *ListQuery) SetQ(q string) *ListQuery {
+func (l *ListOrderQuery) SetQ(q string) *ListOrderQuery {
 	l.Q = q
 	return l
 }
-func (l *ListQuery) SetId(id []string) *ListQuery {
+func (l *ListOrderQuery) SetId(id []string) *ListOrderQuery {
 	l.Id = id
 	return l
 }
 
-func (l *ListQuery) SetOffset(offset int) *ListQuery {
+func (l *ListOrderQuery) SetOffset(offset int) *ListOrderQuery {
 	l.Offset = offset
 	return l
 }
 
-func (l *ListQuery) SetLimit(limit int) *ListQuery {
+func (l *ListOrderQuery) SetLimit(limit int) *ListOrderQuery {
 	l.Offset = limit
 	return l
 }
 
-func (l *ListQuery) SetExpand(expand string) *ListQuery {
+func (l *ListOrderQuery) SetExpand(expand string) *ListOrderQuery {
 	l.Expand = expand
 	return l
 }
 
-func (l *ListQuery) SetFields(fields string) *ListQuery {
+func (l *ListOrderQuery) SetFields(fields string) *ListOrderQuery {
 	l.Fields = fields
 	return l
 }
 
-func (l *ListQuery) SetStatus(status []string) *ListQuery {
+func (l *ListOrderQuery) SetStatus(status []string) *ListOrderQuery {
 	l.Status = status
 	return l
 }
 
-func (l *ListQuery) SetFulfillmentStatus(fulfillmentStatus []string) *ListQuery {
+func (l *ListOrderQuery) SetFulfillmentStatus(fulfillmentStatus []string) *ListOrderQuery {
 	l.FulfillmentStatus = fulfillmentStatus
 	return l
 }
 
-func (l *ListQuery) SetPaymentStatus(paymentStatus []string) *ListQuery {
+func (l *ListOrderQuery) SetPaymentStatus(paymentStatus []string) *ListOrderQuery {
 	l.PaymentStatus = paymentStatus
 	return l
 }
 
-func (l *ListQuery) SetCartId(cartId string) *ListQuery {
+func (l *ListOrderQuery) SetCartId(cartId string) *ListOrderQuery {
 	l.CartId = cartId
 	return l
 }
 
-func (l *ListQuery) SetEmail(email string) *ListQuery {
+func (l *ListOrderQuery) SetEmail(email string) *ListOrderQuery {
 	l.Email = email
 	return l
 }
 
-func (l *ListQuery) SetRegionId(regionId string) *ListQuery {
+func (l *ListOrderQuery) SetRegionId(regionId string) *ListOrderQuery {
 	l.RegionId = regionId
 	return l
 }
 
-func (l *ListQuery) SetCurrencyCode(currencyCode string) *ListQuery {
+func (l *ListOrderQuery) SetCurrencyCode(currencyCode string) *ListOrderQuery {
 	l.CurrencyCode = currencyCode
 	return l
 }
 
-func (l *ListQuery) SetTaxRate(taxRate string) *ListQuery {
+func (l *ListOrderQuery) SetTaxRate(taxRate string) *ListOrderQuery {
 	l.TaxRate = taxRate
 	return l
 }
 
-func (l *ListQuery) SetCreatedAt(createdAt *common.DateComparison) *ListQuery {
+func (l *ListOrderQuery) SetCreatedAt(createdAt *common.DateComparison) *ListOrderQuery {
 	l.CreatedAt = createdAt
 	return l
 }
 
-func (l *ListQuery) SetUpdatedAt(updatedAt *common.DateComparison) *ListQuery {
+func (l *ListOrderQuery) SetUpdatedAt(updatedAt *common.DateComparison) *ListOrderQuery {
 	l.UpdatedAt = updatedAt
 	return l
 }
 
-func (l *ListQuery) SetCancledAt(canceledAt *common.DateComparison) *ListQuery {
+func (l *ListOrderQuery) SetCancledAt(canceledAt *common.DateComparison) *ListOrderQuery {
 	l.CanceledAt = canceledAt
 	return l
 }
 
-func (l *ListQuery) ListOrders(config *medusa.Config) ([]byte, error) {
+func (l *ListOrderQuery) Apply(config *medusa.Config) ([]byte, error) {
 	path := "/store/customers/me/orders"
 
 	qs, err := query.Values(l)
