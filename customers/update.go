@@ -37,3 +37,8 @@ func (u *UpdateCustomer) SetPhone(phone string) *UpdateCustomer {
 	u.Phone = phone
 	return u
 }
+
+func (u *UpdateCustomer) SetPassword(password string) *UpdateCustomer {
+	u.Password = password
+	return u
+}
