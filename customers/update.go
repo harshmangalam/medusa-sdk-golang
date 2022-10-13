@@ -13,3 +13,8 @@ type UpdateCustomer struct {
 	Password       string             `json:"password"`
 	Metadata       any                `json:"metadata,omitempty"`
 }
+
+func NewUpdateCustomer() *UpdateCustomer {
+
+	return new(UpdateCustomer)
+}
