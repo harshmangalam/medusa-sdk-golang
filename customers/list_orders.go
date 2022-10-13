@@ -99,6 +99,11 @@ func (l *ListQuery) SetCurrencyCode(currencyCode string) *ListQuery {
 	return l
 }
 
+func (l *ListQuery) SetTaxRate(taxRate string) *ListQuery {
+	l.TaxRate = taxRate
+	return l
+}
+
 func (l *ListQuery) ListOrders(config *medusa.Config) ([]byte, error) {
 	path := "/store/customers/me/orders"
 
