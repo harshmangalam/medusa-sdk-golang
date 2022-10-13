@@ -94,6 +94,11 @@ func (l *ListQuery) SetRegionId(regionId string) *ListQuery {
 	return l
 }
 
+func (l *ListQuery) SetCurrencyCode(currencyCode string) *ListQuery {
+	l.CurrencyCode = currencyCode
+	return l
+}
+
 func (l *ListQuery) ListOrders(config *medusa.Config) ([]byte, error) {
 	path := "/store/customers/me/orders"
 
