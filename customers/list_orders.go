@@ -14,9 +14,6 @@ import (
 type ListQuery struct {
 	Q                 string                 `json:"q,omitempty" url:"q,omitempty"`
 	Id                []string               `json:"id,omitempty" url:"id,omitempty"`
-	CreatdAt          *common.DateComparison `json:"created_at,omitempty" url:"created_at,omitempty"`
-	UpdatedAt         *common.DateComparison `json:"updated_at,omitempty" url:"updated_at,omitempty"`
-	CanceledAt        *common.DateComparison `json:"canceled_at,omitempty" url:"canceled_at,omitempty"`
 	Offset            int                    `json:"offset" url:"offset"`
 	Limit             int                    `json:"limit" url:"limit"`
 	Expand            string                 `json:"expand,omitempty" url:"expand,omitempty"`
@@ -29,6 +26,9 @@ type ListQuery struct {
 	RegionId          string                 `json:"region_id,omitempty" url:"region_id,omitempty"`
 	CurrencyCode      string                 `json:"currency_code,omitempty" url:"currency_code,omitempty"`
 	TaxRate           string                 `json:"tax_rate,omitempty" url:"tax_rate,omitempty"`
+	CreatdAt          *common.DateComparison `json:"created_at,omitempty" url:"created_at,omitempty"`
+	UpdatedAt         *common.DateComparison `json:"updated_at,omitempty" url:"updated_at,omitempty"`
+	CanceledAt        *common.DateComparison `json:"canceled_at,omitempty" url:"canceled_at,omitempty"`
 }
 
 func NewListQuery() *ListQuery {
@@ -41,6 +41,11 @@ func (l *ListQuery) SetQ(q string) *ListQuery {
 }
 func (l *ListQuery) SetId(id []string) *ListQuery {
 	l.Id = id
+	return l
+}
+
+func (l *ListQuery) SetOffset(offset int) *ListQuery {
+	l.Offset = offset
 	return l
 }
 
