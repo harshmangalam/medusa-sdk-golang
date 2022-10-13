@@ -27,7 +27,12 @@ func (u *UpdateCustomer) SetFirstName(firstName string) *UpdateCustomer {
 	return u
 }
 
-func (u *UpdateCustomer) Set(lastName string) *UpdateCustomer {
+func (u *UpdateCustomer) SetLastName(lastName string) *UpdateCustomer {
 	u.LastName = lastName
+	return u
+}
+
+func (u *UpdateCustomer) Set(_ string) *UpdateCustomer {
+
 	return u
 }
