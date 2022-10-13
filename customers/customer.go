@@ -23,3 +23,7 @@ type Customer struct {
 	DeletedAt        time.Time          `json:"deleted_at,omitempty"`
 	Metadata         any                `json:"metadata,omitempty"`
 }
+
+type ResponseBody struct {
+	Customer *Customer `json:"customer"`
+}
