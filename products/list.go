@@ -40,7 +40,7 @@ type ListQuery struct {
 	Type string `json:"type,omitempty" url:"type,omitempty"`
 
 	// Date comparison for when resulting products were created.
-	CreatdAt *common.DateComparison `json:"created_at,omitempty" url:"created_at,omitempty"`
+	CreatedAt *common.DateComparison `json:"created_at,omitempty" url:"created_at,omitempty"`
 
 	// Date comparison for when resulting products were updated.
 	UpdatedAt *common.DateComparison `json:"updated_at,omitempty" url:"updated_at,omitempty"`
@@ -122,7 +122,7 @@ func (p *ListQuery) SetType(productType string) *ListQuery {
 }
 
 func (p *ListQuery) SetCreatedAt(creatdAt *common.DateComparison) *ListQuery {
-	p.CreatdAt = creatdAt
+	p.CreatedAt = creatdAt
 	return p
 }
 
