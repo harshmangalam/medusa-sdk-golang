@@ -26,7 +26,7 @@ type ListQuery struct {
 	RegionId          string                 `json:"region_id,omitempty" url:"region_id,omitempty"`
 	CurrencyCode      string                 `json:"currency_code,omitempty" url:"currency_code,omitempty"`
 	TaxRate           string                 `json:"tax_rate,omitempty" url:"tax_rate,omitempty"`
-	CreatdAt          *common.DateComparison `json:"created_at,omitempty" url:"created_at,omitempty"`
+	CreatedAt         *common.DateComparison `json:"created_at,omitempty" url:"created_at,omitempty"`
 	UpdatedAt         *common.DateComparison `json:"updated_at,omitempty" url:"updated_at,omitempty"`
 	CanceledAt        *common.DateComparison `json:"canceled_at,omitempty" url:"canceled_at,omitempty"`
 }
@@ -101,6 +101,11 @@ func (l *ListQuery) SetCurrencyCode(currencyCode string) *ListQuery {
 
 func (l *ListQuery) SetTaxRate(taxRate string) *ListQuery {
 	l.TaxRate = taxRate
+	return l
+}
+
+func (l *ListQuery) SetCreatedAt(createdAt *common.DateComparison) *ListQuery {
+	l.CreatedAt = createdAt
 	return l
 }
 
