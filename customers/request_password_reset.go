@@ -7,3 +7,8 @@ type RequestPasswordReset struct {
 func NewRequestPasswordReset() *RequestPasswordReset {
 	return new(RequestPasswordReset)
 }
+
+func (r *RequestPasswordReset) SetEmail(email string) *RequestPasswordReset {
+	r.Email = email
+	return r
+}
