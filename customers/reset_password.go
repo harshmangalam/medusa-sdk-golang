@@ -19,3 +19,8 @@ func (r *ResetPassword) SetPassword(password string) *ResetPassword {
 	r.Password = password
 	return r
 }
+
+func (r *ResetPassword) SetToken(token string) *ResetPassword {
+	r.Token = token
+	return r
+}
