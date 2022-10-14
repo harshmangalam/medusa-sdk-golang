@@ -11,7 +11,11 @@ func NewResetPassword() *ResetPassword {
 }
 
 func (r *ResetPassword) SetEmail(email string) *ResetPassword {
-
 	r.Email = email
+	return r
+}
+
+func (r *ResetPassword) SetPassword(password string) *ResetPassword {
+	r.Password = password
 	return r
 }
