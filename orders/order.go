@@ -52,3 +52,7 @@ type Order struct {
 	GiftCardTotal        int        `json:"gift_card_total"`
 	GiftCardTaxTotal     int        `json:"gift_card_tax_total"`
 }
+
+type ResponseBody struct {
+	Order *Order `json:"order"`
+}
