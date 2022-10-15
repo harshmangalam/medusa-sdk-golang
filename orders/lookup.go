@@ -1,7 +1,10 @@
 package orders
 
+type ShippingAddress struct {
+	PostalCode string `json:"postal_code,omitempty" url:"postal_code,omitempty"`
+}
 type Lookup struct {
-	display_id       string  `json:"display_id" url:"display_id"`
-	email            string  `json:"email" url:"email"`
-	shipping_address Address `json:"shipping_address"`
+	DisplayId       string           `json:"display_id" url:"display_id"`
+	Email           string           `json:"email" url:"email"`
+	ShippingAddress *ShippingAddress `json:"shipping_address,omitempty"`
 }
