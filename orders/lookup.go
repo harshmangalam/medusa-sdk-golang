@@ -8,3 +8,22 @@ type Lookup struct {
 	Email           string           `json:"email" url:"email"`
 	ShippingAddress *ShippingAddress `json:"shipping_address,omitempty"`
 }
+
+func NewLookup() *Lookup {
+	return new(Lookup)
+}
+
+func (l *Lookup) SetDisplayId(displayId string) *Lookup {
+	l.DisplayId = displayId
+	return l
+}
+
+func (l *Lookup) SetEmail(email string) *Lookup {
+	l.Email = email
+	return l
+}
+
+func (l *Lookup) SetShippingAddress(addr *ShippingAddress) *Lookup {
+	l.ShippingAddress = addr
+	return l
+}
