@@ -22,3 +22,7 @@ type GiftCard struct {
 	DeletedAt  *time.Time     `json:"deleted_at,omitempty"`
 	Metadata   map[string]any `json:"metadata,omitempty"`
 }
+
+type ResponseBody struct {
+	GiftCard *GiftCard `json:"gift_card"`
+}
