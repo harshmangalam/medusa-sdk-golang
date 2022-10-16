@@ -3,7 +3,6 @@ package products
 import (
 	"github.com/harshmngalam/medusa-sdk-golang/collections"
 	"github.com/harshmngalam/medusa-sdk-golang/common"
-	productvariants "github.com/harshmngalam/medusa-sdk-golang/product_variants"
 )
 
 type ProductStatus string
@@ -63,23 +62,23 @@ type Tag struct {
 }
 
 type Product struct {
-	Title         string                            `json:"title"`
-	ProfileId     string                            `json:"profile_id"`
-	Id            string                            `json:"id"`
-	Subtitle      string                            `json:"subtitle"`
-	Description   string                            `json:"description"`
-	Handle        string                            `json:"handle"`
-	IsGiftcard    bool                              `json:"is_giftcard"`
-	Status        ProductStatus                     `json:"status"`
-	Images        []*common.Image                   `json:"images"`
-	Thumbnail     string                            `json:"thumbnail"`
-	Options       []*productvariants.ProductVariant `json:"options"`
-	Variants      []*productvariants.ProductVariant `json:"variants"`
-	Profile       *ShippingProfile                  `json:"profile"`
-	Weight        int                               `json:"weight"`
-	Height        int                               `json:"height"`
-	Width         int                               `json:"width"`
-	Length        int                               `json:"length"`
+	Title         string           `json:"title"`
+	ProfileId     string           `json:"profile_id"`
+	Id            string           `json:"id"`
+	Subtitle      string           `json:"subtitle"`
+	Description   string           `json:"description"`
+	Handle        string           `json:"handle"`
+	IsGiftcard    bool             `json:"is_giftcard"`
+	Status        ProductStatus    `json:"status"`
+	Images        []*common.Image  `json:"images"`
+	Thumbnail     string           `json:"thumbnail"`
+	Options       []*ProductOption `json:"options"`
+	Variants      []any            `json:"variants"`
+	Profile       *ShippingProfile `json:"profile"`
+	Weight        int              `json:"weight"`
+	Height        int              `json:"height"`
+	Width         int              `json:"width"`
+	Length        int              `json:"length"`
 	HsCode        string
 	OriginCountry string                  `json:"origin_country"`
 	MidCode       string                  `json:"mid_code"`
