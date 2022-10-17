@@ -13,28 +13,28 @@ func NewVariantListQuery() *VariantListQuery {
 	return new(VariantListQuery)
 }
 
-func (l *VariantListQuery) SetIds() *VariantListQuery {
-
+func (l *VariantListQuery) SetIds(ids string) *VariantListQuery {
+	l.Ids = ids
 	return l
 }
 
-func (l *VariantListQuery) SetExpand() *VariantListQuery {
-
+func (l *VariantListQuery) SetExpand(expand string) *VariantListQuery {
+	l.Expand = expand
 	return l
 }
 
-func (l *VariantListQuery) SetOffset() *VariantListQuery {
-
+func (l *VariantListQuery) SetOffset(offset string) *VariantListQuery {
+	l.Offset = offset
 	return l
 }
 
-func (l *VariantListQuery) SetLimit() *VariantListQuery {
-
+func (l *VariantListQuery) SetLimit(limit string) *VariantListQuery {
+	l.Limit = limit
 	return l
 }
 
-func (l *VariantListQuery) SetTitle() *VariantListQuery {
-
+func (l *VariantListQuery) SetTitle(title string) *VariantListQuery {
+	l.Title = title
 	return l
 }
 
