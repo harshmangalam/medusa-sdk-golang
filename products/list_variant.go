@@ -10,12 +10,19 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
+type InventoryQuantity struct {
+	Lt  int `json:"lt"`
+	Gt  int `json:"Gt"`
+	Lte int `json:"Lte"`
+	Gte int `json:"Gte"`
+}
+
 type VariantListQuery struct {
 	Ids               string `json:"ids" url:"ids"`
 	Expand            string `json:"expand" url:"expand"`
 	Offset            string `json:"offset" url:"offset"`
 	Limit             string `json:"limit" url:"limit"`
-	Title             string `json:"title" url:"title"`
+	Title             any    `json:"title" url:"title"`
 	InventoryQuantity any    `json:"inventory_quantity" url:"inventory_quantity"`
 }
 
@@ -43,7 +50,7 @@ func (l *VariantListQuery) SetLimit(limit string) *VariantListQuery {
 	return l
 }
 
-func (l *VariantListQuery) SetTitle(title string) *VariantListQuery {
+func (l *VariantListQuery) SetTitle(title any) *VariantListQuery {
 	l.Title = title
 	return l
 }
