@@ -8,7 +8,7 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-func List(cartId string, config *medusa.Config) ([]byte, error) {
+func ListCartOptions(cartId string, config *medusa.Config) ([]byte, error) {
 	path := "/store/shipping-options"
 
 	resp, err := request.
