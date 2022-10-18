@@ -22,3 +22,7 @@ type ShippingOption struct {
 	DeletedAt    *time.Time     `json:"deleted_at,omitempty"`
 	Metadata     map[string]any `json:"metadata,omitempty"`
 }
+
+type ResponseBody struct {
+	ShippingOptions []*ShippingOption `json:"shipping_options"`
+}

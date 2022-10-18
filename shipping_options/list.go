@@ -1,6 +1,7 @@
 package shippingoptions
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -35,7 +36,7 @@ func (l *ListCartOptionsQuery) SetRegionId(regionId string) *ListCartOptionsQuer
 	return l
 }
 
-func (l *ListCartOptionsQuery) List(config *medusa.Config) ([]byte, error) {
+func (l *ListCartOptionsQuery) List(config *medusa.Config) ([]*ShippingOption, error) {
 	path := "/store/shipping-options"
 
 	qs, err := query.Values(l)
@@ -60,5 +61,12 @@ func (l *ListCartOptionsQuery) List(config *medusa.Config) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return body, nil
+
+	respBody := new(ResponseBody)
+
+	if err := json.Unmarshal(body, respBody); err != nil {
+		return nil, err
+	}
+
+	return respBody.ShippingOptions, nil
 }
