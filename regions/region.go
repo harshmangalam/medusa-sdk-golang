@@ -21,3 +21,7 @@ type Region struct {
 	DeletedAt            string         `json:"deleted_at"`
 	Metadata             map[string]any `json:"metadata"`
 }
+
+type RetrieveResponseBody struct {
+	Region *Region `json:"region"`
+}
