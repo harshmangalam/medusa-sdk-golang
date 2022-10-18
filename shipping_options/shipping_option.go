@@ -8,17 +8,17 @@ type ShippingOption struct {
 	ProfileId    string         `json:"profile_id"`
 	ProviderId   string         `json:"provider_id"`
 	PriceType    string         `json:"price_type"`
-	Id           string         `json:"id"`
-	Region       any            `json:"region"`
-	Profile      any            `json:"profile"`
-	Provider     any            `json:"provider"`
-	Amount       int            `json:"amount"`
-	IsReturn     bool           `json:"is_return"`
-	Requirements []any          `json:"requirements"`
-	Data         map[string]any `json:"data"`
-	IncludesTax  bool           `json:"includes_tax"`
-	CreatedAt    *time.Time     `json:"created_at"`
-	UpdatedAt    *time.Time     `json:"updated_at"`
-	DeletedAt    *time.Time     `json:"deleted_at"`
-	Metadata     map[string]any `json:"metadata"`
+	Id           string         `json:"id,omitempty"`
+	Region       any            `json:"region,omitempty"`
+	Profile      any            `json:"profile,omitempty"`
+	Provider     any            `json:"provider,omitempty"`
+	Amount       int            `json:"amount,omitempty"`
+	IsReturn     bool           `json:"is_return,omitempty"`
+	Requirements []any          `json:"requirements,omitempty"`
+	Data         map[string]any `json:"data,omitempty"`
+	IncludesTax  bool           `json:"includes_tax,omitempty"`
+	CreatedAt    *time.Time     `json:"created_at,omitempty"`
+	UpdatedAt    *time.Time     `json:"updated_at,omitempty"`
+	DeletedAt    *time.Time     `json:"deleted_at,omitempty"`
+	Metadata     map[string]any `json:"metadata,omitempty"`
 }
