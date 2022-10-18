@@ -1,6 +1,7 @@
 package shippingoptions
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -9,7 +10,7 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-func ListCartOptions(cartId string, config *medusa.Config) ([]byte, error) {
+func ListCartOptions(cartId string, config *medusa.Config) ([]*ShippingOption, error) {
 	path := fmt.Sprintf("store/shipping-options/%v", cartId)
 
 	resp, err := request.
@@ -25,5 +26,10 @@ func ListCartOptions(cartId string, config *medusa.Config) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return body, nil
+	respBody := new(ResponseBody)
+
+	if err := json.Unmarshal(body, respBody); err != nil {
+		return nil, err
+	}
+	return respBody.ShippingOptions, nil
 }
