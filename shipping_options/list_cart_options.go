@@ -1,6 +1,7 @@
 package shippingoptions
 
 import (
+	"fmt"
 	"net/http"
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
@@ -9,7 +10,7 @@ import (
 )
 
 func ListCartOptions(cartId string, config *medusa.Config) ([]byte, error) {
-	path := "/store/shipping-options"
+	path := fmt.Sprintf("store/shipping-options/%v", cartId)
 
 	resp, err := request.
 		NewRequest().
