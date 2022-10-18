@@ -5,3 +5,7 @@ type ListCartOptionsQuery struct {
 	ProductIds bool `json:"product_ids,omitempty" url:"product_ids,omitempty"`
 	RegionId   bool `json:"region_id,omitempty" url:"region_id,omitempty"`
 }
+
+func NewListCartOptionsQuery() *ListCartOptionsQuery {
+	return new(ListCartOptionsQuery)
+}
