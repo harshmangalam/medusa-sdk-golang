@@ -28,3 +28,7 @@ type OrderEdit struct {
 	Total            int           `json:"total,omitempty"`
 	Items            []any         `json:"items,omitempty"`
 }
+
+type RetrieveOrderEditResponse struct {
+	OrderEdit *OrderEdit `json:"order_edit"`
+}
