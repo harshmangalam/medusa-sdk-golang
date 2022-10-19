@@ -6,3 +6,7 @@ type CreateSwap struct {
 	AdditionalItems      []any  `json:"additional_items"`
 	ReturnShippingOption string `json:"return_shipping_option"`
 }
+
+func NewCreateSwap() *CreateSwap {
+	return new(CreateSwap)
+}
