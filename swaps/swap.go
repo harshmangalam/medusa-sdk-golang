@@ -8,18 +8,31 @@ import (
 )
 
 type FulfillmentStatus string
+type PaymentStatus string
 
 const (
-	NotFulfilled   FulfillmentStatus = "not_fulfilled"
-	Fulfilled      FulfillmentStatus = "fulfilled"
-	Shipped        FulfillmentStatus = "shipped"
-	Canceled       FulfillmentStatus = "canceled"
-	RequiresAction FulfillmentStatus = "requires_action"
+	FulfillmentNotFulfilled   FulfillmentStatus = "not_fulfilled"
+	FulfillmentFulfilled      FulfillmentStatus = "fulfilled"
+	FulfillmentShipped        FulfillmentStatus = "shipped"
+	FulfillmentCanceled       FulfillmentStatus = "canceled"
+	FulfillmentRequiresAction FulfillmentStatus = "requires_action"
+)
+
+const (
+	PaymentNotPaid            PaymentStatus = "not_paid"
+	PaymentAwaiting           PaymentStatus = "awaiting"
+	PaymentCaptured           PaymentStatus = "captured"
+	PaymentConfirmed          PaymentStatus = "confirmed"
+	PaymentCanceled           PaymentStatus = "canceled"
+	PaymentDifferenceRefunded PaymentStatus = "difference_refunded"
+	PaymentPartiallyRefunded  PaymentStatus = "partially_refunded"
+	PaymentRefunded           PaymentStatus = "refunded"
+	RPaymentequiresAction     PaymentStatus = "requires_action"
 )
 
 type Swap struct {
 	FulfillmentStatus FulfillmentStatus `json:"fulfillment_status"`
-	PaymentStatus     string            `json:"payment_status"`
+	PaymentStatus     PaymentStatus     `json:"payment_status"`
 	OrderId           string            `json:"order_id"`
 	Id                string            `json:"id"`
 	Order             *orders.Order     `json:"order"`
