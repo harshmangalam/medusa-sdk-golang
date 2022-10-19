@@ -27,3 +27,9 @@ type Return struct {
 	DeletedAt      *time.Time     `json:"deleted_at"`
 	Metadata       map[string]any `json:"metadata"`
 }
+
+type CreateReturn struct {
+	OrderId        string `json:"order_id"`
+	Items          []any  `json:"items"`
+	ReturnShipping any    `json:"return_shipping"`
+}
