@@ -1,6 +1,8 @@
 package products
 
 import (
+	"time"
+
 	"github.com/harshmngalam/medusa-sdk-golang/collections"
 	"github.com/harshmngalam/medusa-sdk-golang/common"
 )
@@ -91,8 +93,8 @@ type Product struct {
 	Discountable  bool                    `json:"discountable"`
 	ExternalId    string                  `json:"external_id"`
 	SalesChannels string                  `json:"sales_channels"`
-	CreatedAt     string                  `json:"created_at"`
-	UpdatedAt     string                  `json:"updated_at"`
-	DeletedAt     string                  `json:"deleted_at"`
+	CreatedAt     *time.Time              `json:"created_at"`
+	UpdatedAt     *time.Time              `json:"updated_at"`
+	DeletedAt     *time.Time              `json:"deleted_at"`
 	Metadata      map[string]any          `json:"metadata"`
 }
