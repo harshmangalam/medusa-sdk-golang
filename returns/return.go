@@ -33,3 +33,22 @@ type CreateReturn struct {
 	Items          []any  `json:"items"`
 	ReturnShipping any    `json:"return_shipping"`
 }
+
+func NewCreateRetun() *CreateReturn {
+	return new(CreateReturn)
+}
+
+func (c *CreateReturn) SetOrderId(orderId string) *CreateReturn {
+	c.OrderId = orderId
+	return c
+}
+func (c *CreateReturn) SetItems(items []any) *CreateReturn {
+	c.Items = items
+	return c
+
+}
+
+func (c *CreateReturn) SetReturnShipping(shipping any) *CreateReturn {
+	c.ReturnShipping = shipping
+	return c
+}
