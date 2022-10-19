@@ -10,3 +10,21 @@ type CreateSwap struct {
 func NewCreateSwap() *CreateSwap {
 	return new(CreateSwap)
 }
+
+func (c *CreateSwap) SetOrderId(orderId string) *CreateSwap {
+	c.OrderId = orderId
+	return c
+}
+
+func (c *CreateSwap) SetReturnItems(items []any) *CreateSwap {
+	c.ReturnItems = items
+	return c
+}
+func (c *CreateSwap) SetAdditionalItems(items []any) *CreateSwap {
+	c.AdditionalItems = items
+	return c
+}
+func (c *CreateSwap) SetReturnShippingOption(shippingOpions string) *CreateSwap {
+	c.ReturnShippingOption = shippingOpions
+	return c
+}
