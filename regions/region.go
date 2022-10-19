@@ -1,5 +1,7 @@
 package regions
 
+import "time"
+
 type Region struct {
 	Name                 string         `json:"name"`
 	CurrencyCode         string         `json:"currency_code"`
@@ -16,9 +18,9 @@ type Region struct {
 	PaymentProviders     []any          `json:"payment_providers"`
 	FulfillmentProviders []any          `json:"fulfillment_providers"`
 	IncludesTax          string         `json:"includes_tax"`
-	CreatedAt            string         `json:"created_at"`
-	UpdatedAt            string         `json:"updated_at"`
-	DeletedAt            string         `json:"deleted_at"`
+	CreatedAt            *time.Time     `json:"created_at"`
+	UpdatedAt            *time.Time     `json:"updated_at"`
+	DeletedAt            *time.Time     `json:"deleted_at"`
 	Metadata             map[string]any `json:"metadata"`
 }
 
