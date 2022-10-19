@@ -33,3 +33,7 @@ type Swap struct {
 	DeletedAt         *time.Time       `json:"deleted_at"`
 	Metadata          map[string]any   `json:"metadata"`
 }
+
+type ResponseBody struct {
+	Swap *Swap `json:"swap"`
+}
