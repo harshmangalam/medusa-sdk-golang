@@ -38,7 +38,7 @@ type Swap struct {
 	Order             *orders.Order     `json:"order"`
 	AdditionalItems   []any             `json:"additional_items"`
 	ReturnOrder       any               `json:"eturn_order"`
-	Fulfillments      any               `json:"fulfillments"`
+	Fulfillments      []any             `json:"fulfillments"`
 	Payment           any               `json:"payment"`
 	DifferenceDue     int               `json:"difference_due"`
 	ShippingaddressId string            `json:"shipping_address_id"`
