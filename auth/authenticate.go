@@ -77,19 +77,19 @@ func (l *AuthSchema) Authenticate(config *medusa.Config) (*AuthenticateResponse,
 		respBody.Data = respData
 
 	case http.StatusUnauthorized:
-		respErr := new(response.Error)
-		respErr.Message = "Unauthorized"
+		respErr := utils.UnauthorizeError()
 		respBody.Error = respErr
-
 	case http.StatusBadRequest:
-		respErrors := new(response.Errors)
-		if json.Unmarshal(body, respErrors); err != nil {
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
 			return nil, err
 		}
 
 		if len(respErrors.Errors) == 0 {
-			respError := new(response.Error)
-			if json.Unmarshal(body, respError); err != nil {
+
+			respError, err := utils.ParseError(body)
+
+			if err != nil {
 				return nil, err
 			}
 			respBody.Error = respError
@@ -98,8 +98,8 @@ func (l *AuthSchema) Authenticate(config *medusa.Config) (*AuthenticateResponse,
 		}
 
 	default:
-		respErr := new(response.Error)
-		if json.Unmarshal(body, respErr); err != nil {
+		respErr, err := utils.ParseError(body)
+		if err != nil {
 			return nil, err
 		}
 		respBody.Error = respErr
