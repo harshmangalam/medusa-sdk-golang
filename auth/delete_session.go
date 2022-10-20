@@ -22,7 +22,6 @@ type DeleteSessionResponse struct {
 
 // Logout current active user
 func DeleteSession(config *medusa.Config) (*DeleteSessionResponse, error) {
-
 	path := "/store/auth"
 	resp, err := request.NewRequest().SetMethod(http.MethodDelete).SetPath(path).Send(config)
 	if err != nil {
@@ -33,7 +32,6 @@ func DeleteSession(config *medusa.Config) (*DeleteSessionResponse, error) {
 		return nil, err
 	}
 	respBody := new(DeleteSessionResponse)
-
 	switch resp.StatusCode {
 	case http.StatusOK:
 		respBody.Data = nil
@@ -63,7 +61,6 @@ func DeleteSession(config *medusa.Config) (*DeleteSessionResponse, error) {
 			return nil, err
 		}
 		respBody.Error = respErr
-
 	}
 
 	return respBody, nil
