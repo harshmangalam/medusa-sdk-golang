@@ -9,21 +9,6 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-// get current active user details
-func GetSession(config *medusa.Config) ([]byte, error) {
-	path := "/store/auth"
-	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
-	if err != nil {
-		return nil, err
-	}
-	body, err := utils.ParseResponseBody(resp)
-	if err != nil {
-		return nil, err
-	}
-
-	return body, nil
-}
-
 // logout current active user
 func DeleteSession(config *medusa.Config) ([]byte, error) {
 
