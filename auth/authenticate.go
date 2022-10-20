@@ -7,37 +7,45 @@ import (
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/customers"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
-
-type AuthenticateResponse struct {
-	Customer *customers.Customer `json:"customer"`
-}
 
 type AuthSchema struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
-// create new auth struct and return thier reference for further method chaining
+type AuthenticateData struct {
+	Customer *customers.Customer `json:"customer,omitempty"`
+}
+
+type AuthenticateResponse struct {
+	// Success response
+	Data *AuthenticateData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
+
 func NewAuth() *AuthSchema {
 	return new(AuthSchema)
 }
 
-// set customer email address
 func (l *AuthSchema) SetEmail(email string) *AuthSchema {
 	l.Email = email
 	return l
 }
 
-// set customer password
 func (l *AuthSchema) SetPassword(password string) *AuthSchema {
 	l.Password = password
 	return l
 }
 
-// make api post request to medusa api and authenticate customer using provided email and password
-func (l *AuthSchema) Authenticate(config *medusa.Config) (*customers.Customer, error) {
+func (l *AuthSchema) Authenticate(config *medusa.Config) (*AuthenticateResponse, error) {
 	path := "/store/auth"
 
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(l).Send(config)
@@ -52,20 +60,51 @@ func (l *AuthSchema) Authenticate(config *medusa.Config) (*customers.Customer, e
 		return nil, err
 	}
 
-	if resp.StatusCode == http.StatusOK {
+	respBody := new(AuthenticateResponse)
 
+	switch resp.StatusCode {
+	case http.StatusOK:
 		for _, cookie := range resp.Cookies() {
 			if cookie.Name == "connect.sid" {
 				config.SetCookie(cookie)
 			}
 
 		}
+		respData := new(AuthenticateData)
+		if json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
+
+	case http.StatusUnauthorized:
+		respErr := new(response.Error)
+		respErr.Message = "Unauthorized"
+		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors := new(response.Errors)
+		if json.Unmarshal(body, respErrors); err != nil {
+			return nil, err
+		}
+
+		if len(respErrors.Errors) == 0 {
+			respError := new(response.Error)
+			if json.Unmarshal(body, respError); err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr := new(response.Error)
+		if json.Unmarshal(body, respErr); err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
+
 	}
 
-	respBody := new(AuthenticateResponse)
-
-	if err := json.Unmarshal(body, respBody); err != nil {
-		return nil, err
-	}
-	return respBody.Customer, nil
+	return respBody, nil
 }

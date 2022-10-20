@@ -60,7 +60,16 @@ func GetSession(config *medusa.Config) (*GetSessionResponse, error) {
 		if json.Unmarshal(body, respErrors); err != nil {
 			return nil, err
 		}
-		respBody.Errors = respErrors
+
+		if len(respErrors.Errors) == 0 {
+			respError := new(response.Error)
+			if json.Unmarshal(body, respError); err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
 
 	default:
 		respErr := new(response.Error)
