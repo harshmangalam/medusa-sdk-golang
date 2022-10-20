@@ -1,3 +1,5 @@
+//Get Current Customer
+
 package auth
 
 import (
@@ -15,11 +17,25 @@ type GetSessionData struct {
 	Customer customers.Customer `json:"customer,omitempty"`
 }
 
-type GetSessionResponse struct {
-	Data  *GetSessionData
-	Error *response.Error
+type GetSessionErrors struct {
+	// Array of errors
+	Errors []*response.Error `json:"errors,omitempty"`
+	// Default: "Provided request body contains errors. Please check the data and retry the request"
+	Message string `json:"message,omitempty"`
 }
 
+type GetSessionResponse struct {
+	// Success response
+	Data *GetSessionData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *GetSessionErrors
+}
+
+// Gets the currently logged in Customer.
 func GetSession(config *medusa.Config) (*GetSessionResponse, error) {
 	path := "/store/auth/"
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
@@ -45,6 +61,13 @@ func GetSession(config *medusa.Config) (*GetSessionResponse, error) {
 		respErr := new(response.Error)
 		respErr.Message = "Unauthorized"
 		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors := new(GetSessionErrors)
+		if json.Unmarshal(body, respErrors); err != nil {
+			return nil, err
+		}
+		respBody.Errors = respErrors
 
 	default:
 		respErr := new(response.Error)
