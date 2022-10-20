@@ -16,6 +16,10 @@ type ReturnReason struct {
 	Metadata             map[string]any `json:"metadata"`
 }
 
-type ReturnReasonResponse struct {
+type ReturnReasonRetrieveResponse struct {
 	ReturnReason *ReturnReason `json:"return_reason"`
+}
+
+type ReturnReasonListResponse struct {
+	ReturnReasons []*ReturnReason `json:"return_reasons"`
 }
