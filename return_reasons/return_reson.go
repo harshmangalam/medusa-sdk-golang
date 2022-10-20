@@ -15,3 +15,7 @@ type ReturnReason struct {
 	DeletedAt            *time.Time     `json:"deleted_at"`
 	Metadata             map[string]any `json:"metadata"`
 }
+
+type ReturnReasonResponse struct {
+	ReturnReason *ReturnReason `json:"return_reason"`
+}
