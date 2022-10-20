@@ -10,3 +10,10 @@ type Error struct {
 	// A slug code to indicate the type of the error.
 	Code string `json:"code,omitempty"`
 }
+
+type Errors struct {
+	// Array of errors
+	Errors []*Error `json:"errors,omitempty"`
+	// Default: "Provided request body contains errors. Please check the data and retry the request"
+	Message string `json:"message,omitempty"`
+}
