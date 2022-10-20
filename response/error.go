@@ -1,7 +1,12 @@
 package response
 
 type Error struct {
-	Type    string `json:"type"`
+	// A slug indicating the type of the error
+	Type string `json:"type"`
+
+	// Description of the error that occurred.
 	Message string `json:"message"`
-	Code    string `json:"code,omitempty"`
+
+	// A slug code to indicate the type of the error.
+	Code string `json:"code,omitempty"`
 }
