@@ -14,14 +14,7 @@ import (
 )
 
 type GetSessionData struct {
-	Customer customers.Customer `json:"customer,omitempty"`
-}
-
-type GetSessionErrors struct {
-	// Array of errors
-	Errors []*response.Error `json:"errors,omitempty"`
-	// Default: "Provided request body contains errors. Please check the data and retry the request"
-	Message string `json:"message,omitempty"`
+	Customer *customers.Customer `json:"customer,omitempty"`
 }
 
 type GetSessionResponse struct {
@@ -32,7 +25,7 @@ type GetSessionResponse struct {
 	Error *response.Error
 
 	// Errors in case of multiple errors
-	Errors *GetSessionErrors
+	Errors *response.Errors
 }
 
 // Gets the currently logged in Customer.
@@ -63,7 +56,7 @@ func GetSession(config *medusa.Config) (*GetSessionResponse, error) {
 		respBody.Error = respErr
 
 	case http.StatusBadRequest:
-		respErrors := new(GetSessionErrors)
+		respErrors := new(response.Errors)
 		if json.Unmarshal(body, respErrors); err != nil {
 			return nil, err
 		}
