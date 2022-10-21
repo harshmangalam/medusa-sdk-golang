@@ -13,10 +13,17 @@ import (
 )
 
 type ListCollectionData struct {
+	// Array of collection
 	Collections []*schema.Collection `json:"collections"`
-	Count       uint                 `json:"count"`
-	Offset      uint                 `json:"offset"`
-	Limit       uint                 `json:"limit"`
+
+	// The total number of items available
+	Count uint `json:"count"`
+
+	// The number of items skipped before these items
+	Offset uint `json:"offset"`
+
+	// The number of items per page
+	Limit uint `json:"limit"`
 }
 
 type ListCollectionResponse struct {
