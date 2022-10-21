@@ -26,6 +26,7 @@ type RefreshPaymentSessionResponse struct {
 	Errors *response.Errors
 }
 
+// Refreshes a Payment Session to ensure that it is in sync with the Cart - this is usually not necessary.
 func RefreshPaymentSession(cartId, providerId string, config *medusa.Config) (*RefreshPaymentSessionResponse, error) {
 	path := fmt.Sprintf("/store/carts/%v/payment-sessions/%v/refresh", cartId, providerId)
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).Send(config)
