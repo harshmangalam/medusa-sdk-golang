@@ -9,6 +9,7 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
+// Retrieves a Cart.
 func Retrieve(cartId string, config *medusa.Config) ([]byte, error) {
 	path := fmt.Sprintf("/store/carts/%v", cartId)
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
