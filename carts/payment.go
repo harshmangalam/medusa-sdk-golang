@@ -17,19 +17,6 @@ type UpdatePaymentSession struct {
 	Data map[string]any `json:"data"`
 }
 
-func RefreshPaymentSession(cartId, providerId string, config *medusa.Config) ([]byte, error) {
-	path := fmt.Sprintf("/store/carts/%v/payment-sessions/%v/refresh", cartId, providerId)
-	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).Send(config)
-	if err != nil {
-		return nil, err
-	}
-	body, err := utils.ParseResponseBody(resp)
-	if err != nil {
-		return nil, err
-	}
-	return body, nil
-}
-
 func NewPaymentSession() *PaymentSession {
 	return new(PaymentSession)
 }
