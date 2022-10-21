@@ -1,6 +1,7 @@
 package carts
 
 import (
+	"encoding/json"
 	"net/http"
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
@@ -63,7 +64,7 @@ func (c *CreateCart) SetContext(context CartContext) *CreateCart {
 	return c
 }
 
-func (c *CreateCart) Create(config *medusa.Config) ([]byte, error) {
+func (c *CreateCart) Create(config *medusa.Config) (*CreateResponse, error) {
 	const path = `/store/carts`
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetData(c).SetPath(path).Send(config)
 	if err != nil {
@@ -73,5 +74,41 @@ func (c *CreateCart) Create(config *medusa.Config) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return body, nil
+	respBody := new(CreateResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(CreateData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
+
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
+	}
+
+	return respBody, nil
 }
