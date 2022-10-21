@@ -6,8 +6,25 @@ import (
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/common"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
+
+type CollectionData struct {
+	Collection *schema.Collection `json:"collection"`
+}
+
+type CollectionResponse struct {
+	// Success response
+	Data *CollectionData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
 
 type CollectionsQuery struct {
 	// The number of collections to return
