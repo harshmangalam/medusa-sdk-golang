@@ -1,6 +1,7 @@
 package carts
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -44,7 +45,7 @@ func (s *ShippingMethod) SetData(data string) *ShippingMethod {
 	return s
 }
 
-func (s *ShippingMethod) Add(cartId string, config *medusa.Config) ([]byte, error) {
+func (s *ShippingMethod) Add(cartId string, config *medusa.Config) (*ShippingMethodResponse, error) {
 	path := fmt.Sprintf("/store/carts/%v/shipping-methods", cartId)
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(s).Send(config)
 	if err != nil {
@@ -54,5 +55,41 @@ func (s *ShippingMethod) Add(cartId string, config *medusa.Config) ([]byte, erro
 	if err != nil {
 		return nil, err
 	}
-	return body, nil
+	respBody := new(ShippingMethodResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(ShippingMethodData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
+
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
+	}
+
+	return respBody, nil
 }
