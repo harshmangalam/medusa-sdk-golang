@@ -38,6 +38,8 @@ func (p *SelectPaymentSession) SetProviderId(providerId string) *SelectPaymentSe
 	p.ProviderId = providerId
 	return p
 }
+
+// Selects a Payment Session as the session intended to be used towards the completion of the Cart.
 func (p *SelectPaymentSession) Select(cartId string, config *medusa.Config) (*SelectPaymentSessionResponse, error) {
 	path := fmt.Sprintf("/store/carts/%v/payment-session", cartId)
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(p).Send(config)
