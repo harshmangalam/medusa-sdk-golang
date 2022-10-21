@@ -75,24 +75,63 @@ type Cart struct {
 	ShippingMethods any `json:"shipping_methods"`
 
 	// The cart's type.
-	Type                any            `json:"type"`
-	CompletedAt         *time.Time     `json:"completed_at"`
-	PaymentAuthorizedAt *time.Time     `json:"payment_authorized_at"`
-	Idempotency_key     string         `json:"idempotency_key"`
-	Context             map[string]any `json:"context"`
-	SalesChannelId      string         `json:"sales_channel_id"`
-	SalesChannel        any            `json:"sales_channel"`
-	CreatedAt           *time.Time     `json:"created_at,omitempty"`
-	UpdatedAt           *time.Time     `json:"updated_at,omitempty"`
-	DeletedAt           *time.Time     `json:"deleted_at,omitempty"`
-	Metadata            any            `json:"metadata,omitempty"`
-	ShippingTotal       uint           `json:"shipping_total"`
-	DiscountTotal       uint           `json:"discount_total"`
-	TaxTotal            uint           `json:"tax_total"`
-	RefundedTotal       uint           `json:"refunded_total"`
-	Total               uint           `json:"total"`
-	Subtotal            uint           `json:"subtotal"`
-	RefundableAmount    uint           `json:"refundable_amount"`
-	GiftCardTaxTotal    uint           `json:"gift_card_tax_total"`
-	GiftCardTotal       uint           `json:"gift_card_total"`
+	Type CartTypeEnum `json:"type"`
+
+	// The date with timezone at which the cart was completed.
+	CompletedAt *time.Time `json:"completed_at"`
+
+	// The date with timezone at which the payment was authorized.
+	PaymentAuthorizedAt *time.Time `json:"payment_authorized_at"`
+
+	// Randomly generated key used to continue the completion of a cart in case of failure.
+	Idempotency_key string `json:"idempotency_key"`
+
+	// Example: {"ip":"::1","user_agent":"PostmanRuntime/7.29.2"}
+	// The context of the cart which can include info like IP or user agent.
+	Context map[string]any `json:"context"`
+
+	// The sales channel ID the cart is associated with.
+	SalesChannelId string `json:"sales_channel_id"`
+
+	// A sales channel object. Available if the relation sales_channel is expanded.
+	SalesChannel any `json:"sales_channel"`
+
+	// The date with timezone at which the resource was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// The date with timezone at which the resource was updated.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// The date with timezone at which the resource was deleted.
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+
+	// An optional key-value map with additional details
+	Metadata any `json:"metadata,omitempty"`
+
+	// The total of shipping
+	ShippingTotal uint `json:"shipping_total"`
+
+	// The total of discount
+	DiscountTotal uint `json:"discount_total"`
+
+	// The total of tax
+	TaxTotal uint `json:"tax_total"`
+
+	// The total amount refunded if the order associated with this cart is returned.
+	RefundedTotal uint `json:"refunded_total"`
+
+	// The total amount of the cart
+	Total uint `json:"total"`
+
+	// The subtotal of the cart
+	Subtotal uint `json:"subtotal"`
+
+	// The amount that can be refunded
+	RefundableAmount uint `json:"refundable_amount"`
+
+	// The total of gift cards
+	GiftCardTaxTotal uint `json:"gift_card_tax_total"`
+
+	// The total of gift cards with taxes
+	GiftCardTotal uint `json:"gift_card_total"`
 }
