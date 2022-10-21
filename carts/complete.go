@@ -10,8 +10,19 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
+type CompleteDataEnum string
+
+const (
+	CompleteOrder CompleteDataEnum = "order"
+	CompleteCart  CompleteDataEnum = "cart"
+	CompleteSwap  CompleteDataEnum = "swap"
+)
+
 type CompleteData struct {
-	Type any `json:"type"`
+	// The type of the data property.
+	Type CompleteDataEnum `json:"type"`
+
+	// Data will be one of order, cart and swap
 	Data any `json:"data"`
 }
 
