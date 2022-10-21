@@ -64,6 +64,8 @@ func (c *CreateCart) SetContext(context CartContext) *CreateCart {
 	return c
 }
 
+// Creates a Cart within the given region and with the initial items. If no region_id is provided the cart will be associated with the first Region available. If no items are provided the cart will be empty after creation. If a user is logged in the cart's customer id and email will be set.
+
 func (c *CreateCart) Create(config *medusa.Config) (*CreateResponse, error) {
 	const path = `/store/carts`
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetData(c).SetPath(path).Send(config)
