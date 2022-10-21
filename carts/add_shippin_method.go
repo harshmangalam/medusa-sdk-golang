@@ -6,8 +6,24 @@ import (
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
+
+type ShippingMethodData struct {
+	Cart *Cart `json:"cart"`
+}
+
+type ShippingMethodResponse struct {
+	// Success response
+	Data *ShippingMethodData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
 
 type ShippingMethod struct {
 	OptionId string `json:"option_id"`
