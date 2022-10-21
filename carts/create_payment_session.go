@@ -26,6 +26,8 @@ type CreatePaymentSessionResponse struct {
 	Errors *response.Errors
 }
 
+// Creates Payment Sessions for each of the available Payment Providers in the Cart's Region.
+
 func CreatePaymentSession(cartId string, config *medusa.Config) (*CreatePaymentSessionResponse, error) {
 	path := fmt.Sprintf("/store/carts/%v/payment-sessions", cartId)
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).Send(config)
