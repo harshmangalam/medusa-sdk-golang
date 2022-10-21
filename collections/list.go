@@ -1,6 +1,7 @@
 package collections
 
 import (
+	"encoding/json"
 	"net/http"
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
@@ -11,13 +12,16 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-type CollectionData struct {
-	Collection *schema.Collection `json:"collection"`
+type ListCollectionData struct {
+	Collections []*schema.Collection `json:"collections"`
+	Count       uint                 `json:"count"`
+	Offset      uint                 `json:"offset"`
+	Limit       uint                 `json:"limit"`
 }
 
-type CollectionResponse struct {
+type ListCollectionResponse struct {
 	// Success response
-	Data *CollectionData
+	Data *ListCollectionData
 
 	// Error response
 	Error *response.Error
@@ -74,7 +78,7 @@ func (c *CollectionsQuery) SetUpdatedAt(date *common.DateComparison) *Collection
 }
 
 // Retrieve a list of Product Collection.
-func (c *CollectionsQuery) List(config *medusa.Config) ([]byte, error) {
+func (c *CollectionsQuery) List(config *medusa.Config) (*ListCollectionResponse, error) {
 	path := "/store/collections"
 
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
@@ -85,5 +89,41 @@ func (c *CollectionsQuery) List(config *medusa.Config) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return body, nil
+	respBody := new(ShippingMethodResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(ShippingMethodData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
+
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
+	}
+
+	return respBody, nil
 }
