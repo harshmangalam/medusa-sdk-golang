@@ -9,26 +9,26 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-type ShippingMethodSchema struct {
+type ShippingMethod struct {
 	OptionId string `json:"option_id"`
 	Data     string `json:"data"`
 }
 
-func NewShippingMethodSchema() *ShippingMethodSchema {
-	return new(ShippingMethodSchema)
+func NewShippingMethod() *ShippingMethod {
+	return new(ShippingMethod)
 }
 
-func (s *ShippingMethodSchema) SetOptionId(optionId string) *ShippingMethodSchema {
+func (s *ShippingMethod) SetOptionId(optionId string) *ShippingMethod {
 	s.OptionId = optionId
 	return s
 }
 
-func (s *ShippingMethodSchema) SetData(data string) *ShippingMethodSchema {
+func (s *ShippingMethod) SetData(data string) *ShippingMethod {
 	s.Data = data
 	return s
 }
 
-func (s *ShippingMethodSchema) Apply(cartId string, config *medusa.Config) ([]byte, error) {
+func (s *ShippingMethod) Add(cartId string, config *medusa.Config) ([]byte, error) {
 	path := fmt.Sprintf("/store/carts/%v/shipping-methods", cartId)
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(s).Send(config)
 	if err != nil {
