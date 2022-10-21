@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	medusa "github.com/harshmngalam/medusa-sdk-golang"
+	nedusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
 	"github.com/harshmngalam/medusa-sdk-golang/response"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
@@ -28,7 +28,7 @@ type ExistsResponse struct {
 }
 
 // verify customer emaail address
-func Exists(email string, config *medusa.Config) (*ExistsResponse, error) {
+func Exists(email string, config *nedusa.Config) (*ExistsResponse, error) {
 	path := fmt.Sprintf("/store/auth/%v", email)
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
 	if err != nil {
