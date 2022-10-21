@@ -5,6 +5,7 @@ import (
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
@@ -20,6 +21,21 @@ type CreateCart struct {
 	CountryCode    string      `json:"country_code,omitempty"`
 	Items          []*CartItem `json:"items,omitempty"`
 	Context        CartContext `json:"context,omitempty"`
+}
+
+type CreateData struct {
+	Cart *Cart `json:"cart"`
+}
+
+type CreateResponse struct {
+	// Success response
+	Data *CreateData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
 }
 
 func NewCreateCart() *CreateCart {
