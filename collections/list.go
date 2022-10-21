@@ -89,10 +89,10 @@ func (c *CollectionsQuery) List(config *medusa.Config) (*ListCollectionResponse,
 	if err != nil {
 		return nil, err
 	}
-	respBody := new(ShippingMethodResponse)
+	respBody := new(ListCollectionResponse)
 	switch resp.StatusCode {
 	case http.StatusOK:
-		respData := new(ShippingMethodData)
+		respData := new(ListCollectionData)
 		if err := json.Unmarshal(body, respData); err != nil {
 			return nil, err
 		}
