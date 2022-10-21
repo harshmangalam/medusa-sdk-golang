@@ -9,19 +9,19 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-type PaymentSession struct {
+type SelectPaymentSession struct {
 	ProviderId string `json:"provider_id"`
 }
 
-func NewPaymentSession() *PaymentSession {
-	return new(PaymentSession)
+func NewSelectPaymentSession() *SelectPaymentSession {
+	return new(SelectPaymentSession)
 }
 
-func (p *PaymentSession) SetProviderId(providerId string) *PaymentSession {
+func (p *SelectPaymentSession) SetProviderId(providerId string) *SelectPaymentSession {
 	p.ProviderId = providerId
 	return p
 }
-func (p *PaymentSession) Send(cartId string, config *medusa.Config) ([]byte, error) {
+func (p *SelectPaymentSession) Select(cartId string, config *medusa.Config) ([]byte, error) {
 	path := fmt.Sprintf("/store/carts/%v/payment-session", cartId)
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(p).Send(config)
 	if err != nil {
