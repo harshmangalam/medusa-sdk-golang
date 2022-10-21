@@ -18,16 +18,35 @@ type GiftCard struct {
 }
 
 type UpdateCart struct {
-	RegionId        string         `json:"region_id"`
-	CountryCode     string         `json:"country_code"`
-	Email           string         `json:"email"`
-	SalesChannelId  string         `json:"sales_channel_id"`
-	BillingAddress  any            `json:"billing_address"`
-	ShippingAddress any            `json:"ipping_address"`
-	GiftCards       []*GiftCard    `json:"gift_cards"`
-	Discounts       []*Discount    `json:"discounts"`
-	CustomerId      string         `json:"customer_id"`
-	Context         map[string]any `json:"context"`
+	// The id of the Region to create the Cart in.
+	RegionId string `json:"region_id"`
+
+	// The 2 character ISO country code to create the Cart in.
+	CountryCode string `json:"country_code"`
+
+	// An email to be used on the Cart.
+	Email string `json:"email"`
+
+	// The ID of the Sales channel to update the Cart with.
+	SalesChannelId string `json:"sales_channel_id"`
+
+	// The Address to be used for billing purposes.
+	BillingAddress any `json:"billing_address"`
+
+	// The Address to be used for shipping.
+	ShippingAddress any `json:"ipping_address"`
+
+	// An array of Gift Card codes to add to the Cart.
+	GiftCards []*GiftCard `json:"gift_cards"`
+
+	// An array of Discount codes to add to the Cart.
+	Discounts []*Discount `json:"discounts"`
+
+	// The ID of the Customer to associate the Cart with.
+	CustomerId string `json:"customer_id"`
+
+	// An optional object to provide context to the Cart.
+	Context map[string]any `json:"context"`
 }
 
 func NewUpdateCart() *UpdateCart {
@@ -84,6 +103,7 @@ func (u *UpdateCart) SetContext(context map[string]any) *UpdateCart {
 	return u
 }
 
+// Updates a Cart.
 func (u *UpdateCart) Update(cartId string, config *medusa.Config) ([]byte, error) {
 	path := fmt.Sprintf("/store/carts/%v", cartId)
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(u).Send(config)
