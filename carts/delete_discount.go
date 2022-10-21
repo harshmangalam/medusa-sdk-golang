@@ -26,6 +26,8 @@ type DeleteDiscountResponse struct {
 	Errors *response.Errors
 }
 
+// Removes a Discount from a Cart.
+
 func DeleteDiscount(cartId string, code string, config *medusa.Config) (*DeleteDiscountResponse, error) {
 	path := fmt.Sprintf("/store/carts/%v/discounts/%v", cartId, code)
 	resp, err := request.NewRequest().SetMethod(http.MethodDelete).SetPath(path).Send(config)
