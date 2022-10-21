@@ -45,6 +45,7 @@ func (s *ShippingMethod) SetData(data string) *ShippingMethod {
 	return s
 }
 
+// Adds a Shipping Method to the Cart.
 func (s *ShippingMethod) Add(cartId string, config *medusa.Config) (*ShippingMethodResponse, error) {
 	path := fmt.Sprintf("/store/carts/%v/shipping-methods", cartId)
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(s).Send(config)
