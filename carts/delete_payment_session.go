@@ -26,6 +26,8 @@ type DeletePaymentSessionResponse struct {
 	Errors *response.Errors
 }
 
+// Deletes a Payment Session on a Cart. May be useful if a payment has failed.
+
 func DeletePaymentSession(cartId, providerId string, config *medusa.Config) (*DeletePaymentSessionResponse, error) {
 	path := fmt.Sprintf("/store/carts/%v/payment-sessions/%v", cartId, providerId)
 	resp, err := request.NewRequest().SetMethod(http.MethodDelete).SetPath(path).Send(config)
