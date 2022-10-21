@@ -8,6 +8,16 @@ import (
 	giftcards "github.com/harshmngalam/medusa-sdk-golang/gift_cards"
 )
 
+type CartTypeEnum string
+
+const (
+	CartTypeDefault     CartTypeEnum = "default"
+	CartTypeSwap        CartTypeEnum = "swap"
+	CartTypeDraftOrder  CartTypeEnum = "draft_order"
+	CartTypePaymentLink CartTypeEnum = "payment_link"
+	CartTypeClaim       CartTypeEnum = "claim"
+)
+
 type Cart struct {
 	// The cart's ID
 	Id string `json:"id"`
