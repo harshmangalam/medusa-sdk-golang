@@ -62,11 +62,41 @@ func (r *ResetPassword) Reset(config *medusa.Config) (*ResetPasswordResponse, er
 		return nil, err
 	}
 
-	respBody := new(ResponseBody)
+	respBody := new(ResetPasswordResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(ResetPasswordData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
 
-	if err := json.Unmarshal(body, respBody); err != nil {
-		return nil, err
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
 	}
 
-	return respBody.Customer, nil
+	return respBody, nil
 }
