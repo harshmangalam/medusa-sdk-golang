@@ -32,6 +32,7 @@ An open source medusa sdk for golang
 
 - [Getting Started](#getting-started)
 - [Installation](#installation)
+- [Configuration](#config)
 - [Auth](#auth)
   - [Customer Login](#customer-login)
 
@@ -66,6 +67,16 @@ You can install Medusa by either following our [Quickstart guide](https://docs.m
 go get github.com/harshmangalam/medusa-sdk-golang@latest
 ```
 
+
+## Configuration
+
+```go
+
+config := medusa.NewConfig().
+		SetMaxRetries(3).
+		SetBaseUrl("http://localhost:9000")
+
+```
 
 ## Auth
 Auth endpoints that allow authorization of customers and manages their sessions
