@@ -36,12 +36,23 @@ type InventoryQuantity struct {
 }
 
 type VariantListQuery struct {
-	Ids               string `json:"ids" url:"ids"`
-	Expand            string `json:"expand" url:"expand"`
-	Offset            string `json:"offset" url:"offset"`
-	Limit             string `json:"limit" url:"limit"`
-	Title             any    `json:"title" url:"title"`
-	InventoryQuantity any    `json:"inventory_quantity" url:"inventory_quantity"`
+	// A comma separated list of Product Variant ids to filter by.
+	Ids string `json:"ids" url:"ids"`
+
+	// A comma separated list of Product Variant relations to load.
+	Expand string `json:"expand" url:"expand"`
+
+	// How many product variants to skip in the result.
+	Offset string `json:"offset" url:"offset"`
+
+	// Maximum number of Product Variants to return.
+	Limit string `json:"limit" url:"limit"`
+
+	// product variant title to search for.
+	Title any `json:"title" url:"title"`
+
+	// Filter by available inventory quantity
+	InventoryQuantity any `json:"inventory_quantity" url:"inventory_quantity"`
 }
 
 func NewVariantListQuery() *VariantListQuery {
@@ -78,6 +89,7 @@ func (l *VariantListQuery) SetInventoryQuantity(invQty any) *VariantListQuery {
 	return l
 }
 
+// Retrieves a list of Product Variants
 func (l *VariantListQuery) List(config *medusa.Config) (*ListVariantResponse, error) {
 	path := "/store/variants"
 
