@@ -2,8 +2,6 @@ package schema
 
 import (
 	"time"
-
-	"github.com/harshmngalam/medusa-sdk-golang/customers"
 )
 
 type CartTypeEnum string
@@ -54,7 +52,7 @@ type Cart struct {
 	CustomerId string `json:"customer_id"`
 
 	// A customer object. Available if the relation customer is expanded.
-	Customer *customers.Customer `json:"customer"`
+	Customer *Customer `json:"customer"`
 
 	// Payment Sessions are created when a Customer initilizes the checkout flow, and can be used to hold the state of a payment flow. Each Payment Session is controlled by a Payment Provider, who is responsible for the communication with external payment services. Authorized Payment Sessions will eventually get promoted to Payments to indicate that they are authorized for capture/refunds/etc.
 
