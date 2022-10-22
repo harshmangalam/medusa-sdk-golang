@@ -43,7 +43,8 @@ An open source medusa sdk for golang
 - [Cart](#cart)
   - [Add a Shipping Method](#add-a-shipping-method)
   - [Complete a Cart](#complete-a-cart)
-  - [Create Payment Sessions](#create-a-payment-sessions)
+  - [Create Payment Sessions](#create-payment-sessions)
+  - [Create a Cart](#create-a-cart)
 
 ## Getting Started
 
@@ -227,6 +228,29 @@ Creates Payment Sessions for each of the available Payment Providers in the Cart
 
 	
 	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+### Create a Cart
+
+Creates a Cart within the given region and with the initial items. If no region_id is provided the cart will be associated with the first Region available. If no items are provided the cart will be empty after creation. If a user is logged in the cart's customer id and email will be set.
+
+```go
+
+resp, err := carts.NewCreateCart().
+		SetCountryCode(countryCode).
+		SetItems(items).
+		SetRegionId(regionId).
+		SetSalesChannelId(salesChannelId).
+		SetContext(cartContext).
+		Create(config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data.Cart)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
 
