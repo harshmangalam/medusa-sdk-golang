@@ -1,6 +1,7 @@
 package products
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -168,7 +169,7 @@ func (p *ListQuery) SetFields(fields string) *ListQuery {
 }
 
 // Retrieve a list of Products.
-func (c *ListQuery) List(config *medusa.Config) ([]byte, error) {
+func (c *ListQuery) List(config *medusa.Config) (*ListProductResponse, error) {
 	path := "/store/products"
 
 	qs, err := query.Values(c)
@@ -193,5 +194,41 @@ func (c *ListQuery) List(config *medusa.Config) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return body, nil
+	respBody := new(ListProductResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(ListProductData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
+
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
+	}
+
+	return respBody, nil
 }
