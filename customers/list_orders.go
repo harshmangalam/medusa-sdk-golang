@@ -8,8 +8,35 @@ import (
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/common"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
+
+type ListOrderData struct {
+	// Array of orders
+	Orders []*schema.Order `json:"orders"`
+
+	// The total number of items available
+	Count uint `json:"count"`
+
+	// The number of items skipped before these items
+	Offset uint `json:"offset"`
+
+	// The number of items per page
+	Limit uint `json:"limit"`
+}
+
+type ListOrderResponse struct {
+	// Success response
+	Data *ListOrderData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
 
 type ListOrderQuery struct {
 	Q                 string                 `json:"q,omitempty" url:"q,omitempty"`
