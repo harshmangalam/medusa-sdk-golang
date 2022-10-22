@@ -15,7 +15,7 @@ import (
 )
 
 type ListRegionData struct {
-	// Array of product
+	// Array of regions
 	Regions []*schema.Region `json:"regions"`
 }
 
@@ -31,9 +31,16 @@ type ListRegionResponse struct {
 }
 
 type RegionQuery struct {
-	Offset    uint                   `json:"offset,omitempty" url:"offset,omitempty"`
-	Limit     uint                   `json:"limit,omitempty" url:"limit,omitempty"`
+	// How many regions to skip in the result.
+	Offset uint `json:"offset,omitempty" url:"offset,omitempty"`
+
+	// Limit the number of regions returned.
+	Limit uint `json:"limit,omitempty" url:"limit,omitempty"`
+
+	// Date comparison for when resulting regions were created.
 	CreatedAt *common.DateComparison `json:"created_at,omitempty" url:"created_at,omitempty"`
+
+	// Date comparison for when resulting regions were updated.
 	UpdatedAt *common.DateComparison `json:"updated_at,omitempty" url:"updated_at,omitempty"`
 }
 
