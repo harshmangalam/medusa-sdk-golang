@@ -4,9 +4,6 @@ import (
 	"time"
 )
 
-type VariantResponseBody struct {
-	Variant *ProductVariant `json:"variant"`
-}
 type ProductVariant struct {
 	Title                  string         `json:"title"`
 	ProductId              string         `json:"product_id"`
