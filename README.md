@@ -28,6 +28,43 @@ An open source medusa sdk for golang
 
 </p>
 
+## Contents <!-- omit in toc -->
+
+- [Getting Started](#getting-started)
+- [Installation](#installation)
+
+## Getting Started
+
+You can install Medusa by either following our [Quickstart guide](https://docs.medusajs.com/quickstart/quick-start) or the following steps:
+
+1. **Install Medusa CLI**
+
+    ```bash
+    npm install -g @medusajs/medusa-cli
+    ```
+
+2. **Create a new Medusa project**
+
+    ```bash
+    medusa new my-medusa-store --seed
+    ```
+
+3. **Start your Medusa engine**
+
+    ```bash
+    cd my-medusa-store
+    medusa develop
+    ```
+
+## Installation
+
+### required go v1.18+
+
+```bash
+go get github.com/harshmangalam/medusa-sdk-golang@latest
+```
+
+
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
