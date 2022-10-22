@@ -40,23 +40,58 @@ type ListOrderResponse struct {
 }
 
 type ListOrderQuery struct {
-	Q                 string                 `json:"q,omitempty" url:"q,omitempty"`
-	Id                []string               `json:"id,omitempty" url:"id,omitempty"`
-	Offset            int                    `json:"offset" url:"offset"`
-	Limit             int                    `json:"limit" url:"limit"`
-	Expand            string                 `json:"expand,omitempty" url:"expand,omitempty"`
-	Fields            string                 `json:"fields,omitempty" url:"fields,omitempty"`
-	Status            []string               `json:"status,omitempty" url:"status,omitempty"`
-	FulfillmentStatus []string               `json:"fulfillment_status,omitempty" url:"fulfillment_status,omitempty"`
-	PaymentStatus     []string               `json:"payment_status,omitempty" url:"payment_status,omitempty"`
-	CartId            string                 `json:"cart_id,omitempty" url:"cart_id,omitempty"`
-	Email             string                 `json:"email,omitempty" url:"email,omitempty"`
-	RegionId          string                 `json:"region_id,omitempty" url:"region_id,omitempty"`
-	CurrencyCode      string                 `json:"currency_code,omitempty" url:"currency_code,omitempty"`
-	TaxRate           string                 `json:"tax_rate,omitempty" url:"tax_rate,omitempty"`
-	CreatedAt         *common.DateComparison `json:"created_at,omitempty" url:"created_at,omitempty"`
-	UpdatedAt         *common.DateComparison `json:"updated_at,omitempty" url:"updated_at,omitempty"`
-	CanceledAt        *common.DateComparison `json:"canceled_at,omitempty" url:"canceled_at,omitempty"`
+	// Query used for searching orders.
+	Q string `json:"q,omitempty" url:"q,omitempty"`
+
+	// Id of the order to search for.
+	Id []string `json:"id,omitempty" url:"id,omitempty"`
+
+	// The offset in the resulting orders.
+	Offset int `json:"offset" url:"offset"`
+
+	// How many orders to return.
+	Limit int `json:"limit" url:"limit"`
+
+	// (Comma separated string) Which relations should be expanded in the resulting orders.
+	Expand string `json:"expand,omitempty" url:"expand,omitempty"`
+
+	// (Comma separated string) Which fields should be included in the resulting orders.
+	Fields string `json:"fields,omitempty" url:"fields,omitempty"`
+
+	// Status to search for.
+	Status []string `json:"status,omitempty" url:"status,omitempty"`
+
+	// Fulfillment status to search for.
+	FulfillmentStatus []string `json:"fulfillment_status,omitempty" url:"fulfillment_status,omitempty"`
+
+	// Payment status to search for.
+	PaymentStatus []string `json:"payment_status,omitempty" url:"payment_status,omitempty"`
+
+	// Display id to search for.
+	DisplayId string `json:"display_id,omitempty" url:"display_id,omitempty"`
+
+	// Cart id
+	CartId string `json:"cart_id,omitempty" url:"cart_id,omitempty"`
+
+	// Email
+	Email string `json:"email,omitempty" url:"email,omitempty"`
+	// Region id
+	RegionId string `json:"region_id,omitempty" url:"region_id,omitempty"`
+
+	// The 3 character ISO currency code to set prices based on.
+	CurrencyCode string `json:"currency_code,omitempty" url:"currency_code,omitempty"`
+
+	// Tax rate
+	TaxRate string `json:"tax_rate,omitempty" url:"tax_rate,omitempty"`
+
+	// Date comparison for when resulting collections were created.
+	CreatedAt *common.DateComparison `json:"created_at,omitempty" url:"created_at,omitempty"`
+
+	// Date comparison for when resulting collections were updated.
+	UpdatedAt *common.DateComparison `json:"updated_at,omitempty" url:"updated_at,omitempty"`
+
+	// Date comparison for when resulting collections were canceled.
+	CanceledAt *common.DateComparison `json:"canceled_at,omitempty" url:"canceled_at,omitempty"`
 }
 
 func NewListOrderQuery() *ListOrderQuery {
@@ -150,7 +185,8 @@ func (l *ListOrderQuery) SetCancledAt(canceledAt *common.DateComparison) *ListOr
 	return l
 }
 
-func (l *ListOrderQuery) Apply(config *medusa.Config) (*ListOrderResponse, error) {
+// Retrieves a list of a Customer's Orders.
+func (l *ListOrderQuery) List(config *medusa.Config) (*ListOrderResponse, error) {
 	path := "/store/customers/me/orders"
 
 	qs, err := query.Values(l)
