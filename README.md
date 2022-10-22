@@ -45,6 +45,7 @@ An open source medusa sdk for golang
   - [Complete a Cart](#complete-a-cart)
   - [Create Payment Sessions](#create-payment-sessions)
   - [Create a Cart](#create-a-cart)
+  - [Remove Discount](#remove-discount)
 
 ## Getting Started
 
@@ -251,6 +252,24 @@ resp, err := carts.NewCreateCart().
 	}
 
 	fmt.Println(resp.Data.Cart)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+
+### Remove Discount
+
+Removes a Discount from a Cart.
+
+```go
+
+resp, err := carts.DeleteDiscount(cartId, code, config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
 
