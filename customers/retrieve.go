@@ -26,6 +26,7 @@ type RetrieveCustomerResponse struct {
 	Errors *response.Errors
 }
 
+// Retrieves a Customer - the Customer must be logged in to retrieve their details.
 func Retrieve(config *medusa.Config) (*RetrieveCustomerResponse, error) {
 	path := "/store/customers/me"
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
