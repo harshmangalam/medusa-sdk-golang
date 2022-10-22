@@ -32,6 +32,8 @@ An open source medusa sdk for golang
 
 - [Getting Started](#getting-started)
 - [Installation](#installation)
+- [Auth](#auth)
+  - [Customer Login](#customer-login)
 
 ## Getting Started
 
@@ -64,6 +66,32 @@ You can install Medusa by either following our [Quickstart guide](https://docs.m
 go get github.com/harshmangalam/medusa-sdk-golang@latest
 ```
 
+
+## Auth
+Auth endpoints that allow authorization of customers and manages their sessions
+
+### Customer Login
+Logs a Customer in and authorizes them to view their details. Successful authentication will set a session cookie in the Customer's browser.
+
+#### Example
+
+```go
+
+resp, err := auth.NewAuth().
+		SetEmail("harsh@gmail.com").
+		SetPassword("123456").
+		Authenticate(config)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+
+```
 
 ## License
 
