@@ -27,9 +27,15 @@ type CreateReturnResponse struct {
 }
 
 type CreateReturn struct {
-	OrderId        string `json:"order_id"`
-	Items          []any  `json:"items"`
-	ReturnShipping any    `json:"return_shipping"`
+	// The ID of the Order to create the Return from.
+
+	OrderId string `json:"order_id"`
+
+	// The items to include in the Return.
+	Items []any `json:"items"`
+
+	// If the Return is to be handled by the store operator the Customer can choose a Return Shipping Method. Alternatvely the Customer can handle the Return themselves.
+	ReturnShipping any `json:"return_shipping"`
 }
 
 func NewCreateRetun() *CreateReturn {
