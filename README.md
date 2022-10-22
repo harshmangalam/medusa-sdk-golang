@@ -37,6 +37,7 @@ An open source medusa sdk for golang
   - [Customer Login](#customer-login)
   - [Customer Log out](#customer-log-out)
   - [Get Current Customer](#get-current-customer)
+  - [Check if email exists](#check-email-exists)
 
 ## Getting Started
 
@@ -125,7 +126,7 @@ data, err := auth.DeleteSession(config)
 
 ```
 
-## Get Current Customer
+### Get Current Customer
 
 Gets the currently logged in Customer.
 
@@ -133,6 +134,23 @@ Gets the currently logged in Customer.
 ```go
 
 data, err := auth.GetSession(config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(data.Data)
+	fmt.Println(data.Error)
+	fmt.Println(data.Errors)
+
+```
+
+### Check if email exists
+Checks if a Customer with the given email has signed up.
+
+#### Example
+
+```go 
+data, err := auth.Exists("harsh@gmail.com", config)
 	if err != nil {
 		fmt.Println(err)
 	}
