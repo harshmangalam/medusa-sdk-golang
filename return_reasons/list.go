@@ -13,7 +13,7 @@ import (
 
 type ListReturnReasonData struct {
 	// Array of regions
-	ReturnReasons []*schema.Region `json:"return_reasons"`
+	ReturnReasons []*schema.ReturnReason `json:"return_reasons"`
 }
 
 type ListReturnReasonResponse struct {
