@@ -4,6 +4,15 @@ import (
 	"time"
 )
 
+type ReturnStatusEnum string
+
+const (
+	StatusRequested      ReturnStatusEnum = "requested"
+	StatusReceived       ReturnStatusEnum = "received"
+	StatusRequiresAction ReturnStatusEnum = "requires_action"
+	StatusCanceled       ReturnStatusEnum = "canceled"
+)
+
 // Return orders hold information about Line Items that a Customer wishes to send back, along with how the items will be returned. Returns can be used as part of a Swap.
 
 type Return struct {
@@ -14,7 +23,7 @@ type Return struct {
 	Id string `json:"id"`
 
 	// Status of the Return.
-	Status any `json:"status"`
+	Status ReturnStatusEnum `json:"status"`
 
 	// The Return Items that will be shipped back to the warehouse. Available if the relation items is expanded.
 	Items []any `json:"items"`
