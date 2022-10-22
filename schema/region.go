@@ -1,4 +1,4 @@
-package regions
+package schema
 
 import "time"
 
@@ -22,8 +22,4 @@ type Region struct {
 	UpdatedAt            *time.Time     `json:"updated_at"`
 	DeletedAt            *time.Time     `json:"deleted_at"`
 	Metadata             map[string]any `json:"metadata"`
-}
-
-type RetrieveResponseBody struct {
-	Region *Region `json:"region"`
 }
