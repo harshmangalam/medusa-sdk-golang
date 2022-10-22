@@ -43,6 +43,7 @@ An open source medusa sdk for golang
 - [Cart](#cart)
   - [Add a Shipping Method](#add-a-shipping-method)
   - [Complete a Cart](#complete-a-cart)
+  - [Create Payment Sessions](#create-a-payment-sessions)
 
 ## Getting Started
 
@@ -198,6 +199,9 @@ resp, err := carts.NewShippingMethod().
 
 ### Complete a Cart
 
+Completes a cart. The following steps will be performed. Payment authorization is attempted and if more work is required, we simply return the cart for further updates. If payment is authorized and order is not yet created, we make sure to do so. The completion of a cart can be performed idempotently with a provided header Idempotency-Key. If not provided, we will generate one for the request.
+
+
 ```go
 resp, err := carts.Complete(cartId, config)
 
@@ -211,6 +215,22 @@ resp, err := carts.Complete(cartId, config)
 
 ```
 
+### Create Payment Sessions
+Creates Payment Sessions for each of the available Payment Providers in the Cart's Region.
+
+```go
+
+	resp, err := carts.CreatePaymentSession(cartId, config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
