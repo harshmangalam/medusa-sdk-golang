@@ -8,8 +8,35 @@ import (
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/common"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
+
+type ListProductData struct {
+	// Array of product
+	Products []*schema.Product `json:"products"`
+
+	// The total number of items available
+	Count uint `json:"count"`
+
+	// The number of items skipped before these items
+	Offset uint `json:"offset"`
+
+	// The number of items per page
+	Limit uint `json:"limit"`
+}
+
+type ListProductResponse struct {
+	// Success response
+	Data *ListProductData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
 
 type ListQuery struct {
 	// Query used for searching products by title, description, variant's title, variant's sku, and collection's title
@@ -58,7 +85,6 @@ type ListQuery struct {
 	Fields string `json:"fields,omitempty" url:"fields,omitempty"`
 }
 
-// create new product query
 func NewListQuery() *ListQuery {
 	p := new(ListQuery)
 	p.Offset = 0
@@ -66,55 +92,45 @@ func NewListQuery() *ListQuery {
 	return p
 }
 
-// set product query
 func (p *ListQuery) SetQ(q string) *ListQuery {
 	p.Q = q
 	return p
 }
 
-// set product ids
 func (p *ListQuery) SetIds(ids []string) *ListQuery {
 	p.Ids = ids
 	return p
 }
 
-// set collection ids
 func (p *ListQuery) SetCollectionIds(collectionIds []string) *ListQuery {
 	p.CollectionIds = collectionIds
 	return p
 }
 
-// set tags
 func (p *ListQuery) SetTags(tags []string) *ListQuery {
 	p.Tags = tags
 	return p
 }
 
-// set title
 func (p *ListQuery) SetTitle(title string) *ListQuery {
 	p.Title = title
 	return p
 }
 
-// set description
 func (p *ListQuery) SetDescription(description string) *ListQuery {
 	p.Description = description
 	return p
 }
 
-// set handle
 func (p *ListQuery) SetHandle(handle string) *ListQuery {
 	p.Handle = handle
 	return p
 }
 
-// set gift card
 func (p *ListQuery) SetIsGiftcard(isGiftcard bool) *ListQuery {
 	p.IsGiftcard = isGiftcard
 	return p
 }
-
-// set type
 
 func (p *ListQuery) SetType(productType string) *ListQuery {
 	p.Type = productType
