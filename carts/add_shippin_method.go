@@ -28,8 +28,8 @@ type ShippingMethodResponse struct {
 }
 
 type ShippingMethod struct {
-	OptionId string `json:"option_id"`
-	Data     string `json:"data"`
+	OptionId string         `json:"option_id"`
+	Data     map[string]any `json:"data"`
 }
 
 func NewShippingMethod() *ShippingMethod {
@@ -41,7 +41,7 @@ func (s *ShippingMethod) SetOptionId(optionId string) *ShippingMethod {
 	return s
 }
 
-func (s *ShippingMethod) SetData(data string) *ShippingMethod {
+func (s *ShippingMethod) SetData(data map[string]any) *ShippingMethod {
 	s.Data = data
 	return s
 }
