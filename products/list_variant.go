@@ -7,8 +7,25 @@ import (
 	"github.com/google/go-querystring/query"
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
+
+type ListVariantData struct {
+	Variants []*schema.ProductVariant `json:"variants"`
+}
+
+type ListVariantResponse struct {
+	// Success response
+	Data *ListVariantData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
 
 type InventoryQuantity struct {
 	Lt  int `json:"lt"`
