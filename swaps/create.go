@@ -62,6 +62,8 @@ func (c *CreateSwap) SetReturnShippingOption(shippingOpions string) *CreateSwap 
 	return c
 }
 
+// Creates a Swap on an Order by providing some items to return along with some items to send back
+
 func (c *CreateSwap) Create(config *medusa.Config) (*CreateSwapResponse, error) {
 	path := "/store/swaps"
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(c).Send(config)
