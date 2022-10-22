@@ -13,6 +13,7 @@ import (
 )
 
 type RetrieveGiftCardData struct {
+	// Gift Cards are redeemable and represent a value that can be used towards the payment of an Order.
 	GiftCard *schema.GiftCard `json:"gift_card"`
 }
 
@@ -27,10 +28,7 @@ type RetrieveGiftCardResponse struct {
 	Errors *response.Errors
 }
 
-type ResponseBody struct {
-	GiftCard *schema.GiftCard `json:"gift_card"`
-}
-
+// Retrieves a Gift Card by its associated unqiue code.
 func Retrieve(code string, config *medusa.Config) (*RetrieveGiftCardResponse, error) {
 	path := fmt.Sprintf("/store/gift-cards/%v", code)
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
