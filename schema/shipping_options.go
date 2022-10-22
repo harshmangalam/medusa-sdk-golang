@@ -1,4 +1,4 @@
-package shippingoptions
+package schema
 
 import "time"
 
@@ -21,8 +21,4 @@ type ShippingOption struct {
 	UpdatedAt    *time.Time     `json:"updated_at,omitempty"`
 	DeletedAt    *time.Time     `json:"deleted_at,omitempty"`
 	Metadata     map[string]any `json:"metadata,omitempty"`
-}
-
-type ResponseBody struct {
-	ShippingOptions []*ShippingOption `json:"shipping_options"`
 }
