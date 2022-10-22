@@ -1,15 +1,32 @@
 package returnreasons
 
 import (
-	"encoding/json"
 	"net/http"
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-func List(config *medusa.Config) ([]*ReturnReason, error) {
+type ListReturnReasonData struct {
+	// Array of regions
+	ReturnReasons []*schema.Region `json:"return_reasons"`
+}
+
+type ListReturnReasonResponse struct {
+	// Success response
+	Data *ListReturnReasonData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
+
+func List(config *medusa.Config) (*ListReturnReasonResponse, error) {
 	path := "/store/return-reasons"
 
 	resp, err := request.
@@ -25,11 +42,5 @@ func List(config *medusa.Config) ([]*ReturnReason, error) {
 	if err != nil {
 		return nil, err
 	}
-	respBody := new(ReturnReasonListResponse)
 
-	if err := json.Unmarshal(body, respBody); err != nil {
-		return nil, err
-	}
-
-	return respBody.ReturnReasons, nil
 }
