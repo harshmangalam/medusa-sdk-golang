@@ -8,11 +8,12 @@ import (
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
 	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
 type RetrieveData struct {
-	Cart *Cart `json:"cart"`
+	Cart *schema.Cart `json:"cart"`
 }
 
 type RetrieveResponse struct {
