@@ -27,10 +27,17 @@ type CreateSwapResponse struct {
 }
 
 type CreateSwap struct {
-	OrderId              string `json:"order_id"`
-	ReturnItems          []any  `json:"return_items"`
-	AdditionalItems      []any  `json:"additional_items"`
-	ReturnShippingOption string `json:"return_shipping_option"`
+	// The ID of the Order to create the Swap for.
+	OrderId string `json:"order_id"`
+
+	// The items to include in the Return.
+	ReturnItems []any `json:"return_items"`
+
+	// The items to exchange the returned items to.
+	AdditionalItems []any `json:"additional_items"`
+
+	// The ID of the Shipping Option to create the Shipping Method from.
+	ReturnShippingOption string `json:"return_shipping_option,omitempty"`
 }
 
 func NewCreateSwap() *CreateSwap {
