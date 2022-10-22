@@ -5,9 +5,9 @@ import (
 	"net/http"
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
-	"github.com/harshmngalam/medusa-sdk-golang/customers"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
 	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
@@ -17,7 +17,7 @@ type AuthSchema struct {
 }
 
 type AuthenticateData struct {
-	Customer *customers.Customer `json:"customer,omitempty"`
+	Customer *schema.Customer `json:"customer,omitempty"`
 }
 
 type AuthenticateResponse struct {
