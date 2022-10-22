@@ -1,6 +1,7 @@
 package products
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -77,7 +78,7 @@ func (l *VariantListQuery) SetInventoryQuantity(invQty any) *VariantListQuery {
 	return l
 }
 
-func (l *VariantListQuery) List(config *medusa.Config) ([]byte, error) {
+func (l *VariantListQuery) List(config *medusa.Config) (*ListVariantResponse, error) {
 	path := "/store/variants"
 
 	qs, err := query.Values(l)
@@ -103,5 +104,41 @@ func (l *VariantListQuery) List(config *medusa.Config) ([]byte, error) {
 		return nil, err
 	}
 
-	return body, nil
+	respBody := new(ListVariantResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(ListVariantData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
+
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
+	}
+
+	return respBody, nil
 }
