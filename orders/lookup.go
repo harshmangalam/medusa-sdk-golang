@@ -8,8 +8,25 @@ import (
 	"github.com/google/go-querystring/query"
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
+
+type LookupOrderData struct {
+	Order *schema.Order `json:"order"`
+}
+
+type LookupOrderResponse struct {
+	// Success response
+	Data *LookupOrderData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
 
 type ShippingAddress struct {
 	PostalCode string `json:"postal_code,omitempty" url:"postal_code,omitempty"`
@@ -39,7 +56,8 @@ func (l *Lookup) SetShippingAddress(addr *ShippingAddress) *Lookup {
 	return l
 }
 
-func (l *Lookup) Apply(cartId string, config *medusa.Config) (*Order, error) {
+// Look up an order using filters.
+func (l *Lookup) Lookup(cartId string, config *medusa.Config) (*LookupOrderResponse, error) {
 	path := "/store/orders"
 	qs, err := query.Values(l)
 	if err != nil {
@@ -57,12 +75,42 @@ func (l *Lookup) Apply(cartId string, config *medusa.Config) (*Order, error) {
 	if err != nil {
 		return nil, err
 	}
+	respBody := new(LookupOrderResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(LookupOrderData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
 
-	respBody := new(ResponseBody)
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
 
-	if err := json.Unmarshal(body, respBody); err != nil {
-		return nil, err
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
 	}
 
-	return respBody.Order, nil
+	return respBody, nil
+
 }
