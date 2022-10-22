@@ -34,10 +34,14 @@ An open source medusa sdk for golang
 - [Installation](#installation)
 - [Configuration](#config)
 - [Auth](#auth)
+
   - [Customer Login](#customer-login)
   - [Customer Log out](#customer-log-out)
   - [Get Current Customer](#get-current-customer)
-  - [Check if email exists](#check-email-exists)
+  - [Check if email exists](#check-if-email-exists)
+
+- [Cart](#cart)
+  - [Add a Shipping Method](#add-a-shipping-method)
 
 ## Getting Started
 
@@ -45,22 +49,22 @@ You can install Medusa by either following our [Quickstart guide](https://docs.m
 
 1. **Install Medusa CLI**
 
-    ```bash
-    npm install -g @medusajs/medusa-cli
-    ```
+   ```bash
+   npm install -g @medusajs/medusa-cli
+   ```
 
 2. **Create a new Medusa project**
 
-    ```bash
-    medusa new my-medusa-store --seed
-    ```
+   ```bash
+   medusa new my-medusa-store --seed
+   ```
 
 3. **Start your Medusa engine**
 
-    ```bash
-    cd my-medusa-store
-    medusa develop
-    ```
+   ```bash
+   cd my-medusa-store
+   medusa develop
+   ```
 
 ## Installation
 
@@ -69,7 +73,6 @@ You can install Medusa by either following our [Quickstart guide](https://docs.m
 ```bash
 go get github.com/harshmangalam/medusa-sdk-golang@latest
 ```
-
 
 ## Configuration
 
@@ -82,9 +85,11 @@ config := medusa.NewConfig().
 ```
 
 ## Auth
+
 Auth endpoints that allow authorization of customers and manages their sessions
 
 ### Customer Login
+
 Logs a Customer in and authorizes them to view their details. Successful authentication will set a session cookie in the Customer's browser.
 
 #### Example
@@ -131,6 +136,7 @@ data, err := auth.DeleteSession(config)
 Gets the currently logged in Customer.
 
 #### Example
+
 ```go
 
 data, err := auth.GetSession(config)
@@ -145,11 +151,12 @@ data, err := auth.GetSession(config)
 ```
 
 ### Check if email exists
+
 Checks if a Customer with the given email has signed up.
 
 #### Example
 
-```go 
+```go
 data, err := auth.Exists("harsh@gmail.com", config)
 	if err != nil {
 		fmt.Println(err)
@@ -158,6 +165,29 @@ data, err := auth.Exists("harsh@gmail.com", config)
 	fmt.Println(data.Data)
 	fmt.Println(data.Error)
 	fmt.Println(data.Errors)
+
+```
+
+## Cart
+
+Cart allow handling carts in Medusa.
+
+### Add a Shipping Method
+
+Adds a Shipping Method to the Cart.
+
+#### Example
+
+```go
+
+resp, err := carts.NewShippingMethod().
+		SetOptionId(optionId).
+		SetData(data).
+		Add(cartId, config)
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
 
 ```
 
