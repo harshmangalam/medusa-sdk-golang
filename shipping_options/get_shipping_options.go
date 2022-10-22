@@ -29,9 +29,14 @@ type ListShippingOptionResponse struct {
 }
 
 type ListCartOptionsQuery struct {
-	IsReturn   bool   `json:"is_return,omitempty" url:"is_return,omitempty"`
+	// Whether return Shipping Options should be included. By default all Shipping Options are returned.
+	IsReturn bool `json:"is_return,omitempty" url:"is_return,omitempty"`
+
+	// A comma separated list of Product ids to filter Shipping Options by.
 	ProductIds string `json:"product_ids,omitempty" url:"product_ids,omitempty"`
-	RegionId   string `json:"region_id,omitempty" url:"region_id,omitempty"`
+
+	// the Region to retrieve Shipping Options from.
+	RegionId string `json:"region_id,omitempty" url:"region_id,omitempty"`
 }
 
 func NewListCartOptionsQuery() *ListCartOptionsQuery {
