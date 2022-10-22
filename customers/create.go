@@ -1,6 +1,7 @@
 package customers
 
 import (
+	"encoding/json"
 	"net/http"
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
@@ -11,7 +12,6 @@ import (
 )
 
 type CreateCustomerData struct {
-	// Array of collection
 	Customer *schema.Customer `json:"customer"`
 }
 
@@ -73,6 +73,42 @@ func (c *CreateCustomer) Create(config *medusa.Config) (*CreateCustomerResponse,
 	body, err := utils.ParseResponseBody(resp)
 	if err != nil {
 		return nil, err
+	}
+
+	respBody := new(CreateCustomerResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(CreateCustomerData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
+
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
 	}
 
 }
