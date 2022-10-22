@@ -14,7 +14,7 @@ import (
 
 type CompleteData struct {
 	// Gift Cards are redeemable and represent a value that can be used towards the payment of an Order.
-	GiftCard *schema.GiftCard `json:"gift_card"`
+	OrderEdit *schema.OrderEdit `json:"order_edit"`
 }
 
 type CompleteResponse struct {
