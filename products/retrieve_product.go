@@ -27,6 +27,7 @@ type RetrieveProductResponse struct {
 	Errors *response.Errors
 }
 
+// Retrieves a Product.
 func Retrieve(id string, config *medusa.Config) (*RetrieveProductResponse, error) {
 	path := fmt.Sprintf("/store/products/%v", id)
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
