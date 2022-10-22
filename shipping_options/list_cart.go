@@ -7,10 +7,27 @@ import (
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-func ListCartOptions(cartId string, config *medusa.Config) ([]*ShippingOption, error) {
+type ListCartData struct {
+	ShippingOptions []*schema.ShippingOption `json:"shipping_options"`
+}
+
+type ListCartResponse struct {
+	// Success response
+	Data *ListCartData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
+
+func ListCartOptions(cartId string, config *medusa.Config) (*ListCartResponse, error) {
 	path := fmt.Sprintf("store/shipping-options/%v", cartId)
 
 	resp, err := request.
@@ -26,10 +43,41 @@ func ListCartOptions(cartId string, config *medusa.Config) ([]*ShippingOption, e
 	if err != nil {
 		return nil, err
 	}
-	respBody := new(ResponseBody)
+	respBody := new(ListCartResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(ListCartData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
 
-	if err := json.Unmarshal(body, respBody); err != nil {
-		return nil, err
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
 	}
-	return respBody.ShippingOptions, nil
+
+	return respBody, nil
 }
