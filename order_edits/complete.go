@@ -7,11 +7,29 @@ import (
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-func Complete(id string, config *medusa.Config) (*OrderEdit, error) {
-	path := fmt.Sprintf("/store/order-edits/%v/complet", id)
+type CompleteData struct {
+	// Gift Cards are redeemable and represent a value that can be used towards the payment of an Order.
+	GiftCard *schema.GiftCard `json:"gift_card"`
+}
+
+type CompleteResponse struct {
+	// Success response
+	Data *CompleteData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
+
+func Complete(id string, config *medusa.Config) (*CompleteResponse, error) {
+	path := fmt.Sprintf("/store/order-edits/%v/complete", id)
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).Send(config)
 	if err != nil {
 		return nil, err
@@ -20,12 +38,41 @@ func Complete(id string, config *medusa.Config) (*OrderEdit, error) {
 	if err != nil {
 		return nil, err
 	}
+	respBody := new(CompleteResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(CompleteData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
 
-	respBody := new(RetrieveOrderEditResponse)
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
 
-	if err := json.Unmarshal(body, respBody); err != nil {
-		return nil, err
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
 	}
 
-	return respBody.OrderEdit, nil
+	return respBody, nil
 }
