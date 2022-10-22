@@ -46,6 +46,7 @@ An open source medusa sdk for golang
   - [Create Payment Sessions](#create-payment-sessions)
   - [Create a Cart](#create-a-cart)
   - [Remove Discount](#remove-discount)
+  - [Delete a Payment Session](#delete-a-payment-session)
 
 ## Getting Started
 
@@ -265,6 +266,23 @@ Removes a Discount from a Cart.
 ```go
 
 resp, err := carts.DeleteDiscount(cartId, code, config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+### Delete a Payment Session
+
+Deletes a Payment Session on a Cart. May be useful if a payment has failed.
+
+
+```go
+	resp, err := carts.DeletePaymentSession(cartId, providerId, config)
 	if err != nil {
 		fmt.Println(err)
 	}
