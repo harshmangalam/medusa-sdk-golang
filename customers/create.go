@@ -5,8 +5,26 @@ import (
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
+
+type CreateCustomerData struct {
+	// Array of collection
+	Customer *schema.Customer `json:"customer"`
+}
+
+type CreateCustomerResponse struct {
+	// Success response
+	Data *CreateCustomerData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
 
 type CreateCustomer struct {
 	FirstName string `json:"first_name"`
@@ -45,7 +63,7 @@ func (c *CreateCustomer) SetPhone(phone string) *CreateCustomer {
 	return c
 }
 
-func (c *CreateCustomer) Create(config *medusa.Config) ([]byte, error) {
+func (c *CreateCustomer) Create(config *medusa.Config) (*CreateCustomerResponse, error) {
 
 	path := "/store/customers"
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(c).Send(config)
@@ -56,5 +74,5 @@ func (c *CreateCustomer) Create(config *medusa.Config) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return body, nil
+
 }
