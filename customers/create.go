@@ -111,4 +111,6 @@ func (c *CreateCustomer) Create(config *medusa.Config) (*CreateCustomerResponse,
 		respBody.Error = respErr
 	}
 
+	return respBody, nil
+
 }
