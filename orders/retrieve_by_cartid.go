@@ -27,6 +27,7 @@ type RetrieveByCartIdResponse struct {
 	Errors *response.Errors
 }
 
+// Retrieves an Order by the id of the Cart that was used to create the Order.
 func RetrieveByCartId(cartId string, config *medusa.Config) (*RetrieveByCartIdResponse, error) {
 	path := fmt.Sprintf("/store/orders/cart/%v", cartId)
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
