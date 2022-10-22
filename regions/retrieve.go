@@ -27,6 +27,7 @@ type RetrieveRegionResponse struct {
 	Errors *response.Errors
 }
 
+// Retrieves a Region.
 func Retrieve(regionId string, config *medusa.Config) (*RetrieveRegionResponse, error) {
 	path := fmt.Sprintf("/store/regions/%v", regionId)
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
