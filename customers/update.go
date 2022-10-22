@@ -27,13 +27,26 @@ type UpdateCustomerResponse struct {
 }
 
 type UpdateCustomer struct {
-	Email          string         `json:"email,omitempty"`
-	FirstName      string         `json:"first_name,omitempty"`
-	LastName       string         `json:"last_name,omitempty"`
-	BillingAddress any            `json:"billing_address,omitempty"`
-	Phone          string         `json:"phone,omitempty"`
-	Password       string         `json:"password,omitempty"`
-	Metadata       map[string]any `json:"metadata,omitempty"`
+	// The email of the customer.
+	Email string `json:"email,omitempty"`
+
+	// The email of the customer.
+	FirstName string `json:"first_name,omitempty"`
+
+	// The Customer's last name.
+	LastName string `json:"last_name,omitempty"`
+
+	// The Address to be used for billing purposes.
+	BillingAddress any `json:"billing_address,omitempty"`
+
+	// The Customer's phone number.
+	Phone string `json:"phone,omitempty"`
+
+	// The Customer's password.
+	Password string `json:"password,omitempty"`
+
+	// Metadata about the customer.
+	Metadata map[string]any `json:"metadata,omitempty"`
 }
 
 func NewUpdateCustomer() *UpdateCustomer {
@@ -73,6 +86,8 @@ func (u *UpdateCustomer) SetMetadata(metaData map[string]any) *UpdateCustomer {
 	u.Metadata = metaData
 	return u
 }
+
+// Updates a Customer's saved details.
 
 func (u *UpdateCustomer) Update(config *medusa.Config) (*UpdateCustomerResponse, error) {
 	path := "/store/customers/me"
