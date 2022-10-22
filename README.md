@@ -35,6 +35,7 @@ An open source medusa sdk for golang
 - [Configuration](#config)
 - [Auth](#auth)
   - [Customer Login](#customer-login)
+  - [Customer Log out](#customer-log-out)
 
 ## Getting Started
 
@@ -101,6 +102,25 @@ resp, err := auth.NewAuth().
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
 
+
+```
+
+### Customer Log out
+
+Destroys a Customer's authenticated session.
+
+#### Example
+
+```go
+
+data, err := auth.DeleteSession(config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(data.Data)
+	fmt.Println(data.Error)
+	fmt.Println(data.Errors)
 
 ```
 
