@@ -5,7 +5,6 @@ import (
 
 	"github.com/harshmngalam/medusa-sdk-golang/address"
 	"github.com/harshmngalam/medusa-sdk-golang/customers"
-	giftcards "github.com/harshmngalam/medusa-sdk-golang/gift_cards"
 )
 
 type CartTypeEnum string
@@ -50,7 +49,7 @@ type Cart struct {
 	Discounts []any `json:"discounts"`
 
 	// Available if the relation gift_cards is expanded
-	GiftCards []*giftcards.GiftCard `json:"gift_cards"`
+	GiftCards []*GiftCard `json:"gift_cards"`
 
 	// The customer's ID
 	CustomerId string `json:"customer_id"`
