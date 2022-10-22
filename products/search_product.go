@@ -7,8 +7,24 @@ import (
 	"github.com/google/go-querystring/query"
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
+
+type SearchProductData struct {
+	Hits []any `json:"hits"`
+}
+
+type SearchProductResponse struct {
+	// Success response
+	Data *SearchProductData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
 
 type SearchQuery struct {
 	Q      string `json:"q,omitempty" url:"q,omitempty"`
