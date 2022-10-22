@@ -1,6 +1,7 @@
 package regions
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -11,13 +12,13 @@ import (
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-type RetrieveRegiondata struct {
+type RetrieveRegionData struct {
 	Region []*schema.Region `json:"region"`
 }
 
 type RetrieveRegionResponse struct {
 	// Success response
-	Data *RetrieveRegiondata
+	Data *RetrieveRegionData
 
 	// Error response
 	Error *response.Error
@@ -37,4 +38,41 @@ func Retrieve(regionId string, config *medusa.Config) (*RetrieveRegionResponse, 
 		return nil, err
 	}
 
+	respBody := new(RetrieveRegionResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(RetrieveRegionData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
+
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
+	}
+
+	return respBody, nil
 }
