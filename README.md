@@ -51,6 +51,7 @@ An open source medusa sdk for golang
   - [Get a Cart](#get-a-cart)
   - [Select a Payment Session](#select-a-payment-session)
   - [Update a Payment Session](#update-a-payment-session)
+  - [Update a Cart](#update-a-cart)
 
 ## Getting Started
 
@@ -360,6 +361,34 @@ Updates a Payment Session with additional data.
 resp, err := carts.NewUpdatePaymentSession().
 		SetData(data).
 		Update(cartId, providerId, confi)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+### Update a Cart
+
+Updates a Cart.
+
+```go
+resp, err := carts.NewUpdateCart().
+		SetBillingAddress(billingAddress).
+		SetContext(context).
+		SetCountryCode(countryCode).
+		SetCustomerId(customerId).
+		SetDiscounts(discount).
+		SetEmail(email).
+		SetGiftCards(giftCards).
+		SetRegionId(regionId).
+		SetSalesChannelId(salesChannelId).
+		SetShippingAddress(shippingAddress).
+		Update(cartId, config)
 
 	if err != nil {
 		fmt.Println(err)
