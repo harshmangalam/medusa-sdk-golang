@@ -37,25 +37,41 @@ func Retrieve(id string, config *medusa.Config) (*RetrieveOrderResponse, error) 
 	if err != nil {
 		return nil, err
 	}
+	respBody := new(RetrieveOrderResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(RetrieveOrderData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
 
-}
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
 
-func RetrieveByCartId(cartId string, config *medusa.Config) (*Order, error) {
-	path := fmt.Sprintf("/store/orders/cart/%v", cartId)
-	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
-	if err != nil {
-		return nil, err
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
 	}
-	body, err := utils.ParseResponseBody(resp)
-	if err != nil {
-		return nil, err
-	}
 
-	respBody := new(ResponseBody)
-
-	if err := json.Unmarshal(body, respBody); err != nil {
-		return nil, err
-	}
-
-	return respBody.Order, nil
+	return respBody, nil
 }
