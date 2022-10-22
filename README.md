@@ -48,6 +48,7 @@ An open source medusa sdk for golang
   - [Remove Discount](#remove-discount)
   - [Delete a Payment Session](#delete-a-payment-session)
   - [Refresh a Payment Session](#refresh-a-payment-session)
+  - [Get a Cart](#get-a-cart)
 
 ## Getting Started
 
@@ -302,6 +303,22 @@ Refreshes a Payment Session to ensure that it is in sync with the Cart - this is
 ```go
 
 	resp, err := carts.RefreshPaymentSession(cartId, providerId, config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+### Get a Cart
+
+Retrieves a Cart.
+
+```go
+resp, err := carts.Retrieve(cartId, config)
 	if err != nil {
 		fmt.Println(err)
 	}
