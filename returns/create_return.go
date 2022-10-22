@@ -5,8 +5,25 @@ import (
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
+
+type CreateReturnData struct {
+	Return []*schema.Return `json:"return"`
+}
+
+type CreateReturnResponse struct {
+	// Success response
+	Data *CreateReturnData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
 
 type CreateReturn struct {
 	OrderId        string `json:"order_id"`
@@ -33,7 +50,7 @@ func (c *CreateReturn) SetReturnShipping(shipping any) *CreateReturn {
 	return c
 }
 
-func (c *CreateReturn) Create(config *medusa.Config) (*Return, error) {
+func (c *CreateReturn) Create(config *medusa.Config) (*CreateReturnResponse, error) {
 	path := "/store/returns"
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(c).Send(config)
 	if err != nil {
