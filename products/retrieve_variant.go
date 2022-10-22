@@ -13,6 +13,7 @@ import (
 )
 
 type RetrieveVariantData struct {
+	// Product Variants Prices Fields that are only available in some requests.
 	Variant []*schema.ProductVariant `json:"variant"`
 }
 
@@ -27,6 +28,7 @@ type RetrieveVariantResponse struct {
 	Errors *response.Errors
 }
 
+// Retrieves a Product Variant by id
 func RetrieveVariant(variantId string, config *medusa.Config) (*RetrieveVariantResponse, error) {
 	path := fmt.Sprintf("/store/variants/%v", variantId)
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
