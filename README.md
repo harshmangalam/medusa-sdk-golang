@@ -50,6 +50,7 @@ An open source medusa sdk for golang
   - [Refresh a Payment Session](#refresh-a-payment-session)
   - [Get a Cart](#get-a-cart)
   - [Select a Payment Session](#select-a-payment-session)
+  - [Update a Payment Session](#update-a-payment-session)
 
 ## Getting Started
 
@@ -340,6 +341,25 @@ Selects a Payment Session as the session intended to be used towards the complet
 resp, err := carts.NewSelectPaymentSession().
 		SetProviderId(providerId).
 		Select(crtId, config)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+### Update a Payment Session
+
+Updates a Payment Session with additional data.
+
+```go
+resp, err := carts.NewUpdatePaymentSession().
+		SetData(data).
+		Update(cartId, providerId, confi)
 
 	if err != nil {
 		fmt.Println(err)
