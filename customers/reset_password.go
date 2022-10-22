@@ -27,9 +27,14 @@ type ResetPasswordResponse struct {
 }
 
 type ResetPassword struct {
-	Email    string `json:"email"`
+	// The email of the customer.
+	Email string `json:"email"`
+
+	// The Customer's password.
 	Password string `json:"password"`
-	Token    string `json:"token"`
+
+	// The reset password token
+	Token string `json:"token"`
 }
 
 func NewResetPassword() *ResetPassword {
@@ -51,6 +56,7 @@ func (r *ResetPassword) SetToken(token string) *ResetPassword {
 	return r
 }
 
+// Resets a Customer's password using a password token created by a previous /password-token request.
 func (r *ResetPassword) Reset(config *medusa.Config) (*ResetPasswordResponse, error) {
 	path := "/store/customers/password-reset"
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(r).Send(config)
