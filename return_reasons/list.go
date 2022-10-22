@@ -27,6 +27,7 @@ type ListReturnReasonResponse struct {
 	Errors *response.Errors
 }
 
+// Retrieves a list of Return Reasons.
 func List(config *medusa.Config) (*ListReturnReasonResponse, error) {
 	path := "/store/return-reasons"
 
