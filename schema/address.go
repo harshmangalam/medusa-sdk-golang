@@ -1,4 +1,4 @@
-package address
+package schema
 
 import "time"
 

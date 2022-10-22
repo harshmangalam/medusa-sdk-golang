@@ -3,7 +3,6 @@ package schema
 import (
 	"time"
 
-	"github.com/harshmngalam/medusa-sdk-golang/address"
 	"github.com/harshmngalam/medusa-sdk-golang/customers"
 )
 
@@ -28,13 +27,13 @@ type Cart struct {
 	BillingddressId string `json:"billing_address_id"`
 
 	// An address.
-	BillingAddress *address.Address `json:"billing_address"`
+	BillingAddress *Address `json:"billing_address"`
 
 	// The shipping address's ID
 	ShippingAddressId string `json:"shipping_address_id"`
 
 	// An address.
-	ShippingAddress *address.Address `json:"shipping_address"`
+	ShippingAddress *Address `json:"shipping_address"`
 
 	// Available if the relation items is expanded.
 	Items []any `json:"items"`
