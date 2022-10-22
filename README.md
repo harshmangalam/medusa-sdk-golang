@@ -49,6 +49,7 @@ An open source medusa sdk for golang
   - [Delete a Payment Session](#delete-a-payment-session)
   - [Refresh a Payment Session](#refresh-a-payment-session)
   - [Get a Cart](#get-a-cart)
+  - [Select a Payment Session](#select-a-payment-session)
 
 ## Getting Started
 
@@ -319,6 +320,27 @@ Retrieves a Cart.
 
 ```go
 resp, err := carts.Retrieve(cartId, config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+
+### Select a Payment Session
+
+Selects a Payment Session as the session intended to be used towards the completion of the Cart.
+
+
+``` go
+resp, err := carts.NewSelectPaymentSession().
+		SetProviderId(providerId).
+		Select(crtId, config)
+
 	if err != nil {
 		fmt.Println(err)
 	}
