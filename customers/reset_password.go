@@ -6,8 +6,25 @@ import (
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
+
+type ResetPasswordData struct {
+	Customer *schema.Customer `json:"customer"`
+}
+
+type ResetPasswordResponse struct {
+	// Success response
+	Data *ResetPasswordData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
 
 type ResetPassword struct {
 	Email    string `json:"email"`
@@ -34,7 +51,7 @@ func (r *ResetPassword) SetToken(token string) *ResetPassword {
 	return r
 }
 
-func (r *ResetPassword) Reset(config *medusa.Config) (*Customer, error) {
+func (r *ResetPassword) Reset(config *medusa.Config) (*ResetPasswordResponse, error) {
 	path := "/store/customers/password-reset"
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(r).Send(config)
 	if err != nil {
