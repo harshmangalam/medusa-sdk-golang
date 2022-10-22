@@ -7,10 +7,11 @@ import (
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-func RetrieveVariant(variantId string, config *medusa.Config) (*ProductVariant, error) {
+func RetrieveVariant(variantId string, config *medusa.Config) (*schema.ProductVariant, error) {
 	path := fmt.Sprintf("/store/variants/%v", variantId)
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
 	if err != nil {
@@ -21,7 +22,7 @@ func RetrieveVariant(variantId string, config *medusa.Config) (*ProductVariant, 
 		return nil, err
 	}
 
-	respBody := new(VariantResponseBody)
+	respBody := new(schema.VariantResponseBody)
 
 	if err := json.Unmarshal(body, respBody); err != nil {
 		return nil, err
