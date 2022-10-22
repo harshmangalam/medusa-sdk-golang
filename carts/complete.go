@@ -40,8 +40,8 @@ type CompleteResponse struct {
 
 // Completes a cart. The following steps will be performed. Payment authorization is attempted and if more work is required, we simply return the cart for further updates. If payment is authorized and order is not yet created, we make sure to do so. The completion of a cart can be performed idempotently with a provided header Idempotency-Key. If not provided, we will generate one for the request.
 
-func Complete(cart_id string, config *medusa.Config) (*CompleteResponse, error) {
-	path := fmt.Sprintf("/store/carts/%v/complete", cart_id)
+func Complete(cartId string, config *medusa.Config) (*CompleteResponse, error) {
+	path := fmt.Sprintf("/store/carts/%v/complete", cartId)
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).Send(config)
 	if err != nil {
 		return nil, err
