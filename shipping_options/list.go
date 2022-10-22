@@ -53,6 +53,8 @@ func (l *ListCartOptionsQuery) SetRegionId(regionId string) *ListCartOptionsQuer
 	return l
 }
 
+//Retrieves a list of Shipping Options.
+
 func (l *ListCartOptionsQuery) List(config *medusa.Config) (*ListShippingOptionResponse, error) {
 	path := "/store/shipping-options"
 
