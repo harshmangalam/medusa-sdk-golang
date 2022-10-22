@@ -8,11 +8,28 @@ import (
 	"github.com/google/go-querystring/query"
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
+type ListShippingOptionData struct {
+	ShippingOptions []*schema.ShippingOption `json:"shipping_options"`
+}
+
+type ListShippingOptionResponse struct {
+	// Success response
+	Data *ListShippingOptionData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
+
 type ListCartOptionsQuery struct {
-	Isreturn   bool   `json:"is_return,omitempty" url:"is_return,omitempty"`
+	IsReturn   bool   `json:"is_return,omitempty" url:"is_return,omitempty"`
 	ProductIds string `json:"product_ids,omitempty" url:"product_ids,omitempty"`
 	RegionId   string `json:"region_id,omitempty" url:"region_id,omitempty"`
 }
@@ -22,7 +39,7 @@ func NewListCartOptionsQuery() *ListCartOptionsQuery {
 }
 
 func (l *ListCartOptionsQuery) SetIsreturn(isReturn bool) *ListCartOptionsQuery {
-	l.Isreturn = isReturn
+	l.IsReturn = isReturn
 	return l
 }
 
@@ -36,7 +53,7 @@ func (l *ListCartOptionsQuery) SetRegionId(regionId string) *ListCartOptionsQuer
 	return l
 }
 
-func (l *ListCartOptionsQuery) List(config *medusa.Config) ([]*ShippingOption, error) {
+func (l *ListCartOptionsQuery) List(config *medusa.Config) (*ListShippingOptionResponse, error) {
 	path := "/store/shipping-options"
 
 	qs, err := query.Values(l)
@@ -62,11 +79,41 @@ func (l *ListCartOptionsQuery) List(config *medusa.Config) ([]*ShippingOption, e
 		return nil, err
 	}
 
-	respBody := new(ResponseBody)
+	respBody := new(ListShippingOptionResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(ListShippingOptionData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
 
-	if err := json.Unmarshal(body, respBody); err != nil {
-		return nil, err
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
 	}
 
-	return respBody.ShippingOptions, nil
+	return respBody, nil
 }
