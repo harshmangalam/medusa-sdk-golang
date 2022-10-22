@@ -13,6 +13,7 @@ import (
 )
 
 type SearchProductData struct {
+	// Array of results. The format of the items depends on the search engine installed on the server.
 	Hits []any `json:"hits"`
 }
 
@@ -28,9 +29,14 @@ type SearchProductResponse struct {
 }
 
 type SearchQuery struct {
-	Q      string `json:"q,omitempty" url:"q,omitempty"`
-	Offset int    `json:"offset,omitempty" url:"offset,omitempty"`
-	Limit  int    `json:"limit,omitempty" url:"limit,omitempty"`
+	// The query to run the search with.
+	Q string `json:"q,omitempty" url:"q,omitempty"`
+
+	// How many products to skip in the result.
+	Offset int `json:"offset,omitempty" url:"offset,omitempty"`
+
+	// Limit the number of products returned.
+	Limit int `json:"limit,omitempty" url:"limit,omitempty"`
 }
 
 func NewSearchQuery() *SearchQuery {
@@ -52,6 +58,7 @@ func (s *SearchQuery) SetLimit(limit int) *SearchQuery {
 	return s
 }
 
+// Run a search query on products using the search engine installed on Medusa
 func (s *SearchQuery) Search(config *medusa.Config) (*SearchProductResponse, error) {
 	path := "/store/products/search"
 
