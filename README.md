@@ -42,6 +42,7 @@ An open source medusa sdk for golang
 
 - [Cart](#cart)
   - [Add a Shipping Method](#add-a-shipping-method)
+  - [Complete a Cart](#complete-a-cart)
 
 ## Getting Started
 
@@ -184,6 +185,25 @@ resp, err := carts.NewShippingMethod().
 		SetOptionId(optionId).
 		SetData(data).
 		Add(cartId, config)
+
+  if err != nil {
+		fmt.Println(err)
+	}
+  
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+### Complete a Cart
+
+```go
+resp, err := carts.Complete(cartId, config)
+
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
