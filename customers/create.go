@@ -27,11 +27,20 @@ type CreateCustomerResponse struct {
 }
 
 type CreateCustomer struct {
+	// The Customer's first name.
 	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
-	Password  string `json:"password"`
-	Phone     string `json:"phone,omitempty"`
+
+	// The Customer's last name.
+	LastName string `json:"last_name"`
+
+	// The email of the customer.
+	Email string `json:"email"`
+
+	// The Customer's password.
+	Password string `json:"password"`
+
+	// The Customer's phone number.
+	Phone string `json:"phone,omitempty"`
 }
 
 func NewCreateCustomer() *CreateCustomer {
@@ -63,6 +72,7 @@ func (c *CreateCustomer) SetPhone(phone string) *CreateCustomer {
 	return c
 }
 
+// Creates a Customer account.
 func (c *CreateCustomer) Create(config *medusa.Config) (*CreateCustomerResponse, error) {
 
 	path := "/store/customers"
