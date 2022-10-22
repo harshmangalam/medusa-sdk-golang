@@ -1,16 +1,32 @@
 package returnreasons
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
 	medusa "github.com/harshmngalam/medusa-sdk-golang"
 	"github.com/harshmngalam/medusa-sdk-golang/request"
+	"github.com/harshmngalam/medusa-sdk-golang/response"
+	"github.com/harshmngalam/medusa-sdk-golang/schema"
 	"github.com/harshmngalam/medusa-sdk-golang/utils"
 )
 
-func Retrieve(id string, config *medusa.Config) (*ReturnReason, error) {
+type RetrieveReturnReasonData struct {
+	ReturnReason []*schema.ReturnReason `json:"return_reason"`
+}
+
+type RetrieveReturnReasonResponse struct {
+	// Success response
+	Data *RetrieveReturnReasonData
+
+	// Error response
+	Error *response.Error
+
+	// Errors in case of multiple errors
+	Errors *response.Errors
+}
+
+func Retrieve(id string, config *medusa.Config) (*RetrieveReturnReasonResponse, error) {
 	path := fmt.Sprintf("/store/return-reasons/%v", id)
 	resp, err := request.NewRequest().SetMethod(http.MethodGet).SetPath(path).Send(config)
 	if err != nil {
@@ -21,11 +37,4 @@ func Retrieve(id string, config *medusa.Config) (*ReturnReason, error) {
 		return nil, err
 	}
 
-	respBody := new(ReturnReasonRetrieveResponse)
-
-	if err := json.Unmarshal(body, respBody); err != nil {
-		return nil, err
-	}
-
-	return respBody.ReturnReason, nil
 }
