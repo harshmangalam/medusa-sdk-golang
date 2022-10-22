@@ -1,6 +1,7 @@
 package customers
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -149,7 +150,7 @@ func (l *ListOrderQuery) SetCancledAt(canceledAt *common.DateComparison) *ListOr
 	return l
 }
 
-func (l *ListOrderQuery) Apply(config *medusa.Config) ([]byte, error) {
+func (l *ListOrderQuery) Apply(config *medusa.Config) (*ListOrderResponse, error) {
 	path := "/store/customers/me/orders"
 
 	qs, err := query.Values(l)
@@ -173,5 +174,42 @@ func (l *ListOrderQuery) Apply(config *medusa.Config) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return body, nil
+
+	respBody := new(ListOrderResponse)
+	switch resp.StatusCode {
+	case http.StatusOK:
+		respData := new(ListOrderData)
+		if err := json.Unmarshal(body, respData); err != nil {
+			return nil, err
+		}
+		respBody.Data = respData
+
+	case http.StatusUnauthorized:
+		respErr := utils.UnauthorizeError()
+		respBody.Error = respErr
+
+	case http.StatusBadRequest:
+		respErrors, err := utils.ParseErrors(body)
+		if err != nil {
+			return nil, err
+		}
+		if len(respErrors.Errors) == 0 {
+			respError, err := utils.ParseError(body)
+			if err != nil {
+				return nil, err
+			}
+			respBody.Error = respError
+		} else {
+			respBody.Errors = respErrors
+		}
+
+	default:
+		respErr, err := utils.ParseError(body)
+		if err != nil {
+			return nil, err
+		}
+		respBody.Error = respErr
+	}
+
+	return respBody, nil
 }
