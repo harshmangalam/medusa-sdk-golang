@@ -85,11 +85,16 @@ An open source medusa sdk for golang
   - [Retrieve an OrderEdit](#retrieve-an-orderedit)
 
 - [Product](#product)
+
   - [Get a Product](#get-a-product)
   - [List Products](#list-products)
   - [Search Products](#search-products)
   - [Get a Product Variant](#get-a-product-variant)
   - [Get Product Variants](#get-product-variants)
+
+- [Region](#region)
+
+	- [Get a Region](#get-a-region)
 
 ## Getting Started
 
@@ -816,17 +821,25 @@ Run a search query on products using the search engine installed on Medusa
 		SetQ(q).
 		Search(config)
 
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
 ```
 
-
 ### Get a Product Variant
+
 Retrieves a Product Variant by id
 
 ```go
 resp, err := products.RetrieveVariant(variantId,config)
+
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
@@ -835,6 +848,7 @@ resp, err := products.RetrieveVariant(variantId,config)
 ```
 
 ### Retrieves a list of Product Variants
+
 Get Product Variants
 
 ```go
@@ -847,11 +861,33 @@ resp, err := products.NewListProuductVariant().
 		SetTitle(title).
 		List(config)
 
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
 
 ```
+
+## Region
+
+### Get a Region
+
+```go
+	resp, err := regions.Retrieve(regionId,config)
+	
+	if err != nil {
+		fmt.Println(err)
+	}
+	
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
