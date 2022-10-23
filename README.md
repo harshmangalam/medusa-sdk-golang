@@ -65,6 +65,7 @@ An open source medusa sdk for golang
   - [Request Password Reset](#request-password-reset)
   - [Reset Password](#reset-password)
   - [Get a Customer](#get-a-customer)
+  - [Update Customer](#update-customer)
 
 ## Getting Started
 
@@ -582,6 +583,32 @@ resp, err := customers.Retrieve(config)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
 
+```
+
+### Update Customer
+Updates a Customer's saved details.
+
+```go
+
+	resp, err := customers.
+		NewUpdateCustomer().
+		SetFirstName(firstname).
+		SetLastName(lastname).
+		SetBillingAddress(address).
+		SetMetadata(metaData).
+		SetPassword(password).
+		SetPhone(phone).
+		SetEmail(email).
+		Update(config)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+	
 ```
 ## License
 
