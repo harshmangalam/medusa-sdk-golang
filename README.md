@@ -111,6 +111,10 @@ An open source medusa sdk for golang
 	- [Get Shipping Options](#get-shipping-options)
 	- [List for Cart](#list-for-cart)
 
+- [Swap](#swap)
+
+	- [Create a Swap](#create-a-swap)
+
 
 ## Getting Started
 
@@ -1004,6 +1008,29 @@ resp,err := returns.NewCreateRetun().
 ```go
 
 	resp, err := shippingoptions.ListCartOptions(cartId,config)
+		
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+## Swap
+
+### Create a Swap
+
+```go
+
+	resp, err := swaps.NewCreateSwap().
+		SetAdditionalItems(additionalItems).
+		SetOrderId(orderId).
+		SetReturnItems(returnItems).
+		SetReturnShippingOption(returnShippingOptions).
+		Create(config)
 		
 	if err != nil {
 		fmt.Println(err)
