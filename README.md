@@ -11,7 +11,7 @@
 </h1>
 
 <h4 align="center">
-  <a href="#">Documentation</a> |
+  <a href="https://pkg.go.dev/github.com/harshmangalam/medusa-sdk-golang@v0.0.0-20221023101217-804ec82d21a9">Documentation</a> |
   <a href="https://www.medusajs.com">Website</a>
 </h4>
 
