@@ -29,15 +29,16 @@ An open source medusa sdk for golang
 </p>
 
 ## Author
+
 - Harsh Mangalam
 
-
 ## Resources
-- [Medusa’s GitHub repository](https://github.com/medusajs/medusa
-)
+
+- [Medusa’s GitHub repository](https://github.com/medusajs/medusa)
 - [How to Create Services](https://docs.medusajs.com/advanced/backend/services/create-service)
 
-- [Medusa SDK Golang docs](https://pkg.go.dev/github.com/harshmangalam/medusa-sdk-golang@v0.0)
+- [Medusa Store API](https://docs.medusajs.com/api/store/)
+- [Medusa SDK Golang docs](https://pkg.go.dev/github.com/harshmangalam/medusa-sdk-golang@v0.0.0-20221023101217-804ec82d21a9)
 
 ## Contents <!-- omit in toc -->
 
@@ -119,15 +120,13 @@ An open source medusa sdk for golang
 
 - [Shipping Option](#shipping-options)
 
-	- [Get Shipping Options](#get-shipping-options)
-	- [List for Cart](#list-for-cart)
+  - [Get Shipping Options](#get-shipping-options)
+  - [List for Cart](#list-for-cart)
 
 - [Swap](#swap)
 
-	- [Create a Swap](#create-a-swap)
-	- [Get by Cart ID](#get-by-cart-id)
-
-
+  - [Create a Swap](#create-a-swap)
+  - [Get by Cart ID](#get-by-cart-id)
 
 ## Getting Started
 
@@ -997,7 +996,6 @@ resp,err := returns.NewCreateRetun().
 
 ### Get Shipping Options
 
-
 ```go
 
 	resp, err := shippingoptions.NewListShippingOption().
@@ -1005,7 +1003,7 @@ resp,err := returns.NewCreateRetun().
 		SetProductIds(productIds).
 		SetRegionId(regionId).
 		List(config)
-		
+
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1021,7 +1019,7 @@ resp,err := returns.NewCreateRetun().
 ```go
 
 	resp, err := shippingoptions.ListCartOptions(cartId,config)
-		
+
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1044,7 +1042,7 @@ resp,err := returns.NewCreateRetun().
 		SetReturnItems(returnItems).
 		SetReturnShippingOption(returnShippingOptions).
 		Create(config)
-		
+
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1060,7 +1058,7 @@ resp,err := returns.NewCreateRetun().
 ```go
 
 	resp, err := swaps.RetrieveByCartId(cartId,config)
-		
+
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -1070,6 +1068,7 @@ resp,err := returns.NewCreateRetun().
 	fmt.Println(resp.Errors)
 
 ```
+
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
