@@ -85,6 +85,7 @@ An open source medusa sdk for golang
 - [Product](#product)
 	- [Get a Product](#get-a-product)
 	- [List Products](#list-products)
+	- [Search Products](#search-products)
 
 ## Getting Started
 
@@ -797,9 +798,23 @@ resp, err := products.NewListProduct().
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
-	
+
 ```
 
+### Search Products
+Run a search query on products using the search engine installed on Medusa
+
+```go
+	resp, err := products.NewSearchProduct().
+		SetLimit(limit).
+		SetOffset(offset).
+		SetQ(q).
+		Search(config)
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+```
 
 
 ## License

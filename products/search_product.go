@@ -28,7 +28,7 @@ type SearchProductResponse struct {
 	Errors *response.Errors
 }
 
-type SearchQuery struct {
+type SearchProduct struct {
 	// The query to run the search with.
 	Q string `json:"q,omitempty" url:"q,omitempty"`
 
@@ -39,27 +39,27 @@ type SearchQuery struct {
 	Limit int `json:"limit,omitempty" url:"limit,omitempty"`
 }
 
-func NewSearchQuery() *SearchQuery {
-	return new(SearchQuery)
+func NewSearchProduct() *SearchProduct {
+	return new(SearchProduct)
 }
 
-func (s *SearchQuery) SetQ(q string) *SearchQuery {
+func (s *SearchProduct) SetQ(q string) *SearchProduct {
 	s.Q = q
 	return s
 }
 
-func (s *SearchQuery) SetOffset(offset int) *SearchQuery {
+func (s *SearchProduct) SetOffset(offset int) *SearchProduct {
 	s.Offset = offset
 	return s
 }
 
-func (s *SearchQuery) SetLimit(limit int) *SearchQuery {
+func (s *SearchProduct) SetLimit(limit int) *SearchProduct {
 	s.Limit = limit
 	return s
 }
 
 // Run a search query on products using the search engine installed on Medusa
-func (s *SearchQuery) Search(config *medusa.Config) (*SearchProductResponse, error) {
+func (s *SearchProduct) Search(config *medusa.Config) (*SearchProductResponse, error) {
 	path := "/store/products/search"
 
 	qs, err := query.Values(s)
