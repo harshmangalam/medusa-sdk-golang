@@ -114,6 +114,7 @@ An open source medusa sdk for golang
 - [Swap](#swap)
 
 	- [Create a Swap](#create-a-swap)
+	- [Get by Cart ID](#get-by-cart-id)
 
 
 ## Getting Started
@@ -1031,6 +1032,22 @@ resp,err := returns.NewCreateRetun().
 		SetReturnItems(returnItems).
 		SetReturnShippingOption(returnShippingOptions).
 		Create(config)
+		
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+### Get by Cart ID
+
+```go
+
+	resp, err := swaps.RetrieveByCartId(cartId,config)
 		
 	if err != nil {
 		fmt.Println(err)
