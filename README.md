@@ -77,6 +77,9 @@ An open source medusa sdk for golang
   - [Look Up an Order](#look-up-an-order)
   - [Get an Order](#get-an-order)
 
+- [OrderEdit](#order-edit)
+	- [Completes an OrderEdit](#completes-an-order-edit)
+
 ## Getting Started
 
 You can install Medusa by either following our [Quickstart guide](https://docs.medusajs.com/quickstart/quick-start) or the following steps:
@@ -687,6 +690,22 @@ Retrieves an Order
 
 ```
 
+## OrderEdit
+
+### Completes an OrderEdit
+Completes an OrderEdit.
+
+```go
+	resp, err := orderedits.Complete(id, config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
