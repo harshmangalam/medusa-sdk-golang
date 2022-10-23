@@ -62,6 +62,7 @@ An open source medusa sdk for golang
 - [Customer](#customer)
   - [Create a Customer](#create-a-customer)
   - [List Orders](#list-orders)
+  - [Request Password Reset](#request-password-reset)
 
 ## Getting Started
 
@@ -486,6 +487,7 @@ resp, err := customers.
 ```
 
 ### List Orders
+
 Retrieves a list of a Customer's Orders.
 
 ```go
@@ -519,6 +521,28 @@ Retrieves a list of a Customer's Orders.
 	fmt.Println(resp.Errors)
 
 ```
+
+### Request Password Reset
+
+Creates a reset password token to be used in a subsequent /reset-password request. The password token should be sent out of band e.g. via email and will not be returned.
+
+```go
+
+resp, err := customers.NewRequestPasswordReset().
+		SetEmail(email).
+		RequestReset(config)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+
+```
+
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
