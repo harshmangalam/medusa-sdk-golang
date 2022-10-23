@@ -61,6 +61,7 @@ An open source medusa sdk for golang
 
 - [Customer](#customer)
   - [Create a Customer](#create-a-customer)
+  - [List Orders](#list-orders)
 
 ## Getting Started
 
@@ -467,7 +468,7 @@ Customer endpoints that allow handling customers in Medusa.
 Creates a Customer account.
 
 ```go
-res, err := customers.
+resp, err := customers.
 		NewCreateCustomer().
 		SetFirstName(firstname).
 		SetLastName(lastname).
@@ -479,11 +480,45 @@ res, err := customers.
 		fmt.Println(err)
 	}
 
-	fmt.Println(res.Data)
-	fmt.Println(res.Error)
-	fmt.Println(res.Errors)
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
 ```
 
+### List Orders
+Retrieves a list of a Customer's Orders.
+
+```go
+
+	resp, err := customers.NewListOrderQuery().
+		SetCancledAt(dateComparison).
+		SetCartId(cartId).
+		SetCreatedAt(dateComparison).
+		SetCurrencyCode(currencyCode).
+		SetEmail(email).
+		SetExpand(expand).
+		SetFields(fields).
+		SetFulfillmentStatus(fulfillmentStatus).
+		SetId(id).
+		SetLimit(limit).
+		SetOffset(offset).
+		SetPaymentStatus(paymentStatus).
+		SetQ(q).
+		SetRegionId(regionId).
+		SetStatus(status).
+		SetTaxRate(taxRate).
+		SetUpdatedAt(dateComparison).
+		List(config)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
