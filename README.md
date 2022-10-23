@@ -95,6 +95,7 @@ An open source medusa sdk for golang
 - [Region](#region)
 
 	- [Get a Region](#get-a-region)
+	- [List Regions](#list-regions)
 
 ## Getting Started
 
@@ -888,6 +889,27 @@ resp, err := products.NewListProuductVariant().
 
 ```
 
+
+### List Regions
+
+
+```go
+	resp, err := regions.NewListRegion().
+		SetCreatedAt(createdAt).
+		SetLimit(limit).
+		SetOffset(offset).
+		SetUpdatedAt(updatedAt).
+		List(config)
+	
+	if err != nil {
+		fmt.Println(err)
+	}
+	
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)

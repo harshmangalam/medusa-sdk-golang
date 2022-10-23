@@ -30,7 +30,7 @@ type ListRegionResponse struct {
 	Errors *response.Errors
 }
 
-type RegionQuery struct {
+type ListRegion struct {
 	// How many regions to skip in the result.
 	Offset uint `json:"offset,omitempty" url:"offset,omitempty"`
 
@@ -44,31 +44,31 @@ type RegionQuery struct {
 	UpdatedAt *common.DateComparison `json:"updated_at,omitempty" url:"updated_at,omitempty"`
 }
 
-func NewRegionQuery() *RegionQuery {
-	return new(RegionQuery)
+func NewListRegion() *ListRegion {
+	return new(ListRegion)
 }
 
-func (r *RegionQuery) SetOffset(offset uint) *RegionQuery {
+func (r *ListRegion) SetOffset(offset uint) *ListRegion {
 	r.Offset = offset
 	return r
 }
 
-func (r *RegionQuery) SetLimit(limit uint) *RegionQuery {
+func (r *ListRegion) SetLimit(limit uint) *ListRegion {
 	r.Limit = limit
 	return r
 }
 
-func (r *RegionQuery) SetCreatedAt(date *common.DateComparison) *RegionQuery {
+func (r *ListRegion) SetCreatedAt(date *common.DateComparison) *ListRegion {
 	r.CreatedAt = date
 	return r
 }
-func (r *RegionQuery) SetUpdatedAt(date *common.DateComparison) *RegionQuery {
+func (r *ListRegion) SetUpdatedAt(date *common.DateComparison) *ListRegion {
 	r.CreatedAt = date
 	return r
 }
 
 // Retrieve a list of Regions.
-func (r *RegionQuery) List(config *medusa.Config) (*ListRegionResponse, error) {
+func (r *ListRegion) List(config *medusa.Config) (*ListRegionResponse, error) {
 	path := "/store/regions"
 
 	qs, err := query.Values(r)
