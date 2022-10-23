@@ -60,6 +60,7 @@ An open source medusa sdk for golang
   - [List Collections](#list-collections)
 
 - [Customer](#customer)
+
   - [Create a Customer](#create-a-customer)
   - [List Orders](#list-orders)
   - [Request Password Reset](#request-password-reset)
@@ -68,7 +69,11 @@ An open source medusa sdk for golang
   - [Update Customer](#update-customer)
 
 - [Gift Card](#gift-card)
-	- [Get Gift Card by Code](#get-gift-card-by-code)
+
+  - [Get Gift Card by Code](#get-gift-card-by-code)
+
+- [Order](#order)
+  - [Get by Cart ID](#get-by-cart-id)
 
 ## Getting Started
 
@@ -119,7 +124,6 @@ Auth endpoints that allow authorization of customers and manages their sessions
 
 Logs a Customer in and authorizes them to view their details. Successful authentication will set a session cookie in the Customer's browser.
 
-
 ```go
 
 resp, err := auth.NewAuth().
@@ -141,7 +145,6 @@ resp, err := auth.NewAuth().
 ### Customer Log out
 
 Destroys a Customer's authenticated session.
-
 
 ```go
 
@@ -177,7 +180,6 @@ data, err := auth.GetSession(config)
 
 Checks if a Customer with the given email has signed up.
 
-
 ```go
 data, err := auth.Exists("harsh@gmail.com", config)
 	if err != nil {
@@ -197,7 +199,6 @@ Cart allow handling carts in Medusa.
 ### Add a Shipping Method
 
 Adds a Shipping Method to the Cart.
-
 
 ```go
 
@@ -543,11 +544,9 @@ resp, err := customers.NewRequestPasswordReset().
 
 ```
 
-
 ### Reset Password
 
 Resets a Customer's password using a password token created by a previous /password-token request.
-
 
 ```go
 	resp, err := customers.
@@ -567,8 +566,8 @@ Resets a Customer's password using a password token created by a previous /passw
 ```
 
 ### Get a Customer
-Retrieves a Customer - the Customer must be logged in to retrieve their details.
 
+Retrieves a Customer - the Customer must be logged in to retrieve their details.
 
 ```go
 resp, err := customers.Retrieve(config)
@@ -583,6 +582,7 @@ resp, err := customers.Retrieve(config)
 ```
 
 ### Update Customer
+
 Updates a Customer's saved details.
 
 ```go
@@ -609,8 +609,8 @@ Updates a Customer's saved details.
 ```
 
 ## Gift Card
-Gift Card endpoints that allow handling gift cards in Medusa.
 
+Gift Card endpoints that allow handling gift cards in Medusa.
 
 ### Get Gift Card by Code
 
@@ -618,6 +618,27 @@ Retrieves a Gift Card by its associated unqiue code.
 
 ```go
 	resp, err := giftcards.Retrieve(code, config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+## Order
+
+Order allow handling orders in Medusa.
+
+### Get by Cart ID
+
+Retrieves an Order by the id of the Cart that was used to create the Order.
+
+```go
+
+	resp, err := orders.RetrieveByCartId(cartId, config)
 	if err != nil {
 		fmt.Println(err)
 	}
