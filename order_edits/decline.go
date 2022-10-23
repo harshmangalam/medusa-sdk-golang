@@ -13,7 +13,6 @@ import (
 )
 
 type DeclineData struct {
-	// Gift Cards are redeemable and represent a value that can be used towards the payment of an Order.
 	OrderEdit *schema.OrderEdit `json:"order_edit"`
 }
 
@@ -28,20 +27,20 @@ type DeclineResponse struct {
 	Errors *response.Errors
 }
 
-type DeclineBody struct {
+type DeclineOrderEdit struct {
 	DeclinedReason string `json:"declined_reason,omitempty"`
 }
 
-func NewDeclineBody() *DeclineBody {
-	return new(DeclineBody)
+func NewDeclineOrderEdit() *DeclineOrderEdit {
+	return new(DeclineOrderEdit)
 }
 
-func (d *DeclineBody) SetDeclineReason(reason string) *DeclineBody {
+func (d *DeclineOrderEdit) SetDeclineReason(reason string) *DeclineOrderEdit {
 	d.DeclinedReason = reason
 	return d
 }
 
-func (d *DeclineBody) Decline(id string, config *medusa.Config) (*DeclineResponse, error) {
+func (d *DeclineOrderEdit) Decline(id string, config *medusa.Config) (*DeclineResponse, error) {
 	path := fmt.Sprintf("/store/order-edits/%v/decline", id)
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(d).Send(config)
 	if err != nil {
