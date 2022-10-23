@@ -34,7 +34,7 @@ type Cart struct {
 	ShippingAddress *Address `json:"shipping_address"`
 
 	// Available if the relation items is expanded.
-	Items []any `json:"items"`
+	Items []*LineItem `json:"items"`
 
 	// The region's ID
 	RegionId string `json:"region_id"`
