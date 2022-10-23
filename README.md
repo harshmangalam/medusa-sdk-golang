@@ -116,7 +116,6 @@ Auth endpoints that allow authorization of customers and manages their sessions
 
 Logs a Customer in and authorizes them to view their details. Successful authentication will set a session cookie in the Customer's browser.
 
-#### Example
 
 ```go
 
@@ -140,7 +139,6 @@ resp, err := auth.NewAuth().
 
 Destroys a Customer's authenticated session.
 
-#### Example
 
 ```go
 
@@ -159,8 +157,6 @@ data, err := auth.DeleteSession(config)
 
 Gets the currently logged in Customer.
 
-#### Example
-
 ```go
 
 data, err := auth.GetSession(config)
@@ -178,7 +174,6 @@ data, err := auth.GetSession(config)
 
 Checks if a Customer with the given email has signed up.
 
-#### Example
 
 ```go
 data, err := auth.Exists("harsh@gmail.com", config)
@@ -200,7 +195,6 @@ Cart allow handling carts in Medusa.
 
 Adds a Shipping Method to the Cart.
 
-#### Example
 
 ```go
 
@@ -608,7 +602,7 @@ Updates a Customer's saved details.
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
-	
+
 ```
 ## License
 
