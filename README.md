@@ -82,6 +82,9 @@ An open source medusa sdk for golang
 	- [Decline an OrderEdit](#decline-an-order-edit)
 	- [Retrieve an OrderEdit](#retrieve-an-orderedit)
 
+- [Product](#product)
+	- [Get a Product](#get-a-product)
+
 ## Getting Started
 
 You can install Medusa by either following our [Quickstart guide](https://docs.medusajs.com/quickstart/quick-start) or the following steps:
@@ -744,7 +747,24 @@ Retrieves a OrderEdit.
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
+```
 
+
+## Product
+
+### Get a Product
+Retrieves a Product.
+
+
+```go
+	resp, err := products.Retrieve(id, config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
 ```
 ## License
 
