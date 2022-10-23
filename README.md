@@ -79,6 +79,7 @@ An open source medusa sdk for golang
 
 - [OrderEdit](#order-edit)
 	- [Completes an OrderEdit](#completes-an-order-edit)
+	- [Decline an OrderEdit](#decline-an-order-edit)
 
 ## Getting Started
 
@@ -697,6 +698,26 @@ Completes an OrderEdit.
 
 ```go
 	resp, err := orderedits.Complete(id, config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+### Decline an OrderEdit
+
+Declines an OrderEdit.
+
+```go
+
+resp, err := orderedits.NewDeclineOrderEdit().
+		SetDeclineReason(declineReason).
+		Decline(id, config)
+
 	if err != nil {
 		fmt.Println(err)
 	}
