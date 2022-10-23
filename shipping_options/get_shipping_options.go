@@ -28,7 +28,7 @@ type ListShippingOptionResponse struct {
 	Errors *response.Errors
 }
 
-type ListCartOptionsQuery struct {
+type ListShippingOption struct {
 	// Whether return Shipping Options should be included. By default all Shipping Options are returned.
 	IsReturn bool `json:"is_return,omitempty" url:"is_return,omitempty"`
 
@@ -39,28 +39,28 @@ type ListCartOptionsQuery struct {
 	RegionId string `json:"region_id,omitempty" url:"region_id,omitempty"`
 }
 
-func NewListCartOptionsQuery() *ListCartOptionsQuery {
-	return new(ListCartOptionsQuery)
+func NewListShippingOption() *ListShippingOption {
+	return new(ListShippingOption)
 }
 
-func (l *ListCartOptionsQuery) SetIsreturn(isReturn bool) *ListCartOptionsQuery {
+func (l *ListShippingOption) SetIsreturn(isReturn bool) *ListShippingOption {
 	l.IsReturn = isReturn
 	return l
 }
 
-func (l *ListCartOptionsQuery) SetProductIds(productIds string) *ListCartOptionsQuery {
+func (l *ListShippingOption) SetProductIds(productIds string) *ListShippingOption {
 	l.ProductIds = productIds
 	return l
 }
 
-func (l *ListCartOptionsQuery) SetRegionId(regionId string) *ListCartOptionsQuery {
+func (l *ListShippingOption) SetRegionId(regionId string) *ListShippingOption {
 	l.RegionId = regionId
 	return l
 }
 
 //Retrieves a list of Shipping Options.
 
-func (l *ListCartOptionsQuery) List(config *medusa.Config) (*ListShippingOptionResponse, error) {
+func (l *ListShippingOption) List(config *medusa.Config) (*ListShippingOptionResponse, error) {
 	path := "/store/shipping-options"
 
 	qs, err := query.Values(l)

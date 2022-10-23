@@ -106,6 +106,10 @@ An open source medusa sdk for golang
   - [Get a Return Reason](#get-a-return-reason)
   - [List Return Reasons](#list-return-reasons)
 
+- [Shipping Option](#shipping-options)
+
+	- [Get Shipping Options](#get-shipping-options)
+
 ## Getting Started
 
 You can install Medusa by either following our [Quickstart guide](https://docs.medusajs.com/quickstart/quick-start) or the following steps:
@@ -960,6 +964,29 @@ resp,err := returns.NewCreateRetun().
 ```go
 
 	resp, err := returnreasons.List(config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+## Shipping Option
+
+### Get Shipping Options
+
+
+```go
+
+	resp, err := shippingoptions.NewListShippingOption().
+		SetIsreturn(isReturn).
+		SetProductIds(productIds).
+		SetRegionId(regionId).
+		List(config)
+		
 	if err != nil {
 		fmt.Println(err)
 	}
