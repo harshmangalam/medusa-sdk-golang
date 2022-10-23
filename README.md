@@ -28,8 +28,12 @@ An open source medusa sdk for golang
 
 </p>
 
+## Author
+- Harsh Mangalam
+
 ## Contents <!-- omit in toc -->
 
+- [Resources](#resources)
 - [Getting Started](#getting-started)
 - [Installation](#installation)
 - [Configuration](#config)
@@ -117,6 +121,12 @@ An open source medusa sdk for golang
 	- [Get by Cart ID](#get-by-cart-id)
 
 
+## Resources
+- [Medusa’s GitHub repository](https://github.com/medusajs/medusa
+)
+- [How to Create Services](https://docs.medusajs.com/advanced/backend/services/create-service)
+
+- [Medusa SDK Golang docs](https://pkg.go.dev/github.com/harshmangalam/medusa-sdk-golang@v0.0)
 ## Getting Started
 
 You can install Medusa by either following our [Quickstart guide](https://docs.medusajs.com/quickstart/quick-start) or the following steps:
