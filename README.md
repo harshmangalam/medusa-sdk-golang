@@ -74,6 +74,7 @@ An open source medusa sdk for golang
 
 - [Order](#order)
   - [Get by Cart ID](#get-by-cart-id)
+  - [Look Up an Order](#look-up-an-order)
 
 ## Getting Started
 
@@ -649,6 +650,25 @@ Retrieves an Order by the id of the Cart that was used to create the Order.
 
 ```
 
+### Look Up an Order
+
+Look up an order using filters.
+
+```go
+	resp, err := orders.NewLookup().
+		SetDisplayId(displayId).
+		SetEmail(email).
+		SetShippingAddress(address).
+		Lookup(cartId, config)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+```
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
