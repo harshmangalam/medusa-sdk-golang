@@ -39,7 +39,7 @@ type ListProductResponse struct {
 	Errors *response.Errors
 }
 
-type ListQuery struct {
+type ListProduct struct {
 	// Query used for searching products by title, description, variant's title, variant's sku, and collection's title
 	Q string `json:"q,omitempty" url:"q,omitempty"`
 
@@ -86,90 +86,90 @@ type ListQuery struct {
 	Fields string `json:"fields,omitempty" url:"fields,omitempty"`
 }
 
-func NewListQuery() *ListQuery {
-	p := new(ListQuery)
+func NewListProduct() *ListProduct {
+	p := new(ListProduct)
 	p.Offset = 0
 	p.Limit = 100
 	return p
 }
 
-func (p *ListQuery) SetQ(q string) *ListQuery {
+func (p *ListProduct) SetQ(q string) *ListProduct {
 	p.Q = q
 	return p
 }
 
-func (p *ListQuery) SetIds(ids []string) *ListQuery {
+func (p *ListProduct) SetIds(ids []string) *ListProduct {
 	p.Ids = ids
 	return p
 }
 
-func (p *ListQuery) SetCollectionIds(collectionIds []string) *ListQuery {
+func (p *ListProduct) SetCollectionIds(collectionIds []string) *ListProduct {
 	p.CollectionIds = collectionIds
 	return p
 }
 
-func (p *ListQuery) SetTags(tags []string) *ListQuery {
+func (p *ListProduct) SetTags(tags []string) *ListProduct {
 	p.Tags = tags
 	return p
 }
 
-func (p *ListQuery) SetTitle(title string) *ListQuery {
+func (p *ListProduct) SetTitle(title string) *ListProduct {
 	p.Title = title
 	return p
 }
 
-func (p *ListQuery) SetDescription(description string) *ListQuery {
+func (p *ListProduct) SetDescription(description string) *ListProduct {
 	p.Description = description
 	return p
 }
 
-func (p *ListQuery) SetHandle(handle string) *ListQuery {
+func (p *ListProduct) SetHandle(handle string) *ListProduct {
 	p.Handle = handle
 	return p
 }
 
-func (p *ListQuery) SetIsGiftcard(isGiftcard bool) *ListQuery {
+func (p *ListProduct) SetIsGiftcard(isGiftcard bool) *ListProduct {
 	p.IsGiftcard = isGiftcard
 	return p
 }
 
-func (p *ListQuery) SetType(productType string) *ListQuery {
+func (p *ListProduct) SetType(productType string) *ListProduct {
 	p.Type = productType
 	return p
 }
 
-func (p *ListQuery) SetCreatedAt(creatdAt *common.DateComparison) *ListQuery {
+func (p *ListProduct) SetCreatedAt(creatdAt *common.DateComparison) *ListProduct {
 	p.CreatedAt = creatdAt
 	return p
 }
 
-func (p *ListQuery) SetUpdatedAt(updatedAt *common.DateComparison) *ListQuery {
+func (p *ListProduct) SetUpdatedAt(updatedAt *common.DateComparison) *ListProduct {
 	p.UpdatedAt = updatedAt
 	return p
 }
 
-func (p *ListQuery) SetOffset(offset int) *ListQuery {
+func (p *ListProduct) SetOffset(offset int) *ListProduct {
 	p.Offset = offset
 	return p
 }
 
-func (p *ListQuery) SetLimit(limit int) *ListQuery {
+func (p *ListProduct) SetLimit(limit int) *ListProduct {
 	p.Limit = limit
 	return p
 }
 
-func (p *ListQuery) SetExpand(expand string) *ListQuery {
+func (p *ListProduct) SetExpand(expand string) *ListProduct {
 	p.Expand = expand
 	return p
 }
 
-func (p *ListQuery) SetFields(fields string) *ListQuery {
+func (p *ListProduct) SetFields(fields string) *ListProduct {
 	p.Fields = fields
 	return p
 }
 
 // Retrieve a list of Products.
-func (c *ListQuery) List(config *medusa.Config) (*ListProductResponse, error) {
+func (c *ListProduct) List(config *medusa.Config) (*ListProductResponse, error) {
 	path := "/store/products"
 
 	qs, err := query.Values(c)
