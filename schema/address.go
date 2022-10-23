@@ -10,7 +10,7 @@ type Address struct {
 	CustomerId string `json:"customer_id"`
 
 	// Available if the relation customer is expanded.
-	Customer []any `json:"customer"`
+	Customer []*Customer `json:"customer"`
 	// Company name
 	Company string `json:"company,omitempty"`
 
