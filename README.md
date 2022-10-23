@@ -55,7 +55,8 @@ An open source medusa sdk for golang
   - [Update a Cart](#update-a-cart)
 
 - [Collection](#collection)
-  - [Get a Collection](get-a-acollection)
+  - [Get a Collection](#get-a-collection)
+  - [List Collections](#list-collections)
 
 ## Getting Started
 
@@ -416,8 +417,39 @@ Retrieves a Product Collection.
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
 
+
 ```
 
+### List Collections
+Retrieve a list of Product Collection.
+
+```go
+createdAt := common.NewDateComparison().
+		SetLte(time).
+		SetGt(time).
+		SetGte(time).
+		SetLt(time)
+
+	updatedAt := common.NewDateComparison().
+		SetLte(time).
+		SetGt(time).
+		SetGte(time).
+		SetLt(time)
+
+	resp, err := collections.
+		NewCollectionsQuery().
+		SetLimit(4).SetOffset(2).
+		SetCreatedAt(createdAt).
+		SetUpdatedAt(updatedAt).
+		List(config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+```
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
