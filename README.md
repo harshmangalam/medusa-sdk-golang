@@ -101,6 +101,10 @@ An open source medusa sdk for golang
 
   - [Create Return](#create-return)
 
+- [Return Reason](#return-reason)
+
+  - [Get a Return Reason](#get-a-return-reason)
+
 ## Getting Started
 
 You can install Medusa by either following our [Quickstart guide](https://docs.medusajs.com/quickstart/quick-start) or the following steps:
@@ -913,9 +917,9 @@ resp, err := products.NewListProuductVariant().
 
 ```
 
-## Return 
+## Return
 
-### Create Return 
+### Create Return
 
 ```go
 
@@ -927,12 +931,28 @@ resp,err := returns.NewCreateRetun().
 	if err != nil {
 		fmt.Println(err)
 	}
-	
+
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
 ```
 
+## Return Reason
+
+### Get a Return Reason
+
+```go
+
+	resp, err := returnreasons.Retrieve(id,config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
