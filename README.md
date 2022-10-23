@@ -64,6 +64,7 @@ An open source medusa sdk for golang
   - [List Orders](#list-orders)
   - [Request Password Reset](#request-password-reset)
   - [Reset Password](#reset-password)
+  - [Get a Customer](#get-a-customer)
 
 ## Getting Started
 
@@ -565,6 +566,22 @@ Resets a Customer's password using a password token created by a previous /passw
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
+```
+
+### Get a Customer
+Retrieves a Customer - the Customer must be logged in to retrieve their details.
+
+
+```go
+resp, err := customers.Retrieve(config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
 ```
 ## License
 
