@@ -41,6 +41,7 @@ An open source medusa sdk for golang
   - [Check if email exists](#check-if-email-exists)
 
 - [Cart](#cart)
+
   - [Add a Shipping Method](#add-a-shipping-method)
   - [Complete a Cart](#complete-a-cart)
   - [Create Payment Sessions](#create-payment-sessions)
@@ -52,6 +53,9 @@ An open source medusa sdk for golang
   - [Select a Payment Session](#select-a-payment-session)
   - [Update a Payment Session](#update-a-payment-session)
   - [Update a Cart](#update-a-cart)
+
+- [Collection](#collection)
+  - [Get a Collection](get-a-acollection)
 
 ## Getting Started
 
@@ -198,7 +202,7 @@ resp, err := carts.NewShippingMethod().
   if err != nil {
 		fmt.Println(err)
 	}
-  
+
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
@@ -208,7 +212,6 @@ resp, err := carts.NewShippingMethod().
 ### Complete a Cart
 
 Completes a cart. The following steps will be performed. Payment authorization is attempted and if more work is required, we simply return the cart for further updates. If payment is authorized and order is not yet created, we make sure to do so. The completion of a cart can be performed idempotently with a provided header Idempotency-Key. If not provided, we will generate one for the request.
-
 
 ```go
 resp, err := carts.Complete(cartId, config)
@@ -224,6 +227,7 @@ resp, err := carts.Complete(cartId, config)
 ```
 
 ### Create Payment Sessions
+
 Creates Payment Sessions for each of the available Payment Providers in the Cart's Region.
 
 ```go
@@ -233,7 +237,7 @@ Creates Payment Sessions for each of the available Payment Providers in the Cart
 		fmt.Println(err)
 	}
 
-	
+
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
@@ -263,7 +267,6 @@ resp, err := carts.NewCreateCart().
 
 ```
 
-
 ### Remove Discount
 
 Removes a Discount from a Cart.
@@ -285,7 +288,6 @@ resp, err := carts.DeleteDiscount(cartId, code, config)
 
 Deletes a Payment Session on a Cart. May be useful if a payment has failed.
 
-
 ```go
 	resp, err := carts.DeletePaymentSession(cartId, providerId, config)
 	if err != nil {
@@ -301,7 +303,6 @@ Deletes a Payment Session on a Cart. May be useful if a payment has failed.
 ### Refresh a Payment Session
 
 Refreshes a Payment Session to ensure that it is in sync with the Cart - this is usually not necessary.
-
 
 ```go
 
@@ -332,13 +333,11 @@ resp, err := carts.Retrieve(cartId, config)
 
 ```
 
-
 ### Select a Payment Session
 
 Selects a Payment Session as the session intended to be used towards the completion of the Cart.
 
-
-``` go
+```go
 resp, err := carts.NewSelectPaymentSession().
 		SetProviderId(providerId).
 		Select(crtId, config)
@@ -399,6 +398,26 @@ resp, err := carts.NewUpdateCart().
 	fmt.Println(resp.Errors)
 
 ```
+
+## Collection
+Collection allow handling collections in Medusa.
+
+### Get a Collection
+Retrieves a Product Collection.
+
+```go
+
+	resp, err := collections.Retrieve(id, config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
