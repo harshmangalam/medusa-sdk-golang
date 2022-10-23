@@ -35,7 +35,7 @@ type InventoryQuantity struct {
 	Gte int `json:"Gte"`
 }
 
-type VariantListQuery struct {
+type ListProductVariant struct {
 	// A comma separated list of Product Variant ids to filter by.
 	Ids string `json:"ids" url:"ids"`
 
@@ -55,42 +55,42 @@ type VariantListQuery struct {
 	InventoryQuantity any `json:"inventory_quantity" url:"inventory_quantity"`
 }
 
-func NewVariantListQuery() *VariantListQuery {
-	return new(VariantListQuery)
+func NewListProuductVariant() *ListProductVariant {
+	return new(ListProductVariant)
 }
 
-func (l *VariantListQuery) SetIds(ids string) *VariantListQuery {
+func (l *ListProductVariant) SetIds(ids string) *ListProductVariant {
 	l.Ids = ids
 	return l
 }
 
-func (l *VariantListQuery) SetExpand(expand string) *VariantListQuery {
+func (l *ListProductVariant) SetExpand(expand string) *ListProductVariant {
 	l.Expand = expand
 	return l
 }
 
-func (l *VariantListQuery) SetOffset(offset string) *VariantListQuery {
+func (l *ListProductVariant) SetOffset(offset string) *ListProductVariant {
 	l.Offset = offset
 	return l
 }
 
-func (l *VariantListQuery) SetLimit(limit string) *VariantListQuery {
+func (l *ListProductVariant) SetLimit(limit string) *ListProductVariant {
 	l.Limit = limit
 	return l
 }
 
-func (l *VariantListQuery) SetTitle(title any) *VariantListQuery {
+func (l *ListProductVariant) SetTitle(title any) *ListProductVariant {
 	l.Title = title
 	return l
 }
 
-func (l *VariantListQuery) SetInventoryQuantity(invQty any) *VariantListQuery {
+func (l *ListProductVariant) SetInventoryQuantity(invQty any) *ListProductVariant {
 	l.InventoryQuantity = invQty
 	return l
 }
 
 // Retrieves a list of Product Variants
-func (l *VariantListQuery) List(config *medusa.Config) (*ListVariantResponse, error) {
+func (l *ListProductVariant) List(config *medusa.Config) (*ListVariantResponse, error) {
 	path := "/store/variants"
 
 	qs, err := query.Values(l)

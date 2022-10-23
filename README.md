@@ -89,6 +89,7 @@ An open source medusa sdk for golang
   - [List Products](#list-products)
   - [Search Products](#search-products)
   - [Get a Product Variant](#get-a-product-variant)
+  - [Get Product Variants](#get-product-variants)
 
 ## Getting Started
 
@@ -826,6 +827,25 @@ Retrieves a Product Variant by id
 
 ```go
 resp, err := products.RetrieveVariant(variantId,config)
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+### Retrieves a list of Product Variants
+Get Product Variants
+
+```go
+resp, err := products.NewListProuductVariant().
+		SetExpand(expand).
+		SetIds(ids).
+		SetInventoryQuantity(invQty).
+		SetLimit(limit).
+		SetOffset(offset).
+		SetTitle(title).
+		List(config)
 
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
