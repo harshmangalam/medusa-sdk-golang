@@ -73,19 +73,22 @@ An open source medusa sdk for golang
   - [Get Gift Card by Code](#get-gift-card-by-code)
 
 - [Order](#order)
+
   - [Get by Cart ID](#get-by-cart-id)
   - [Look Up an Order](#look-up-an-order)
   - [Get an Order](#get-an-order)
 
 - [OrderEdit](#order-edit)
-	- [Completes an OrderEdit](#completes-an-order-edit)
-	- [Decline an OrderEdit](#decline-an-order-edit)
-	- [Retrieve an OrderEdit](#retrieve-an-orderedit)
+
+  - [Completes an OrderEdit](#completes-an-order-edit)
+  - [Decline an OrderEdit](#decline-an-order-edit)
+  - [Retrieve an OrderEdit](#retrieve-an-orderedit)
 
 - [Product](#product)
-	- [Get a Product](#get-a-product)
-	- [List Products](#list-products)
-	- [Search Products](#search-products)
+  - [Get a Product](#get-a-product)
+  - [List Products](#list-products)
+  - [Search Products](#search-products)
+  - [Get a Product Variant](#get-a-product-variant)
 
 ## Getting Started
 
@@ -700,6 +703,7 @@ Retrieves an Order
 ## OrderEdit
 
 ### Completes an OrderEdit
+
 Completes an OrderEdit.
 
 ```go
@@ -738,7 +742,6 @@ resp, err := orderedits.NewDeclineOrderEdit().
 
 Retrieves a OrderEdit.
 
-
 ```go
 	resp, err := orderedits.Retrieve(id, config)
 
@@ -751,12 +754,11 @@ Retrieves a OrderEdit.
 	fmt.Println(resp.Errors)
 ```
 
-
 ## Product
 
 ### Get a Product
-Retrieves a Product.
 
+Retrieves a Product.
 
 ```go
 	resp, err := products.Retrieve(id, config)
@@ -770,6 +772,7 @@ Retrieves a Product.
 ```
 
 ### List Products
+
 Retrieves a list of Products.
 
 ```go
@@ -802,6 +805,7 @@ resp, err := products.NewListProduct().
 ```
 
 ### Search Products
+
 Run a search query on products using the search engine installed on Medusa
 
 ```go
@@ -817,6 +821,17 @@ Run a search query on products using the search engine installed on Medusa
 ```
 
 
+### Get a Product Variant
+Retrieves a Product Variant by id
+
+```go
+resp, err := products.RetrieveVariant(variantId,config)
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
