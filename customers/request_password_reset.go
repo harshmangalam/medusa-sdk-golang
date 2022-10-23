@@ -33,7 +33,7 @@ func (r *RequestPasswordReset) SetEmail(email string) *RequestPasswordReset {
 	return r
 }
 
-func (r *ResetPassword) Send(config *medusa.Config) (*RequestPasswordResetResponse, error) {
+func (r *RequestPasswordReset) RequestReset(config *medusa.Config) (*RequestPasswordResetResponse, error) {
 	path := "/store/customers/password-token"
 	resp, err := request.NewRequest().SetMethod(http.MethodPost).SetPath(path).SetData(r).Send(config)
 	if err != nil {
