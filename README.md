@@ -94,8 +94,12 @@ An open source medusa sdk for golang
 
 - [Region](#region)
 
-	- [Get a Region](#get-a-region)
-	- [List Regions](#list-regions)
+  - [Get a Region](#get-a-region)
+  - [List Regions](#list-regions)
+
+- [Return](#return)
+
+  - [Create Return](#create-return)
 
 ## Getting Started
 
@@ -878,20 +882,18 @@ resp, err := products.NewListProuductVariant().
 
 ```go
 	resp, err := regions.Retrieve(regionId,config)
-	
+
 	if err != nil {
 		fmt.Println(err)
 	}
-	
+
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
 
 ```
 
-
 ### List Regions
-
 
 ```go
 	resp, err := regions.NewListRegion().
@@ -900,7 +902,28 @@ resp, err := products.NewListProuductVariant().
 		SetOffset(offset).
 		SetUpdatedAt(updatedAt).
 		List(config)
-	
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+## Return 
+
+### Create Return 
+
+```go
+
+resp,err := returns.NewCreateRetun().
+		SetItems(items).
+		SetOrderId(orderId).
+		SetReturnShipping(returnShippings).
+		Create(config)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -908,8 +931,8 @@ resp, err := products.NewListProuductVariant().
 	fmt.Println(resp.Data)
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
-
 ```
+
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
