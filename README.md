@@ -55,8 +55,12 @@ An open source medusa sdk for golang
   - [Update a Cart](#update-a-cart)
 
 - [Collection](#collection)
+
   - [Get a Collection](#get-a-collection)
   - [List Collections](#list-collections)
+
+- [Customer](#customer)
+  - [Create a Customer](#create-a-customer)
 
 ## Getting Started
 
@@ -401,9 +405,11 @@ resp, err := carts.NewUpdateCart().
 ```
 
 ## Collection
+
 Collection allow handling collections in Medusa.
 
 ### Get a Collection
+
 Retrieves a Product Collection.
 
 ```go
@@ -421,6 +427,7 @@ Retrieves a Product Collection.
 ```
 
 ### List Collections
+
 Retrieve a list of Product Collection.
 
 ```go
@@ -450,6 +457,33 @@ createdAt := common.NewDateComparison().
 	fmt.Println(resp.Error)
 	fmt.Println(resp.Errors)
 ```
+
+## Customer
+
+Customer endpoints that allow handling customers in Medusa.
+
+### Create a Customer
+
+Creates a Customer account.
+
+```go
+res, err := customers.
+		NewCreateCustomer().
+		SetFirstName(firstname).
+		SetLastName(lastname).
+		SetEmail(email).
+		SetPassword(password).
+		Create(config)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(res.Data)
+	fmt.Println(res.Error)
+	fmt.Println(res.Errors)
+```
+
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
