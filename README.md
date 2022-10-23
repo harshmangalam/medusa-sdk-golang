@@ -67,6 +67,9 @@ An open source medusa sdk for golang
   - [Get a Customer](#get-a-customer)
   - [Update Customer](#update-customer)
 
+- [Gift Card](#gift-card)
+	- [Get Gift Card by Code](#get-gift-card-by-code)
+
 ## Getting Started
 
 You can install Medusa by either following our [Quickstart guide](https://docs.medusajs.com/quickstart/quick-start) or the following steps:
@@ -604,6 +607,27 @@ Updates a Customer's saved details.
 	fmt.Println(resp.Errors)
 
 ```
+
+## Gift Card
+Gift Card endpoints that allow handling gift cards in Medusa.
+
+
+### Get Gift Card by Code
+
+Retrieves a Gift Card by its associated unqiue code.
+
+```go
+	resp, err := giftcards.Retrieve(code, config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
 ## License
 
 Licensed under the [MIT License](https://github.com/harshmangalam/medusa-sdk-golang/blob/main/LICENSE)
