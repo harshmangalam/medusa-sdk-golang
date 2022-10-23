@@ -22,7 +22,7 @@ type Cart struct {
 	Email string `json:"email"`
 
 	// The billing address's ID
-	BillingddressId string `json:"billing_address_id"`
+	BillingAddressId string `json:"billing_address_id"`
 
 	// An address.
 	BillingAddress *Address `json:"billing_address"`
