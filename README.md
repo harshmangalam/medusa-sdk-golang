@@ -104,6 +104,7 @@ An open source medusa sdk for golang
 - [Return Reason](#return-reason)
 
   - [Get a Return Reason](#get-a-return-reason)
+  - [List Return Reasons](#list-return-reasons)
 
 ## Getting Started
 
@@ -944,6 +945,21 @@ resp,err := returns.NewCreateRetun().
 ```go
 
 	resp, err := returnreasons.Retrieve(id,config)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+### List Return Reasons
+
+```go
+
+	resp, err := returnreasons.List(config)
 	if err != nil {
 		fmt.Println(err)
 	}
