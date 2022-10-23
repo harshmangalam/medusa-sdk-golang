@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"net/http"
 
-	nedusa "github.com/harshmngalam/medusa-sdk-golang"
-	"github.com/harshmngalam/medusa-sdk-golang/request"
-	"github.com/harshmngalam/medusa-sdk-golang/response"
-	"github.com/harshmngalam/medusa-sdk-golang/utils"
+	nedusa "github.com/harshmangalam/medusa-sdk-golang"
+	"github.com/harshmangalam/medusa-sdk-golang/request"
+	"github.com/harshmangalam/medusa-sdk-golang/response"
+	"github.com/harshmangalam/medusa-sdk-golang/utils"
 )
 
 type ExistsData struct {

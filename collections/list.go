@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"net/http"
 
-	medusa "github.com/harshmngalam/medusa-sdk-golang"
-	"github.com/harshmngalam/medusa-sdk-golang/common"
-	"github.com/harshmngalam/medusa-sdk-golang/request"
-	"github.com/harshmngalam/medusa-sdk-golang/response"
-	"github.com/harshmngalam/medusa-sdk-golang/schema"
-	"github.com/harshmngalam/medusa-sdk-golang/utils"
+	medusa "github.com/harshmangalam/medusa-sdk-golang"
+	"github.com/harshmangalam/medusa-sdk-golang/common"
+	"github.com/harshmangalam/medusa-sdk-golang/request"
+	"github.com/harshmangalam/medusa-sdk-golang/response"
+	"github.com/harshmangalam/medusa-sdk-golang/schema"
+	"github.com/harshmangalam/medusa-sdk-golang/utils"
 )
 
 type ListCollectionData struct {

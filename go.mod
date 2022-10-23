@@ -1,4 +1,4 @@
-module github.com/harshmngalam/medusa-sdk-golang
+module github.com/harshmangalam/medusa-sdk-golang
 
 go 1.18
 
