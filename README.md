@@ -109,6 +109,8 @@ An open source medusa sdk for golang
 - [Shipping Option](#shipping-options)
 
 	- [Get Shipping Options](#get-shipping-options)
+	- [List for Cart](#list-for-cart)
+
 
 ## Getting Started
 
@@ -986,6 +988,22 @@ resp,err := returns.NewCreateRetun().
 		SetProductIds(productIds).
 		SetRegionId(regionId).
 		List(config)
+		
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(resp.Data)
+	fmt.Println(resp.Error)
+	fmt.Println(resp.Errors)
+
+```
+
+### List for Cart
+
+```go
+
+	resp, err := shippingoptions.ListCartOptions(cartId,config)
 		
 	if err != nil {
 		fmt.Println(err)
