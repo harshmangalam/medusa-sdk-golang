@@ -2,8 +2,6 @@ package schema
 
 import (
 	"time"
-
-	"github.com/harshmngalam/medusa-sdk-golang/common"
 )
 
 type ProductStatus string
@@ -71,7 +69,7 @@ type Product struct {
 	Handle        string            `json:"handle"`
 	IsGiftcard    bool              `json:"is_giftcard"`
 	Status        ProductStatus     `json:"status"`
-	Images        []*common.Image   `json:"images"`
+	Images        []*Image          `json:"images"`
 	Thumbnail     string            `json:"thumbnail"`
 	Options       []*ProductOption  `json:"options"`
 	Variants      []*ProductVariant `json:"variants"`
